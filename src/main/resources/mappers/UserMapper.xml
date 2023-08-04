@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.user.dao.UserMapper">
+ 	<select id="selectUserByEmail" resultType="com.soccer.user.domain.User">
+ 		SELECT
+ 			`id`
+			,`email`
+			,`password`
+			,`name`
+			,`loginType`
+			,`role`
+			,`kakaoKey`
+			,`profileImagePath`
+			,`phoneNumber`
+			,`birth`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`email` = #{loginEmail}
+ 	</select>
+ 	
+ 	<select id="selectUserByLoginEmailPassword" parameterType="map" resultType="com.soccer.user.domain.User">
+ 	 	SELECT
+ 			`id`
+			,`email`
+			,`password`
+			,`name`
+			,`loginType`
+			,`role`
+			,`kakaoKey`
+			,`profileImagePath`
+			,`phoneNumber`
+			,`birth`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`email` = #{loginEmail}
+		AND
+			`password` = #{password}
+ 	</select>
+ 	
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO `user`
+ 		(
+ 			`email`
+			,`password`
+			,`name`
+			,`loginType`
+			,`role`
+			,`phoneNumber`
+			,`birth`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{loginEmail}
+ 			,#{password}
+ 			,#{name}
+ 			,#{loginType}
+ 			,#{role}
+ 			,#{phoneNumber}
+ 			,#{birth}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ </mapper>
