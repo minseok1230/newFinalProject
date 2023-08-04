@@ -35,6 +35,8 @@ dependencies {
 	implementation 'javax.servlet:jstl:1.2'  // springboot ver 2.x
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'com.github.gavlyukovskiy:p6spy-spring-boot-starter:1.5.7'
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-mail', version: '3.0.5'
+	
 }
 
 tasks.named('test') {
