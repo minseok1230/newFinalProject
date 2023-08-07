@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.board.dao.BoardMapper">
+ 	<select id="selectBoardByType" parameterType="String" resultType="com.soccer.board.domain.Board">
+ 	 	SELECT 
+ 	 		`id`
+			,`userId`
+			,`type`
+			,`title`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`board`
+		WHERE
+			`type` = #{type}
+ 	</select>
+ 	
+ 	<select id="selectBoardByTypeLimit" parameterType="String" resultType="com.soccer.board.domain.Board">
+ 	 	SELECT 
+ 	 		`id`
+			,`userId`
+			,`type`
+			,`title`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`board`
+		WHERE
+			`type` = #{type}
+		ORDER BY `id` DESC
+		LIMIT 3
+ 	</select>
+ 	
+ 	<select id="selectBoardById" parameterType="int">
+ 		SELECT 
+ 	 		`id`
+			,`userId`
+			,`type`
+			,`title`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`board`
+		WHERE
+			`id` = #{id}
+ 	</select>
+ 	
+ 	<insert id="insertBoardByTitleContentUserId" parameterType="map">
+ 		INSERT INTO `board`
+ 		(
+ 			`userId`
+			,`type`
+			,`title`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{userId}
+ 			, #{type}
+ 			, #{title}
+ 			, #{content}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

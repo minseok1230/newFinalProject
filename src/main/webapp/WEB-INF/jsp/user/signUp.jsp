@@ -28,6 +28,10 @@
 				<input type="text" class="form-control col-9" id="certificationNum"  placeholder="인증번호">
 				<button type="button" id="certificationCheckBtn" class="btn btn-secondary col-3">인증</button>
 			</div>
+			<div>
+				<div id="emailAuthenticationCheckTrue" class="small text-danger d-none">인증되었습니다.</div>
+				<div id="emailAuthenticationCheckFalse" class="small text-danger d-none">잘못된 인증번호 입니다. 다시 확인해주세요.</div>
+			</div>
 			
 			<!-- 비밀번호  -->
 			<div class="mt-3">
@@ -166,7 +170,13 @@
 			}
 			// 아이디 중복확인 완료 됐는지 확인
 			if ($('#emailCheckOk').hasClass('d-none')) {
-				alert("이메일 확인을 다시 해주세요");
+				alert("이메일 확인을 해주세요");
+				return false;
+			}
+			
+			// 이메일 인증 했는지 확인 
+			if ($('#emailAuthenticationCheckTrue').hasClass('d-none')) {
+				alert("이메일 인증을 해주세요");
 				return false;
 			}
 			
@@ -182,6 +192,70 @@
 					location.href = "/user/sign_in_view";
 				} else{
 					alert(errorMessage);
+				}
+			});
+		});
+		
+		
+		
+		
+		// 인증번호 발송
+		$("#certificationBtn").on('click', function(e){
+			e.preventDefault();
+			if ($('#emailCheckOk').hasClass('d-none')){
+				alert("이메일 확인 먼저 해주세요")
+				return false;
+			}
+			let loginEmail = $('#loginEmail').val().trim();
+			$.ajax({
+				// request
+				url: "/user/mail_certification"
+				, data : {"loginEmail" : loginEmail}
+			
+				//response
+				, success: function(data){
+					if (data.code == 1){
+						alert("인증번호가 발송되었습니다.");
+					} else{
+						alret(data.errorMessage);
+					}
+				}
+				, error: function(request, status, error){
+					alert("인증번호 전송에 실패했습니다. 관리자 문의 바랍니다.");
+				}
+
+			}); 
+		});
+		
+		
+		// 인증번호 확인
+		$("#certificationCheckBtn").on('click', function(e){
+			e.preventDefault();
+			let certificationNum = $('#certificationNum').val().trim();
+			let loginEmail = $('#loginEmail').val().trim();
+			$('#emailAuthenticationCheckTrue').addClass('d-none');
+			$('#emailAuthenticationCheckFalse').addClass('d-none');
+			
+			if (!certificationNum){
+				alert("인증번호를 적어주세요")
+				return false;
+			}
+			
+			$.ajax({
+				// request
+				url: "/user/mail_certification_check"
+				, data : {"certificationNum" : certificationNum, "loginEmail": loginEmail}
+			
+				//response
+				, success: function(data){
+					if (data.code == 1){
+						$('#emailAuthenticationCheckTrue').removeClass('d-none');
+					} else{
+						$('#emailAuthenticationCheckFalse').removeClass('d-none');
+					}
+				}
+				, error: function(request, status, error){
+					alert("인증에 실패했습니다. 관리자 문의 바랍니다.");
 				}
 			});
 		});

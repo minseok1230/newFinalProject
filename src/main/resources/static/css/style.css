@@ -19,6 +19,9 @@ footer{
     text-decoration: none;
     color: black;
 }
+.font-fantasy{
+	font-family: fantasy;
+}
 
 .logoName:hover{
     color: black;
@@ -102,4 +105,6 @@ input::placeholder {
   font-style: italic;
 }
  
+ 
+
  

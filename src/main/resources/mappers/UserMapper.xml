@@ -45,6 +45,42 @@
 			`password` = #{password}
  	</select>
  	
+ 	<select id="selectCertificationByEmailNum" parameterType="map" resultType="com.soccer.user.domain.Certification">
+ 	 	SELECT
+ 	 		`id`
+			,`email`
+			,`randNumber`
+		FROM
+			`certification`
+		WHERE
+			`email` = #{loginEmail}
+		AND 
+			`randNumber` = #{code}
+ 	</select>
+ 	
+ 	<select id="selectUserByLoginEmailName" parameterType="map" resultType="com.soccer.user.domain.User">
+ 		SELECT
+ 			`id`
+			,`email`
+			,`password`
+			,`name`
+			,`loginType`
+			,`role`
+			,`kakaoKey`
+			,`profileImagePath`
+			,`phoneNumber`
+			,`birth`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`email` = #{loginEmail}
+		AND
+			`name` = #{name}
+ 			
+ 	</select>
+ 	
  	<insert id="insertUser" parameterType="map">
  		INSERT INTO `user`
  		(
@@ -71,5 +107,30 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<insert id="insertCertification" parameterType="map">
+ 		INSERT INTO `certification`
+ 		(
+			`email`
+			,`randNumber`
+ 		)
+ 		VALUES
+ 		(
+ 			#{loginEmail}
+ 			,#{code}
+ 		)
+ 	</insert>
+ 	
+ 	<update id="updateUserByNameLoginEmail" parameterType="map">
+ 		UPDATE `user`
+ 		SET `password` = #{hashedCode}
+ 	</update>
+ 	
+ 	
+ 	
+ 	<delete id="deleteByEmail" parameterType="String">
+ 	 	DELETE FROM `certification`
+ 	 	WHERE 	`email` = #{loginEmail}
+ 	</delete>
  	
  </mapper>
