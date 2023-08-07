@@ -24,13 +24,20 @@ public class BoardBO {
 		return boardMapper.selectBoardByTypeLimit(type);
 	}
 	
+	public Board getBoardById(int id) {
+		return boardMapper.selectBoardById(id);
+	}
+	
 	// board 글쓰기
 	public int addBoardByTitleContentUserId(int userId, String type, String title, String content) {
 		return boardMapper.insertBoardByTitleContentUserId(userId, type, title, content);
 	}
 	
-	public Board getBoardById(int id) {
-		return boardMapper.selectBoardById(id);
+	// board update 
+	public int updateBoardByIdAndUserId(int boardId, int userId, String title, String content) {
+		return boardMapper.updateBoardByIdAndUserId(boardId, userId, title, content);
 	}
+	
+	
 	
 }

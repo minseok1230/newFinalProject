@@ -26,12 +26,16 @@ public class UserBO {
 		return userMapper.selectUserByEmail(loginEmail);
 	}
 	
-	public Integer addUser(String loginEmail,String password, String name, String phoneNumber, String birth, boolean role,  String loginType) {
-		return userMapper.insertUser(loginEmail, password, name, phoneNumber, birth, role, loginType);
-	}
-	
 	public User getUserByLoginEmailPassword(String loginEmail, String password) {
 		return userMapper.selectUserByLoginEmailPassword(loginEmail, password);
+	}
+	
+	public User getUserById(int id) {
+		return userMapper.selectUserById(id);
+	}
+	
+	public Integer addUser(String loginEmail,String password, String name, String phoneNumber, String birth, boolean role,  String loginType) {
+		return userMapper.insertUser(loginEmail, password, name, phoneNumber, birth, role, loginType);
 	}
 	
 	// 이메일 인증 보내고 DB 저장
@@ -51,9 +55,6 @@ public class UserBO {
 		String hashedCode = EncryptUtils.sha256(code);
 		return userMapper.selectCertificationByEmailNum(loginEmail, hashedCode);
 	}
-	
-	
-	
 	
 	// 비밀번호 재발급 
 	public String reissuePassword(String name, String loginEmail) throws Exception {

@@ -70,6 +70,17 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<update id="updateBoardByIdAndUserId" parameterType="map">
+ 		UPDATE `board`
+ 		SET 
+ 			`title` = #{title},
+ 			`content` = #{content}
+ 		where 
+ 			`userId` = #{userId}
+ 		AND 
+ 			`id` = #{boardId}
+ 	</update>
  </mapper>
  
  

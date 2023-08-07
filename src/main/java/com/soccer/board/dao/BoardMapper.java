@@ -21,4 +21,10 @@ public interface BoardMapper {
 			@Param("type") String type, 
 			@Param("title") String title, 
 			@Param("content") String content);
+	
+	public int updateBoardByIdAndUserId(
+			@Param("boardId") int boardId, 
+			@Param("userId") int userId, 
+			@Param("title") String title, 
+			@Param("content") String content);
 }

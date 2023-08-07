@@ -7,6 +7,8 @@ import javax.mail.internet.MimeMessage;
 
 import org.springframework.stereotype.Service;
 
+
+
 @Service
 public interface MailServiceInter {
 	

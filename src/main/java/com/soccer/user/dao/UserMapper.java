@@ -24,6 +24,9 @@ public interface UserMapper {
 			@Param("loginEmail") String loginEmail, 
 			@Param("password") String password);
 	
+	public User selectUserById(int id);
+	
+	
 	// 기존 이메일 삭제
 	public void deleteByEmail(String loginEmail);
 	
