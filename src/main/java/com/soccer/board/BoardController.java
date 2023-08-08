@@ -1,12 +1,14 @@
 package com.soccer.board;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.soccer.board.bo.BoardBO;
 import com.soccer.board.domain.Board;
 import com.soccer.board.domain.BoardView;
+import com.soccer.common.Paging;
 
 @Controller
 @RequestMapping("/board")
@@ -33,9 +36,12 @@ public class BoardController {
 			Model model) {
 		
 		String boardType = type;
+		
 		//DB (cardView)
 		List<BoardView> boardList = boardBO.generateBoardViewList(type, topPageNum);
 		
+		// 페이징 
+		// Map<String, Object> pagingResult = Paging.paging(topPageNum ,page, prevId, nextId);
 		if (page == null) {
 			page = 1;
 		}
@@ -48,9 +54,8 @@ public class BoardController {
 		}
 		
 		if (nextId != null) {
-			page += 1;
+				page += 1;
 		}
-		
 		topPageNum = 5 * page - 4;
 		
 		model.addAttribute("topPageNum", topPageNum);

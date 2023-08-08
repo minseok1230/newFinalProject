@@ -105,8 +105,27 @@ body{
 	 font-size: 12px;
  }
  
-input::placeholder {
+input::placeholder, textarea {
   font-size : 12px;
+  color: gray;
+  font-style: italic;
+}
+
+select option[value=""][disabled] {
+	display: none;
+	font-size : 14px;
+  	color: gray;
+  	font-style: italic;
+}
+
+select option{
+  font-size : 14px;
+  color: gray;
+  font-style: italic;
+}
+
+select{
+	font-size : 14px;
   color: gray;
   font-style: italic;
 }

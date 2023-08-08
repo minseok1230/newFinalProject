@@ -9,7 +9,7 @@
 				<li class="nav-item"><a href="#" class="nav-link">경기장 예약</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">매칭 등록</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">매칭 목록</a></li>
-				<li class="nav-item"><a href="#" class="nav-link">팀 만들기</a></li>
+				<li class="nav-item"><a href="/team/team_create_view" class="nav-link">팀 만들기</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">팀 가입</a></li>
 				<li class="nav-item"><a href="#" class="nav-link">마이페이지</a></li>
 			</c:if>

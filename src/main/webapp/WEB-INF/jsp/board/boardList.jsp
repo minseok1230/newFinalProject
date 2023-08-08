@@ -43,7 +43,7 @@
 						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 3}&page=${page}">${topPageNum + 3}</a></li>
 						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 4}&page=${page}">${topPageNum + 4}</a></li>
 						<li class="page-item">
-							<a class="page-link" href="/board/board_list_view?type=${boardType}&nextId=1&page=${page}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+							<a class="page-link" href="/board/board_list_view?type=${boardType}&nextId=1&topPageNum=${topPageNum + 5}&page=${page}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
 						</li>
 					</ul>
 				</nav>

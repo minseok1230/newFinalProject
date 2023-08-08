@@ -64,6 +64,7 @@ public class BoardBO {
 		return boardMapper.deleteBoardByIdAndUserId(boardId, userId);
 	};
 	
+	
 	//boardViewList 만들기
 	public List<BoardView> generateBoardViewList(String type, Integer pageNum){
 		
