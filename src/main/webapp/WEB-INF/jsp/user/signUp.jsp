@@ -10,11 +10,14 @@
 		<form id="signUpForm" method="post" action="/user/sign_up">
 			<!-- 이메일 -->
 			<label for="loginEmail">이메일</label>
-			<div class="d-flex">
-				<input type="text" class="form-control col-7" id="loginEmail" name="loginEmail" placeholder="이메일을 입력하세요">
-				<button type="button" id="emailCheckBtn" class="btn btn-info col-2">확인</button>
-				<button type="button" id="certificationBtn" class="btn btn-secondary col-3">인증번호 발송</button>
+			<div class="input-group">
+				<input type="text" class="form-control" id="loginEmail" name="loginEmail" placeholder="이메일을 입력하세요">
+				<div class="input-group-append">
+					<button type="button" id="emailCheckBtn" class="btn btn-outline-info">확인</button>
+					<button type="button" id="certificationBtn" class="btn btn-secondary">인증번호 발송</button>
+				</div>
 			</div>
+			
 			<%-- 이메일 체크 결과 --%>
 			<%-- d-none 클래스: display none (보이지 않게) --%>
 			<div>
@@ -24,9 +27,11 @@
 			</div>
 			
 			<!-- 인증번호 확인 -->
-			<div class="d-flex mt-3">
-				<input type="text" class="form-control col-9" id="certificationNum"  placeholder="인증번호">
-				<button type="button" id="certificationCheckBtn" class="btn btn-secondary col-3">인증</button>
+			<div class="input-group mt-3">
+				<input type="text" class="form-control" id="certificationNum"  placeholder="인증번호">
+				<div class="input-group-append">
+					<button type="button" id="certificationCheckBtn" class="btn btn-secondary">인증</button>
+				</div>
 			</div>
 			<div>
 				<div id="emailAuthenticationCheckTrue" class="small text-danger d-none">인증되었습니다.</div>

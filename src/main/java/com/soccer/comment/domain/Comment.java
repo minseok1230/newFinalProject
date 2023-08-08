@@ -10,7 +10,7 @@ public class Comment {
 	private String type;
 	private int boardId;
 	private int userId;
-	private int content;
+	private String content;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
 }

@@ -27,40 +27,63 @@
 <br><br><br><br>
 
 <!-- 공지사항 -->
-	<div>
 		<div class="d-flex justify-content-between">
-			<h4 class="font-weight-bold">공지사항</h4>
+			<h4 class="font-weight-bold">※공지사항※</h4>
 			<span class="mr-3 mt-3"><a href="/board/board_list_view?type=공지사항">더보기></a></span>
-		</div><hr>
-		
-		<!-- 공지사항 목록 3개 가져오기  -->
-		<c:forEach items="${noticeList}" var="notice">
-			<div>
-				<h5>${notice.content}</h5>
-				<%-- <%--ZonedDateTime -> Date -> String 두번의 형변환 필요 --%>
-				<fmt:parseDate value="${notice.createdAt}" pattern="yyyy-MM-d'T'HH:mm:ss" var="parsedCreatedAt"/>
-				<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss(E)"/> 
-			</div><hr>
-		</c:forEach>
-	</div>
+		</div>
+			
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>제목</th>
+					<th>날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+				<!-- 공지사항 목록 3개 가져오기  -->
+				<c:forEach items="${noticeList}" var="notice">
+					<tr>
+						<td><a href="/board/board_detail_view?boardId=${notice.id}">${notice.title}</a></td>
+						<td>
+							<%-- <%--ZonedDateTime -> Date -> String 두번의 형변환 필요 --%>
+							<fmt:parseDate value="${notice.createdAt}" pattern="yyyy-MM-d'T'HH:mm:ss" var="parsedCreatedAt"/>
+							<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy . M. d(E) HH:mm"/> 
+						</td>	
+					</tr>
+				</c:forEach>
+			</tbody>
+		</table>
+	
 	<br><br>
 	<hr style="background:black; height:1px;">
 	<br><br>
 <!-- 게시판 -->
 	<div>
 		<div class="d-flex justify-content-between">
-			<h4 class="font-weight-bold">게시판</h4>
+			<h4 class="font-weight-bold">※게시판※</h4>
 			<span class="mr-3 mt-3"><a href="/board/board_list_view?type=게시판">더보기></a></span>
 		</div><hr>
 		<!-- 게시판 목록 3개 가져오기  -->
-		<c:forEach items="${boardList}" var="board">
-			<div>
-				
-				<h5>${board.content}</h5>
-				<%-- <%--ZonedDateTime -> Date -> String 두번의 형변환 필요 --%>
-				<fmt:parseDate value="${board.createdAt}" pattern="yyyy-MM-d'T'HH:mm:ss" var="parsedCreatedAt"/>
-				<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy년 M월 d일 HH:mm:ss(E)"/> 
-				<small>${board.userId}</small>
-			</div><hr>
-		</c:forEach>
+		<table class="table table-striped">
+			<thead>
+				<tr>
+					<th>제목</th>
+					<th>글쓴이</th>
+					<th>날짜</th>
+				</tr>
+			</thead>
+			<tbody>
+			<c:forEach items="${boardList}" var="board">
+				<tr>
+					<td><a href="/board/board_detail_view?boardId=${board.id}">${board.title}</a></td>
+					<td><small>${board.userId}</small></td>
+					<td>
+						<%-- <%--ZonedDateTime -> Date -> String 두번의 형변환 필요 --%>
+						<fmt:parseDate value="${board.createdAt}" pattern="yyyy-MM-d'T'HH:mm:ss" var="parsedCreatedAt"/>
+						<fmt:formatDate value="${parsedCreatedAt}" pattern="yyyy. M. d(E) HH:mm"/> 
+					</td>	
+				</tr>
+			</c:forEach>
+			</tbody>
+		</table>
 	</div>

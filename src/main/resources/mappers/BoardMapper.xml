@@ -16,6 +16,7 @@
 			`board`
 		WHERE
 			`type` = #{type}
+		ORDER BY `id` DESC
  	</select>
  	
  	<select id="selectBoardByTypeLimit" parameterType="String" resultType="com.soccer.board.domain.Board">
@@ -33,6 +34,23 @@
 			`type` = #{type}
 		ORDER BY `id` DESC
 		LIMIT 3
+ 	</select>
+ 	
+ 	<select id="selectBoardByTypeByPageNum" parameterType="map" resultType="com.soccer.board.domain.Board">
+ 		SELECT 
+ 	 		`id`
+			,`userId`
+			,`type`
+			,`title`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`board`
+		WHERE
+			`type` = #{type}
+		ORDER BY `id` DESC
+		LIMIT #{startPageNum}, #{POST_MAX_SIZE};
  	</select>
  	
  	<select id="selectBoardById" parameterType="int">
@@ -81,6 +99,14 @@
  		AND 
  			`id` = #{boardId}
  	</update>
+ 	
+ 	<delete id="deleteBoardByIdAndUserId" parameterType="map">
+ 		DELETE FROM `board`
+ 		WHERE
+ 		 	`id` = #{boardId}
+ 		 AND 
+ 		 	`userId` = #{userId}
+ 	</delete>
  </mapper>
  
  

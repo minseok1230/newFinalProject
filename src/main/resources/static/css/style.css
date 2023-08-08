@@ -29,6 +29,11 @@ footer{
     font-family: fantasy;
     text-decoration: none;
   }
+  
+.commentDate{
+	font-size: 10px;
+}
+
 
 body{
     font-size: 14px;
@@ -36,42 +41,43 @@ body{
 }
 
 /* 메뉴관리 css */
-nav{
+.menu nav{
     font-size: 10pt;
     font-family: Arial, Sans-serif;
     position: relative;
 }
-nav ul{
+.menu nav ul{
     padding: 0;
     margin: 0 auto;
     width: auto;
 }
 
 
-nav li a{
+.menu nav li a{
     box-sizing: border-box;
     -moz-box-sizing: border-box;
     -webkit-box-sizing: border-box;
 }
 
-  ul{
+.menu nav ul{
     margin: 0;
     padding: 0;
     background-color: #333;
     text-align: center;
   }
  
-  li a{
+.menu nav li a{
     color: #FFFFFF;
     text-align: center;
     padding: 14.5px 16px;
     text-decoration: none;
   }
-  li a:hover{
+.menu nav li a:hover{
     color: #FFD400;
     font-weight:normal;
-  }
-  .menu {
+}
+  
+.menu {
    text-align: center;
    background-position: center;
    background-size: cover;

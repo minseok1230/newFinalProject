@@ -6,16 +6,17 @@
  	<select id="selectCommentListByBoardId" parameterType="int" resultType="com.soccer.comment.domain.Comment">
  		SELECT
  			`id`
-			`type`
-			`boardId`
-			`userId`
-			`content`
-			`createdAt`
-			`updatedAt`
+			,`type`
+			,`boardId`
+			,`userId`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
 		FROM 
 			`comment`
 		WHERE
 			`boardId` = #{boardId}
+		ORDER BY `id` DESC
  	
  	</select>
  
@@ -40,5 +41,27 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<delete id="deleteCommentById" parameterType="int">
+ 		DELETE FROM `comment`
+ 		WHERE 
+ 			`id` = #{id}
+ 	</delete>
+ 	
+ 	<delete id="deleteCommentByBoardId" parameterType="int">
+ 		DELETE FROM `comment`
+ 		WHERE 
+ 			`boardId` = #{boardId}
+ 	</delete>
  
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

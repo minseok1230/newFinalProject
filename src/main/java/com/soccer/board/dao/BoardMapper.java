@@ -14,6 +14,11 @@ public interface BoardMapper {
 	
 	public List<Board> selectBoardByTypeLimit(String type);
 	
+	public List<Board> selectBoardByTypeByPageNum(
+			@Param("type") String type, 
+			@Param("startPageNum") int startPageNum, 
+			@Param("POST_MAX_SIZE") int POST_MAX_SIZE);
+	
 	public Board selectBoardById(int id); 
 	
 	public int insertBoardByTitleContentUserId(
@@ -27,4 +32,8 @@ public interface BoardMapper {
 			@Param("userId") int userId, 
 			@Param("title") String title, 
 			@Param("content") String content);
+	
+	public int deleteBoardByIdAndUserId(
+			@Param("boardId") int boardId,
+			@Param("userId") int userId);
 }

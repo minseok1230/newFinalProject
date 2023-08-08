@@ -5,13 +5,13 @@
 <div class="d-flex justify-content-center">
 	<div class="w-50">
 		<div class="d-flex justify-content-center mt-4">
-			<h2>SIGN IN</h2>
+			<h2>LOGIN</h2>
 		</div>
 		<form id="loginForm" action="/user/sign_in" method="post">
 			<!-- 이메일 / 비밀번호 입력 -->
-			<label for="loginEmail">이메일</label>
+			<label for="loginEmail" class="text-secondary">이메일</label>
 			<input type="text" id="loginEmail" class="form-control mb-3" name="loginEmail" placeholder="이메일을 입력하세요"> 
-			<label for="password">비밀번호</label>
+			<label for="password" class="text-secondary">비밀번호</label>
 			<input type="password" id="password" class="form-control" name="password" placeholder="비밀번호를 입력하세요">
 			<div class="d-flex justify-content-end my-2">
 				<a href="/user/find_password_view">비밀번호 찾기</a>

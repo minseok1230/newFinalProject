@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -22,7 +23,14 @@ public class BoardRestController {
 	@Autowired
 	private BoardBO boardBO;
 	
-	// 글쓰기 (게시판 , 공지사항)
+	/**
+	 * 글쓰기
+	 * @param title
+	 * @param content
+	 * @param type
+	 * @param session
+	 * @return
+	 */
 	@PostMapping("/create_board")
 	public Map<String, Object> createBoard(
 			@RequestParam("title") String title,
@@ -48,7 +56,14 @@ public class BoardRestController {
 		return result;
 	}
 	
-	// 글 수정 
+	/**
+	 * 글 수정
+	 * @param boardId
+	 * @param subject
+	 * @param content
+	 * @param session
+	 * @return
+	 */
 	@PutMapping("/{boardId}")
 	public Map<String, Object> updateBoard(
 			@PathVariable int boardId,
@@ -73,6 +88,25 @@ public class BoardRestController {
 	}
 	
 	// 글 삭제
+	@DeleteMapping("/{boardId}")
+	public Map<String, Object> deleteBoard(
+			@PathVariable int boardId,
+			HttpSession session){
+		Map<String, Object> result = new HashMap<>();
+		
+		// 글 삭제
+		int userId = (int)session.getAttribute("userId");
+		int insertResult = boardBO.deleteBoardByIdAndUserId(boardId, userId);
+		
+		if(insertResult > 0) {
+			result.put("code", 1);
+			result.put("result", "성공");
+		} else {
+			result.put("code", 500);
+			result.put("errorMessage", "글삭제에 실패하였습니다.");
+		}
+		return result;
+	}
 }
 
 

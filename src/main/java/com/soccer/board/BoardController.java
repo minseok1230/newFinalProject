@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soccer.board.bo.BoardBO;
 import com.soccer.board.domain.Board;
+import com.soccer.board.domain.BoardView;
 
 @Controller
 @RequestMapping("/board")
@@ -25,13 +26,35 @@ public class BoardController {
 	@GetMapping("/board_list_view")
 	public String boardListView(
 			@RequestParam("type") String type,
+			@RequestParam(value = "topPageNum", required = false) Integer topPageNum,
+			@RequestParam(value = "page", required = false) Integer page,
+			@RequestParam(value = "prevId", required = false) Integer prevId,
+			@RequestParam(value = "nextId", required = false) Integer nextId,
 			Model model) {
 		
-		// DB 글목록 조회 (조건 : type)
 		String boardType = type;
-		List<Board> boardList = boardBO.getBoardByType(type);
+		//DB (cardView)
+		List<BoardView> boardList = boardBO.generateBoardViewList(type, topPageNum);
 		
+		if (page == null) {
+			page = 1;
+		}
 		
+		if (prevId != null) {
+			page -= 1;
+			if (page <= 0) {
+				page = 1;
+			}
+		}
+		
+		if (nextId != null) {
+			page += 1;
+		}
+		
+		topPageNum = 5 * page - 4;
+		
+		model.addAttribute("topPageNum", topPageNum);
+		model.addAttribute("page", page);
 		model.addAttribute("boardType", boardType);
 		model.addAttribute("boardList", boardList);
 		model.addAttribute("view", "board/boardList");
@@ -61,14 +84,12 @@ public class BoardController {
 			HttpSession session,
 			Model model) {
 		
-		// session
+		// db select
+		BoardView board = boardBO.generateBoard(boardId);
 		int userId = (int)session.getAttribute("userId");
 		
-		// db select
-		Board boardDetail = boardBO.getBoardById(boardId);
-		
 		model.addAttribute("userId", userId);
-		model.addAttribute("boardDetail", boardDetail);
+		model.addAttribute("board", board);
 		model.addAttribute("view", "board/boardDetail");
 		return "template/layout";
 	}

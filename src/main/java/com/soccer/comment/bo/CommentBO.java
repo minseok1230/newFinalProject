@@ -26,6 +26,17 @@ public class CommentBO {
 		return commentMapper.insertComment(userId, boardId, type, content);
 	}
 	
+	// 댓글 삭제 (id)
+	public int deleteCommentById(int id) {
+		return commentMapper.deleteCommentById(id);
+	}
+	
+	// 댓글 삭제 (boardId)
+	public void deleteCommentByBoardId(int boardId) {
+		commentMapper.deleteCommentByBoardId(boardId);
+	}
+	
+	// commentView만들기 
 	// input: boardId
 	// output: 가공된 댓글 리스트
 	public List<CommentView> generateCommentViewList(int boardId) {

@@ -12,9 +12,8 @@
 		
 		<br><br>
 		
-		<div class="d-flex justify-content-between">
-			<button type="submit" id="deleteBoardBtn" class="btn btn-primary mr-3" data-board-id ="${boardDetail.id}" data-type = "${boardDetail.type}">삭제</button>
-			<button type="submit" id="updateBoardBtn" class="btn btn-primary mr-3" data-board-id ="${boardDetail.id}" data-type = "${boardDetail.type}">수정</button>
+		<div class="d-flex justify-content-end">
+			<button type="submit" id="updateBoardBtn" class="btn btn-primary mr-3" data-board-id ="${boardDetail.id}" data-type = "${boardDetail.type}">수정하기</button>
 		</div>
 	</div>
 </div>
