@@ -6,6 +6,7 @@
  	<select id="selectUserByEmail" resultType="com.soccer.user.domain.User">
  		SELECT
  			`id`
+ 			, `teamId`
 			,`email`
 			,`password`
 			,`name`
@@ -15,6 +16,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -26,6 +28,7 @@
  	<select id="selectUserById" parameterType="int" resultType="com.soccer.user.domain.User">
  	 	SELECT
  			`id`
+ 			, `teamId`
 			,`email`
 			,`password`
 			,`name`
@@ -35,6 +38,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -46,6 +50,7 @@
  	<select id="selectUserByLoginEmailPassword" parameterType="map" resultType="com.soccer.user.domain.User">
  	 	SELECT
  			`id`
+ 			, `teamId`
 			,`email`
 			,`password`
 			,`name`
@@ -55,6 +60,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -81,6 +87,7 @@
  	<select id="selectUserByLoginEmailName" parameterType="map" resultType="com.soccer.user.domain.User">
  		SELECT
  			`id`
+ 			, `teamId`
 			,`email`
 			,`password`
 			,`name`
@@ -90,6 +97,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -144,6 +152,12 @@
  	<update id="updateUserByNameLoginEmail" parameterType="map">
  		UPDATE `user`
  		SET `password` = #{hashedCode}
+ 	</update>
+ 	
+ 	<update id="updateUserByTeamIdAndRole" parameterType="map">
+ 		UPDATE `user`
+ 		SET `teamId` = #{teamId} , `role` = #{role}
+ 		WHERE `id` = #{leaderId}
  	</update>
  	
  	

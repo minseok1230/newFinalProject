@@ -49,6 +49,12 @@ public interface UserMapper {
 			@Param("name") String name, 
 			@Param("loginEmail") String loginEmail, 
 			@Param("hashedCode") String hashedCode);
+	
+	public void updateUserByTeamIdAndRole(
+			@Param("teamId") int teamId, 
+			@Param("role") String role,
+			@Param("leaderId") int leaderId);
+	
 }
 
 

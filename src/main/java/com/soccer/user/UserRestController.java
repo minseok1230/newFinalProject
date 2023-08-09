@@ -111,12 +111,12 @@ public class UserRestController {
 			session.setAttribute("userId", user.getId());
 			session.setAttribute("userLoginEmail", user.getEmail());
 			session.setAttribute("userName", user.getName());
+			session.setAttribute("userTeamId", user.getTeamId());
 			result.put("code", 1);
 			result.put("result", "성공");
 		} else {
 			result.put("errorMessage", "아이디/비밀번호를 다시 확인해주세요");
 		}
-		
 		
 		return result;
 	}

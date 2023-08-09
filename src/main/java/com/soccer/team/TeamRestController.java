@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.domain.Team;
+import com.soccer.user.bo.UserBO;
 
 @RestController
 @RequestMapping("/team")
@@ -20,6 +21,9 @@ public class TeamRestController {
 
 	@Autowired
 	private TeamBO teamBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	
 	// 팀명 중복 검사 
@@ -39,7 +43,7 @@ public class TeamRestController {
 		return result;
 	}
 	
-	// 팀 만들기 
+	// 팀 만들기 (만드는 사람이 팀장)
 	@PostMapping("/create_team")
 	public Map<String, Object> createTeam(
 			@RequestParam("teamName") String teamName,
@@ -50,12 +54,21 @@ public class TeamRestController {
 			){
 		
 		Map<String, Object> result = new HashMap<>();
+		
+		// session 
 		int leaderId = (int)session.getAttribute("userId");
-		// db insert;
 		
-		int insertResult = teamBO.addTeam(leaderId, teamName, skill, activeArea, introduce);
+		// DB insert;
+		Map<String, Object> insertResult = teamBO.addTeam(leaderId, teamName, skill, activeArea, introduce);
+		Integer teamId = (Integer)insertResult.get("teamId");
 		
-		if (insertResult > 0 ) {
+		// user DB update
+		if (teamId != null) {
+			String role = "팀장";
+			userBO.updateUserByTeamIdAndRole(teamId, role, leaderId);
+		}
+		
+		if (teamId != null) {
 			result.put("code", 1);
 			result.put("result", "성공");
 		} else {

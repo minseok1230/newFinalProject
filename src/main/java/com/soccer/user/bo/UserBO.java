@@ -38,6 +38,10 @@ public class UserBO {
 		return userMapper.insertUser(loginEmail, password, name, phoneNumber, birth, role, loginType);
 	}
 	
+	public void updateUserByTeamIdAndRole(int teamId, String role, int leaderId) {
+		userMapper.updateUserByTeamIdAndRole(teamId, role, leaderId);
+	}
+	
 	// 이메일 인증 보내고 DB 저장
 	public Integer addCertification(String loginEmail) throws Exception {
 		

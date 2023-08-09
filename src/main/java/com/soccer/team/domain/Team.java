@@ -9,7 +9,7 @@ public class Team {
 
 	private int id;
 	private String name;
-	private int leader;
+	private int leaderId;
 	private String introduce;
 	private String profileImagePath;
 	private String skill;

@@ -3,6 +3,23 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.soccer.team.dao.TeamMapper">
+ 	<select id="selectTeam" resultType="com.soccer.team.domain.Team">
+ 		SELECT
+ 	 		`id`
+			,`name`
+			,`leaderId`
+			,`introduce`
+			,`profileImagePath`
+			,`skill`
+			,`rating`
+			,`activeArea`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`team`
+ 	</select>
+ 
+ 
  	<select id="selectTeamByName" parameterType="String" resultType="com.soccer.team.domain.Team">
  	 	SELECT
  	 		`id`
@@ -42,6 +59,10 @@
  			, NOW()
  			, NOW()
  		)
+ 		
+ 		<selectKey keyProperty="teamId" resultType="int" order="AFTER">
+        	SELECT LAST_INSERT_ID()
+   		 </selectKey>
  	</insert>
  
  </mapper>

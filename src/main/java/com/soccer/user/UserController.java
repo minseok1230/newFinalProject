@@ -43,6 +43,7 @@ public class UserController {
 		session.removeAttribute("userId");
 		session.removeAttribute("userLoginEmail");
 		session.removeAttribute("userName");
+		session.removeAttribute("userTeamId");
 		
 		return "redirect:/user/sign_in_view";
 	}

@@ -60,6 +60,8 @@
 
 <script>
 $(document).ready(function(){
+	
+	// 이메일 중복 확인
 	$('#isDuplicatedBtn').on('click', function(){
 		
 		let teamName = $('#teamName').val().trim();
@@ -95,7 +97,8 @@ $(document).ready(function(){
 	});
 	
 	// 팀 만들기
-	$('#createTeamForm').on('submit', function(){
+	$('#createTeamForm').on('submit', function(e){
+		e.preventDefault();
 		
 		let teamName = $('#teamName').val().trim();
 		let skill = $('#skill').val();
@@ -107,10 +110,6 @@ $(document).ready(function(){
 			return false;
 		}
 		
-		if (!skill){
-			alert("실력을 선택하세요.");
-			return false;
-		}
 		
 		if (!activeArea){
 			alert("활동지역을 입력하세요.");
@@ -131,7 +130,7 @@ $(document).ready(function(){
 		.done(function(data){
 			if (data.code == 1){
 				alert("★팀생성이 완료되었습니다★");
-				location.href = "/main/main_view";
+				location.href = "/team/team_list_view";
 			} else{
 				alert(errorMessage);
 			}
