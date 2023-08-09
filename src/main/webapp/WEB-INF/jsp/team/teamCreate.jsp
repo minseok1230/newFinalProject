@@ -7,7 +7,7 @@
 		<div class="d-flex justify-content-center mt-4">
 			<h2>TEAM CREATION</h2>
 		</div>
-		<form id="signUpForm" method="post" action="/user/sign_up">
+		<form id="createTeamForm" method="post" action="/team/create_team">
 			<!-- 팀명 -->
 			<label for="teamName">팀명</label>
 			<div class="input-group">
@@ -47,7 +47,7 @@
 			<!-- 팀 소개  -->
 			<div class="mt-3">
 				<label for="introduce">이름</label>
-				<textarea class="form-control" id="introduce" name="introduce" rows="6">팀 소개</textarea>
+				<textarea class="form-control" id="introduce" name="introduce" rows="6" placeholder="팀 소개"></textarea>
 			</div>
 			
 			
@@ -80,12 +80,60 @@ $(document).ready(function(){
 		
 			, success: function(data){
 				if (data.isDuplicationTeam){
-					$('#teamCheckOk').removeClass('d-none');
+					$('#teamCheckDuplicated').removeClass('d-none');
 				} 
+				
+				if (!data.isDuplicationTeam){
+					$('#teamCheckOk').removeClass('d-none');
+				}
 			}
 			
 			, error: function(request, status, error){
 				alert("중복확인에 실패했습니다. 관리자에게 문의 부탁드립니다.")
+			}
+		});
+	});
+	
+	// 팀 만들기
+	$('#createTeamForm').on('submit', function(){
+		
+		let teamName = $('#teamName').val().trim();
+		let skill = $('#skill').val();
+		let activeArea = $('#activeArea').val().trim();
+		let introduce = $('#introduce').val();
+		
+		if (!teamName){
+			alert("팀명을 입력하세요.");
+			return false;
+		}
+		
+		if (!skill){
+			alert("실력을 선택하세요.");
+			return false;
+		}
+		
+		if (!activeArea){
+			alert("활동지역을 입력하세요.");
+			return false;
+		}
+		
+		if ($('#teamCheckOk').hasClass('d-none')) {
+			alert("팀명 중복확인을 해주세요");
+			return false;
+		}
+		
+		let url = $(this).attr('action');
+		console.log(url);
+		let params = $(this).serialize(); 
+		console.log(params);
+		
+		$.post(url, params)
+		.done(function(data){
+			if (data.code == 1){
+				alert("★팀생성이 완료되었습니다★");
+				location.href = "/main/main_view";
+			} else{
+				alert(errorMessage);
 			}
 		});
 	});

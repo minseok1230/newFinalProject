@@ -11,7 +11,12 @@ public class TeamBO {
 
 	@Autowired
 	private TeamMapper teamMapper;
+	
 	public Team getTeamByName(String name) {
 		return teamMapper.selectTeamByName(name);
+	}
+	
+	public int addTeam(int leaderId, String teamName, String skill, String activeArea, String introduce) {
+		return teamMapper.insertTeam(leaderId, teamName, skill, activeArea, introduce);
 	}
 }

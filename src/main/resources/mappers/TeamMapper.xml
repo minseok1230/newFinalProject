@@ -7,7 +7,7 @@
  	 	SELECT
  	 		`id`
 			,`name`
-			,`leader`
+			,`leaderId`
 			,`introduce`
 			,`profileImagePath`
 			,`skill`
@@ -20,5 +20,28 @@
 		WHERE
 			`name` = #{name}
  	</select>
+ 	
+ 	<insert id="insertTeam" parameterType="map">
+ 		INSERT INTO `team`
+ 		(
+			`name`
+			,`leaderId`
+			,`introduce`
+			,`skill`
+			,`activeArea`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{teamName}
+ 			, #{leaderId}
+ 			, #{introduce}
+ 			, #{skill}
+ 			, #{activeArea}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
  
  </mapper>
