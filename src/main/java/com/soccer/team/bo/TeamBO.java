@@ -63,7 +63,7 @@ public class TeamBO {
 		return teamMapper.selectTeam();
 	}
 	
-	public TeamEntity getTeamById(int userTeamId) {
+	public TeamEntity getTeamById(Integer userTeamId) {
 		return teamRepository.findAllById(userTeamId);
 	}
 	

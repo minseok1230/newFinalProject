@@ -38,7 +38,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
 	implementation 'javax.mail:javax.mail-api:1.6.2'
 	implementation 'com.ibm.icu:icu4j:69.1' // 텍스트 변환
-	implementation 'org.springframework.boot:spring-boot-starter-web' // HTTP 통신 관련 의존성
+    implementation 'org.springframework.boot:spring-boot-starter-webflux' // Spring WebFlux 의존성
     implementation 'com.fasterxml.jackson.core:jackson-databind' // JSON 파싱을 위한 의존성
 	
 }

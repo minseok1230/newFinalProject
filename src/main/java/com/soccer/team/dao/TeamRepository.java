@@ -9,5 +9,5 @@ import com.soccer.team.entity.TeamEntity;
 public interface TeamRepository  extends JpaRepository<TeamEntity, Integer>{
 
 		// 수정할 나의 팀 가져오기 
-		public TeamEntity findAllById(int userTeamId);
+		public TeamEntity findAllById(Integer userTeamId);
 }

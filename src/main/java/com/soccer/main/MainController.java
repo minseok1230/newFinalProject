@@ -49,11 +49,14 @@ public class MainController {
 	public String myPageView(Model model, HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
-		int teamId = (int)session.getAttribute("userTeamId");
+		Integer teamId = (Integer)session.getAttribute("userTeamId");
+		
+			
 		User user = userBO.getUserById(userId);
-		TeamEntity team = teamBO.getTeamById(teamId);
-		
-		
+		TeamEntity team = null;
+		if (teamId != null) {
+			team = teamBO.getTeamById(teamId);
+		}
 		model.addAttribute("user", user);
 		model.addAttribute("team", team);
 		model.addAttribute("view", "main/myPage");

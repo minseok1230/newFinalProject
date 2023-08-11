@@ -112,8 +112,9 @@ public class UserBO {
 		}
 		
 		String hashedPassword = null;
-		if (password != null) {
+		if (!password.equals("")) {
 			hashedPassword = EncryptUtils.sha256(password);
+		} else {
 		}
 		userMapper.updateUserById(userId, name, phoneNumber, birth, position, profileImagePath, hashedPassword);
 	}

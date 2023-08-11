@@ -13,8 +13,9 @@
 					<input type="text" class="form-control" id="Date" name="Date" placeholder="날짜를 입력하세요">
 				</div>
 			</div>
-			
-			
+
+
+
 			<!-- 경기장선택  -->
 			<div class="mt-3">
 				<label for="field">경기장</label>
@@ -48,3 +49,32 @@
 		</form>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	// 모든 데이터피커에 적용
+    $.datepicker.setDefaults({
+        dayNamesMin: ['일', '월', '화', '수', '목', '금', '토'] // 요일을 한글로 변경
+        , dateFormat: 'yy-mm-dd'
+        ,showOtherMonths: true //이전 달과 다음 달 날짜를 표시
+        ,showMonthAfterYear:true //연도 표시 후 달 표시
+        ,maxDate: "+1M"
+    });
+
+    // 오늘 날짜로 이동하는 함수
+    $.datepicker._gotoToday = function(id) {
+        $(id).datepicker('setDate', new Date()).datepicker('hide').blur();
+    };
+
+
+    $('#Date').datepicker({
+        showButtonPanel: true // 오늘 버튼 노출
+        , minDate:0 // 오늘과 그 이후만 선택 가능
+    });
+    
+    
+    $('#reservationBtn').on('click', function(){
+    	
+    })
+});
+</script>

@@ -222,7 +222,8 @@ public class UserRestController {
     	
     	Map<String, Object> result = new HashMap<>();
     	
-    	// DB update~
+    	
+    	// DB update
     	userBO.updateUserById(userId, name, phoneNumber, birth, position, file, password);
     	
     	result.put("code", 1);
