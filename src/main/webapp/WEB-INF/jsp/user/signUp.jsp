@@ -70,6 +70,23 @@
 				<input type="text" class="form-control" id="birth" name="birth" placeholder="생년월일을 입력하세요 (ex. 20021022)">
 			</div>
 			
+			<!-- 주요 포지션 -->
+			<div class="my-3">
+				<label for="position">포지션</label>
+				<select id="position" name="position" class="form-control" required>
+					<option value="" disabled selected>포지션 선택</option>
+					<option value="ST">ST</option>
+					<option value="LF">LF</option>
+					<option value="RF">RF</option>
+					<option value="CAM">CAM</option>
+					<option value="CDM">CDM</option>
+					<option value="CM">CM</option>
+					<option value="CB">CB</option>
+					<option value="RB">RB</option>
+					<option value="LB">LB</option>
+				</select>
+			</div>
+			
 			<!--  가입 버튼 -->
 			<button type="submit" id="signUpBtn" class="btn btn-secondary mt-4 w-100">가입하기</button>	
 		</form>

@@ -16,6 +16,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			,`position`
 			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
@@ -38,6 +39,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			,`position`
 			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
@@ -60,6 +62,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			,`position`
 			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
@@ -97,6 +100,7 @@
 			,`profileImagePath`
 			,`phoneNumber`
 			,`birth`
+			,`position`
 			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
@@ -119,6 +123,7 @@
 			,`role`
 			,`phoneNumber`
 			,`birth`
+			,`position`
 			,`createdAt`
 			,`updatedAt`
  		)
@@ -131,6 +136,7 @@
  			,#{role}
  			,#{phoneNumber}
  			,#{birth}
+ 			,#{position}
  			, NOW()
  			, NOW()
  		)
@@ -162,9 +168,27 @@
  	
  	
  	
+ 	<update id="updateUserById" parameterType="map">
+ 		UPDATE `user`
+ 		SET 
+ 			`name` = #{name} 
+ 			, `phoneNumber` = #{phoneNumber}
+ 			, `birth` = #{birth}
+ 			, `position` = #{position}
+ 			, `profileImagePath` = #{profileImagePath}
+ 			, `profileImagePath` = #{profileImagePath}
+ 			<if test="hashedPassword != null">
+ 			, `password` = #{hashedPassword}
+ 			</if>
+ 		WHERE `id` = #{userId}
+ 	</update>
+ 	
  	<delete id="deleteByEmail" parameterType="String">
  	 	DELETE FROM `certification`
  	 	WHERE 	`email` = #{loginEmail}
  	</delete>
+ 	
+ 	
+ 	
  	
  </mapper>

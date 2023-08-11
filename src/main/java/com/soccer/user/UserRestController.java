@@ -6,10 +6,13 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.soccer.common.EncryptUtils;
 import com.soccer.user.bo.UserBO;
@@ -61,7 +64,9 @@ public class UserRestController {
 			@RequestParam("password") String password,
 			@RequestParam("name") String name,
 			@RequestParam("phoneNumber") String phoneNumber,
-			@RequestParam("birth") String birth
+			@RequestParam("birth") String birth,
+			@RequestParam("position") String position
+			/**************포지션 항목 추가*****************/
 			){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -73,7 +78,8 @@ public class UserRestController {
 		String hashedPassword = EncryptUtils.sha256(password);
 		
 		// db insert
-		Integer insertUser = userBO.addUser(loginEmail, hashedPassword, name, phoneNumber, birth, role, loginType);
+		Integer insertUser = userBO.addUser(loginEmail, hashedPassword, name, phoneNumber, birth, role, loginType, position);
+		/**************포지션 항목 추가*****************/
 		
 		if (insertUser != null) {
 			result.put("code", 1);
@@ -172,7 +178,14 @@ public class UserRestController {
     }
     
     
-    // 비밀번호 찾기
+    /**
+     * 비밀번호 찾기
+     * @param loginEmail
+     * @param phoneNumber
+     * @param name
+     * @return
+     * @throws Exception
+     */
     @PostMapping("/find_password")
     public Map<String, Object> findPassword(
     		@RequestParam("loginEmail") String loginEmail,
@@ -190,6 +203,30 @@ public class UserRestController {
     		result.put("code", 500);
     		result.put("errorMessage", "존재하는 사용자가 없습니다.");
     	}
+    	
+    	return result;
+    }
+    
+    
+    // 프로필 수정
+    @PutMapping("/{userId}")
+    public Map<String, Object> updateUser(
+    		@PathVariable int userId,
+    		@RequestParam("name") String name,
+    		@RequestParam("phoneNumber") String phoneNumber,
+    		@RequestParam("birth") String birth,
+    		@RequestParam("position") String position,
+    		@RequestParam(value = "file", required = false) MultipartFile file,
+    		@RequestParam(value = "password", required = false) String password
+    		){
+    	
+    	Map<String, Object> result = new HashMap<>();
+    	
+    	// DB update~
+    	userBO.updateUserById(userId, name, phoneNumber, birth, position, file, password);
+    	
+    	result.put("code", 1);
+    	result.put("result", "성공");
     	
     	return result;
     }

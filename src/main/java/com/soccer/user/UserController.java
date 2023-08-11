@@ -2,14 +2,21 @@ package com.soccer.user;
 
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.soccer.user.bo.UserBO;
+import com.soccer.user.domain.User;
+
 @Controller
 @RequestMapping("/user")
 public class UserController {
+	
+	@Autowired
+	private UserBO userBO;
 	
 	/**
 	 * 로그인
@@ -48,10 +55,28 @@ public class UserController {
 		return "redirect:/user/sign_in_view";
 	}
 	
-	// 비밀번호 찾기 
+	/**
+	 * 비밀번호 찾기
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/find_password_view")
 	public String findPasswordView(Model model) {
 		model.addAttribute("view", "user/findPassword");
+		return "template/layout";
+	}
+	
+	// 프로필 수정
+	@GetMapping("/user_update_view")
+	public String userUpdateView(Model model, HttpSession session) {
+		
+		//session
+		int userId = (int)session.getAttribute("userId");
+		// 수정할 프로필 정보 DB 가져오기 
+		User user = userBO.getUserById(userId);
+		
+		model.addAttribute("user", user);
+		model.addAttribute("view", "user/userModify");
 		return "template/layout";
 	}
 

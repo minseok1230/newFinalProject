@@ -18,7 +18,9 @@ public interface UserMapper {
 			@Param("phoneNumber") String phoneNumber, 
 			@Param("birth") String birth, 
 			@Param("role") boolean role,  
-			@Param("loginType") String loginType);
+			@Param("loginType") String loginType,
+			@Param("position") String position);
+	/**************포지션 항목 추가*****************/
 	
 	public User selectUserByLoginEmailPassword(
 			@Param("loginEmail") String loginEmail, 
@@ -54,6 +56,15 @@ public interface UserMapper {
 			@Param("teamId") int teamId, 
 			@Param("role") String role,
 			@Param("leaderId") int leaderId);
+	
+	public void updateUserById(
+			@Param("userId") int userId, 
+			@Param("name") String name, 
+			@Param("phoneNumber") String phoneNumber, 
+			@Param("birth") String birth, 
+			@Param("position") String position, 
+			@Param("profileImagePath") String profileImagePath, 
+			@Param("hashedPassword") String hashedPassword);
 	
 }
 

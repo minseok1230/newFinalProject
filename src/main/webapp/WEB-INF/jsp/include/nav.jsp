@@ -7,7 +7,7 @@
 			<!-- nav, nav-item, nav-link 3종 세트 -->
 			<c:if test="${not empty userName}">
 				<c:if test = "${userTeamId != null}">
-					<li class="nav-item"><a href="#" class="nav-link">경기장 예약</a></li>
+					<li class="nav-item"><a href="/reservation/reservation_view" class="nav-link">경기장 예약</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">매칭 등록</a></li>
 					<li class="nav-item"><a href="#" class="nav-link">매칭 목록</a></li>
 				</c:if>	
@@ -15,7 +15,7 @@
 					<li class="nav-item"><a href="/team/team_create_view" class="nav-link">팀 만들기</a></li>
 				</c:if>	
 					<li class="nav-item"><a href="/team/team_list_view" class="nav-link">팀 목록</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">마이페이지</a></li>
+					<li class="nav-item"><a href="/main/my_page_view" class="nav-link">마이페이지</a></li>
 			</c:if>
 		</ul>
 	</nav>

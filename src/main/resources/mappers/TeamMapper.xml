@@ -60,9 +60,31 @@
  			, NOW()
  		)
  		
- 		<selectKey keyProperty="teamId" resultType="int" order="AFTER">
+ 		<selectKey keyProperty="newTeamId" resultType="int" order="AFTER">
         	SELECT LAST_INSERT_ID()
-   		 </selectKey>
+   		</selectKey>
  	</insert>
+ 	
+ 	<update id="updateTeamByTeamId" parameterType="map">
+ 		UPDATE `team`
+ 		SET
+ 			`name` = #{teamName}
+ 			, `introduce` = #{introduce}
+ 			, `skill` = #{skill}
+ 			, `activeArea` = #{activeArea}
+ 			, `profileImagePath` = #{profileImagePath}
+ 		WHERE 
+ 			`id` = #{teamId}
+ 		
+ 	</update>
  
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

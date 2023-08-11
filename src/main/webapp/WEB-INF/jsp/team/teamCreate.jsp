@@ -46,7 +46,7 @@
 			
 			<!-- 팀 소개  -->
 			<div class="mt-3">
-				<label for="introduce">이름</label>
+				<label for="introduce">소개</label>
 				<textarea class="form-control" id="introduce" name="introduce" rows="6" placeholder="팀 소개"></textarea>
 			</div>
 			
@@ -61,7 +61,7 @@
 <script>
 $(document).ready(function(){
 	
-	// 이메일 중복 확인
+	// 팀명 중복확인
 	$('#isDuplicatedBtn').on('click', function(){
 		
 		let teamName = $('#teamName').val().trim();
@@ -132,7 +132,8 @@ $(document).ready(function(){
 				alert("★팀생성이 완료되었습니다★");
 				location.href = "/team/team_list_view";
 			} else{
-				alert(errorMessage);
+				alert(data.errorMessage);
+				// location.href = "마이페이지"; -> 추후에 구현 
 			}
 		});
 	});
