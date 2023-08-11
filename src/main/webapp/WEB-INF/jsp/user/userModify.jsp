@@ -133,7 +133,6 @@ $(document).ready(function(){
 		let userId = $(this).data('user-id');
 		
 		
-		
 		if (!name){
 			alert("이름을 입력하세요.");
 			return;
