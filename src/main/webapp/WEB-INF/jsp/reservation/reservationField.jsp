@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <div class="d-flex justify-content-center">
 	<div class="w-50">
 		<div class="d-flex justify-content-center mt-4">
@@ -14,7 +15,16 @@
 				</div>
 			</div>
 
-
+			<!-- 지역(region)  -->
+			<div class="mt-3">
+				<label for="region">팀 실력</label>
+				<select id="region" name="region" class="form-control" required>
+					<option value="" disabled selected>지역 선택</option>
+					<c:forEach items="${regionList}" var="region">
+						<option value=${region}>${region}</option>
+					</c:forEach>
+				</select>
+			</div>
 
 			<!-- 경기장선택  -->
 			<div class="mt-3">

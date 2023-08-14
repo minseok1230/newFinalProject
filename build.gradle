@@ -39,7 +39,11 @@ dependencies {
 	implementation 'javax.mail:javax.mail-api:1.6.2'
 	implementation 'com.ibm.icu:icu4j:69.1' // 텍스트 변환
     implementation 'org.springframework.boot:spring-boot-starter-webflux' // Spring WebFlux 의존성
-    implementation 'com.fasterxml.jackson.core:jackson-databind' // JSON 파싱을 위한 의존성
+    implementation 'com.fasterxml.jackson.dataformat:jackson-dataformat-xml:2.13.0' // XML 응답 처리를 위한 의존성 추가
+	implementation 'com.fasterxml.jackson.core:jackson-databind:2.14.1'
+	implementation 'org.json:json:20210307'
+	
+    
 	
 }
 

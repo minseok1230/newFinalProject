@@ -1,73 +1,50 @@
 package com.soccer.test;
 
-import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.soccer.common.SoccerStadiumApiService;
 
-import reactor.core.publisher.Mono;
-
-@Controller
+@RestController
 public class TestController {
-	
+
+
 	@Autowired
-	private SoccerStadiumApiService stadiumApi;
+	private TestApiService apiService;
 	
-	@ResponseBody
-	@RequestMapping("/test1")
-	public String test1() {
+ 
+	@GetMapping("/getRowValues")
+    public List<Object> getRowValues() {
+		List<Map<String, Object>> aaa = new ArrayList<>();
+		List<Object> name = new ArrayList<>();
+		aaa = apiService.getAllRowValues();
+		for (Map<String, Object> bbb : aaa) {
+			name.add(bbb.get("SIGUN_NM"));
+		}
 		
 		
-		return "Hello world222";
-	}
-	
-	@ResponseBody
-    @RequestMapping("/api")
-    public Mono<String> apiTest() {
-        return stadiumApi.fetchDataFromApi().map(responseBody -> {
-            ObjectMapper objectMapper = new ObjectMapper();
-
-            try {
-                // JSON 데이터를 Map<String, Object> 형태로 파싱
-                Map<String, Object> parsedData = objectMapper.readValue(responseBody, Map.class);
-
-                // 원하는 데이터 추출 및 처리
-                // 예를 들어, parsedData에서 원하는 필드 추출
-                String fieldName = (String) parsedData.get("0");
-
-                return "Processed data: " + fieldName;
-            } catch (IOException e) {
-                e.printStackTrace();
-                return "Error during parsing JSON";
-            }
-        });
+        return name;
     }
 	
+//	 @GetMapping("/Test")
+//	 public Map<String, Object> testWebClient() {
+//		 Map<String, Object> aaa = new HashMap<>();
+//		 aaa = apiService.getFirstTodosTestAsMap();
+//	     return aaa;
+//	 }
+	 
+	 @GetMapping("/mmm")
+	 public Map<String, Object> test1(){
+		 Map<String, Object> aaa = new HashMap<>();
+		 aaa.put("사과", 1);
+		 aaa.put("바나나", 1);
+		 aaa.put("ㅇㅇㅇ", 1);
+		 return aaa;
+	 }
 	
-	@ResponseBody
-	@RequestMapping("/test2")
-	public Map<String, Object> test2(){
-		Map<String, Object> map = new HashMap<>();
-		map.put("바나나", 2000);
-		map.put("a", 2);
-		map.put("축구", 3000);
-		return map;
-	}
-	
-	@RequestMapping("/test3")
-	public String test3() {
-		return "test/test3";
-	}
-	
-
-	
-	
-
 }

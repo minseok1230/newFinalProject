@@ -10,7 +10,7 @@
 		<!-- 개인 프로필 -->
 		<div class="mt-3 ">
 			<img src="${user.profileImagePath}" width="50" alt="프로필사진">
-			<span class="ml-3 font-weight-bold">최민석 님(<small>alstjr0311@naver.com</small>)</span>
+			<span class="ml-3 font-weight-bold">${user.name}(<small>${user.email}</small>)</span>
 			<a href="/user/user_update_view" class="btn btn-sm btn-secondary ml-3"><small>프로필수정</small></a>
 		</div>
 		
@@ -19,7 +19,7 @@
 		<c:if test="${userTeamId != null}">
 		<div class="mt-3">
 				<img src="${team.profileImagePath}"  width="50" alt="팀로고">
-				<span class="ml-3 font-weight-bold">안양축돌이</span>
+				<span class="ml-3 font-weight-bold">${team.name}</span>
 				<a href="#" class="btn btn-sm btn-secondary ml-3"><small>팀원관리</small></a>
 				<a href="/team/team_update_view" class="btn btn-sm btn-secondary ml-2"><small>팀수정</small></a>
 			</div>
