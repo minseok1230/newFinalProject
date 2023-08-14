@@ -10,6 +10,7 @@ import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
 import org.springframework.stereotype.Service;
+import org.springframework.web.reactive.function.client.ExchangeStrategies;
 import org.springframework.web.reactive.function.client.WebClient;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -25,7 +26,15 @@ private final WebClient webClient;
     
     // WebClient 인스턴스 생성 , 기본 URL설정
     public StadiumApiService(WebClient.Builder webClientBuilder) {
-        this.webClient = webClientBuilder.baseUrl("https://openapi.gg.go.kr").build();
+        this.webClient = webClientBuilder
+        		.baseUrl("https://openapi.gg.go.kr")
+        		.exchangeStrategies(ExchangeStrategies.builder()
+        	            .codecs(configurer -> configurer
+        	                    .defaultCodecs()
+        	                    .maxInMemorySize(2 * 1024 * 1024)
+        	            )
+        	            .build())
+        	    .build();
     }
     
     /*DOM파싱
@@ -38,23 +47,25 @@ private final WebClient webClient;
      * 5. DOM 조작    : 생성된 DOM트리를 통해 문서의 요소에 접근하고 조작. 
      * */
     
-    public List<Map<String, Object>> getAllRowValues() {
-    	// 결과 데이터를 받을 List<Map<>>
-        List<Map<String, Object>> rowValuesList = new ArrayList<>();
-        int page = 1;
-        int itemsPerPage = 100;
-        
-    	while(true) {
+    public List<Map<String, Object>> getAllRowValues(String region) {
+    	
+            /* API 주소 yml 파일에 저장해보기!!! */
 	        Mono<String> xmlResponseMono = this.webClient
 	                .get()
-	                .uri("/PublicTrainingFacilitySoccer?key=49ae9fa134524c1eb22a22a1067f0f85&page=" + page)
+	                .uri(builder -> builder
+	                        .path("/PublicTrainingFacilitySoccer")
+	                        .queryParam("key", "49ae9fa134524c1eb22a22a1067f0f85")
+	                        .queryParam("pSize", 300)
+	                        .queryParam("SIGUN_NM", region)
+	                        .build())
 	                .retrieve()
 	                .bodyToMono(String.class);
 	        
 	        // block은 비동기 작업의 결과를 동기식으로 가져오기 위해 사용
 	        String xmlResponse = xmlResponseMono.block();
 	        
-	        
+	        // 결과 데이터를 받을 List<Map<>>
+	        List<Map<String, Object>> rowValuesList = new ArrayList<>();
 	        
 	        if (xmlResponse != null) {
 	            try {
@@ -67,10 +78,6 @@ private final WebClient webClient;
 	                Document document = builder.parse(new InputSource(new StringReader(xmlResponse)));
 	                NodeList rowNodes = document.getElementsByTagName("row");
 	                
-	             if (rowNodes.getLength() == 0) {
-	                 // 더 이상 데이터가 없는 경우 반복 종료
-	                 break;
-	             }
 	                for (int i = 0; i < rowNodes.getLength(); i++) {
 	                    Element rowElement = (Element) rowNodes.item(i);
 	                    Map<String, Object> rowValues = new HashMap<>();
@@ -111,12 +118,10 @@ private final WebClient webClient;
 	                e.printStackTrace();
 	            }
 	        }
-	        page++;
 	        
-    	}
 	        return rowValuesList;
-	      
-    }
+    	}
+	  
 
     /* DOM(Document Object Model)을 사용하여 XML 엘리먼트에서 특정 태그의 값을 추출하는 메서드를 정의 */
     private String getElementValue(Element element, String tagName) {

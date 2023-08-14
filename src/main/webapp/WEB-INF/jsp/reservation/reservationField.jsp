@@ -9,15 +9,15 @@
 		<form id="reservationForm" method="post" action="/reservation/reservation_field">
 			<!-- 날짜 -->
 			<div class="mt-3">
-				<label for="Date">날짜</label>
+				<label for="matchDate">날짜</label>
 				<div class="input-group">
-					<input type="text" class="form-control" id="Date" name="Date" placeholder="날짜를 입력하세요">
+					<input type="text" class="form-control" id="matchDate" name="matchDate" placeholder="날짜를 입력하세요">
 				</div>
 			</div>
 
 			<!-- 지역(region)  -->
 			<div class="mt-3">
-				<label for="region">팀 실력</label>
+				<label for="region">지역</label>
 				<select id="region" name="region" class="form-control" required>
 					<option value="" disabled selected>지역 선택</option>
 					<c:forEach items="${regionList}" var="region">
@@ -26,30 +26,55 @@
 				</select>
 			</div>
 
-			<!-- 경기장선택  -->
-			<div class="mt-3">
-				<label for="field">경기장</label>
-				<div class="input-group">
-					<input type="text" class="form-control" id="field" name="field" placeholder="경기장 선택">
-					<div class="input-group-append">
-						<button type="button" id="findField" class="btn btn-secondary">찾기</button>
-					</div>
-				</div>
+			<!-- 경기장 선택 (해당 지역)  -->
+			<div id="stadiumBox" class="mt-3 d-none">
+				<label for="stadium">경기장</label>
+				<select id="stadium" name="stadium" class="form-control" required>
+					<option value="" disabled selected>경기장 선택</option>
+				</select>
 			</div>
 			
-			<!-- 매칭 시간  -->
-			<div class="mt-3">
-				<label for="time">시간</label>
-				<div>
-					<input type="text" class="form-control" id="time" name="time" placeholder="시간을 선택하세요">
-				</div>
+			<!-- 경기장 지도 -->
+			<!-- <div id="stadiumMap" class="mt-3">
+				
+			 	
+			</div> -->
+			<div id="map" style="width:500px;height:400px;"></div>
+			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
+			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc8476ea9375c69674cea47fce478ccf&libraries=services,clusterer,drawing"></script>
+			<script>
+				var container = document.getElementById('map');
+				var options = {
+					center : new kakao.maps.LatLng(33.450701, 126.570667),
+					level : 3
+				};
+
+				var map = new kakao.maps.Map(container, options);
+			</script>
+
+			<!-- 매칭 시간 선택  -->
+			<div id="stadiumBox" class="mt-3">
+				<label for="matchTime">시간</label>
+				<select id="matchTime" name="matchTime" class="form-control" required>
+					<option value="" disabled selected>시간선택</option>
+					<option value="1" >6:00~08:00</option>
+					<option value="2" >8:00~10:00</option>
+					<option value="3" >10:00~12:00</option>
+					<option value="4" >12:00~14:00</option>
+					<option value="5" >14:00~16:00</option>
+					<option value="6" >16:00~18:00</option>
+					<option value="7" >18:00~20:00</option>
+					<option value="8" >20:00~22:00</option>
+					<option value="9" >22:00~24:00</option>
+				</select>
 			</div>
+			
 			
 			<!-- 팀이름  -->
 			<div class="mt-3">
 				<label for="teamName">팀이름</label>
 				<div>
-					<input type="text" class="form-control" id="teamName" name="teamName" rows="6" placeholder="팀명">
+					<input type="text" class="form-control" id="teamName" name="teamName"  value="${team.name}" disabled>
 				</div>
 			</div>
 			
@@ -76,15 +101,63 @@ $(document).ready(function(){
         $(id).datepicker('setDate', new Date()).datepicker('hide').blur();
     };
 
-
-    $('#Date').datepicker({
+    $('#matchDate').datepicker({
         showButtonPanel: true // 오늘 버튼 노출
         , minDate:0 // 오늘과 그 이후만 선택 가능
     });
     
-    
-    $('#reservationBtn').on('click', function(){
+    // 지역 select 선택 
+    $('#region').on('change', function(e){
+    	e.preventDefault();
+    	$('#stadiumBox').removeClass('d-none');
+    	let region = $('#region').val();
     	
-    })
+    	
+    	$.ajax({
+    		type:"get"
+    		, url : "/reservation/stadium_list"
+    		, data : {"region": region}
+    	
+    		, success: function(data){
+    			
+    			$('#stadium').empty();
+    			var option = $("<option></option>")
+	        	 .attr("value", "")
+	        	 .attr("disabled", true)
+    			 .attr("selected", true)
+	        	 .text("경기장 선택");
+	        	$('#stadium').append(option);
+    			
+    	        // 받아온 데이터를 반복하면서 옵션을 생성하여 추가
+    	        for (var i = 0; i < data.length; i++) {
+    	        	var option = $("<option></option>")
+    	        	 .attr("value", data[i])
+    	        	 .text(data[i]);
+    	        	$('#stadium').append(option);
+    	        }
+    		}
+    		
+    		, error: function(request, status, error){
+				alert("목록 불러오기에 실패하였습니다. 관리자 문의 바랍니다.");
+			}
+    	})
+
+    });
 });
 </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

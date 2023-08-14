@@ -2,6 +2,8 @@ package com.soccer.reservation;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soccer.reservation.bo.ReservationBO;
+import com.soccer.team.bo.TeamBO;
+import com.soccer.team.entity.TeamEntity;
 
 @Controller
 @RequestMapping("/reservation")
@@ -17,16 +21,25 @@ public class ReservationController {
 	@Autowired
 	private ReservationBO reservationBO;
 	
+	@Autowired
+	private TeamBO teamBO;
+	
 	@GetMapping("/reservation_view")
-	public String reservationView(Model model) {
+	public String reservationView(HttpSession session, Model model) {
 		
 		// 경기장 api 가져오기 (BO 시키기)
 		List<String> regionList = reservationBO.regionList();
 		
+		// 팀 정보 가져오기
+		int userTeamId = (int)session.getAttribute("userTeamId");
+		TeamEntity team = teamBO.getTeamById(userTeamId);
+		
+		model.addAttribute("team", team);
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("view", "reservation/reservationField");
 		return "template/layout";
 	}
+	
 }
 
 
