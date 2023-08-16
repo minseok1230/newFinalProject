@@ -17,6 +17,8 @@ public interface MatchMapper {
 	
 	public List<Match> selectMatch();
 	
+	public Match selectMatchById(int id);
+	
 	public int insertMatch(
 			@Param("teamId") int teamId, 
 			@Param("reservationId") int reservationId, 

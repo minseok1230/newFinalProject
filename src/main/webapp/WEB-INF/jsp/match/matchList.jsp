@@ -8,6 +8,22 @@
 			<h2>MATCHING LIST</h2>
 		</div>
 		
+		<!-- 검색창 -->
+		<div class="d-flex justify-content-between mt-4">
+			<div class="input-group col-5">
+				<input type="text" class="form-control" id="region" name="region" placeholder="지역 검색 (ex. 안양시) ">
+				<div class="input-group-append">
+					<button type="button" id="regionSearch" class="btn btn-secondary">검색</button>
+				</div>
+			</div>
+			
+			<div class="input-group col-5">
+				<input type="text" class="form-control" id="content" name="content" placeholder="내용 검색 (ex. 실력 하하) ">
+				<div class="input-group-append">
+					<button type="button" id="contentSearch" class="btn btn-secondary">검색</button>
+				</div>
+			</div>
+		</div><br><br><br><br>
 		<div>
 			<table class="table table-bordered">
 				<thead  class="table-secondary">
@@ -23,7 +39,7 @@
 					<c:forEach items="${matchViewList}" var="matchView">
 						<tr class="text-center">
 							<td>${matchView.reservation.region} ${matchView.reservation.stadiumName}<br> <fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/> ${matchView.reservation.matchTime}</td>
-							<td>${matchView.match.title }</td>
+							<td><a href="/match/match_detail_view?matchId=${matchView.match.id}">${matchView.match.title}</a></td>
 							<td>${matchView.team.name}</td>
 							<td>${matchView.match.price }</td>
 							<td><button type="button" class="joinTeamBtn btn btn-warning btn-sm">${matchView.match.state}</button></td>

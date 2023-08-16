@@ -9,8 +9,10 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soccer.match.bo.MatchBO;
+import com.soccer.match.domain.Match;
 import com.soccer.match.domain.MatchView;
 import com.soccer.reservation.bo.ReservationBO;
 import com.soccer.reservation.domain.Reservation;
@@ -51,15 +53,34 @@ public class MatchController {
 		return "template/layout";
 	}
 	
-	// 매칭글 목록
+	/**
+	 * 매칭글 목록
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/match_list_view")
 	public String matchListView(Model model) {
 		
-		List<MatchView> matchViewList = matchBO.generateMatchView();
+		List<MatchView> matchViewList = matchBO.generateMatchViewList();
 		
 		model.addAttribute("matchViewList", matchViewList);
 		model.addAttribute("view", "match/matchList");
 		return "template/layout";
+	}
+	
+	// 매칭 세부글 
+	@GetMapping("/match_detail_view")
+	public String matchDetailView(
+			@RequestParam("matchId") int matchId,
+			Model model) {
+		
+		// DB에서 상세 매칭글 가져오기 
+		MatchView matchView = matchBO.generateMatchView(matchId);
+		
+		model.addAttribute("matchView", matchView);
+		model.addAttribute("view", "match/matchDetail");
+		return "template/layout";
+		
 	}
 }
 

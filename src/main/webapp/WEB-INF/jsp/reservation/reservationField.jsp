@@ -223,7 +223,7 @@ $(document).ready(function(){
     	$.ajax({
     		
     		type: "post"
-    		,url : "/reservation/create_reservation"
+    		, url : "/reservation/create_reservation"
     		, data : {"matchDate":matchDate,"region":region,"stadium":stadium,"matchTime":matchTime,"teamName":teamName,}
     	
     		,success: function(data){

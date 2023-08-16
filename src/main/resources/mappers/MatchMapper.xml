@@ -3,6 +3,24 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.soccer.match.dao.MatchMapper">
+ 
+ 	<select id="selectMatchById" parameterType="int" resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+		WHERE 
+			`id` = #{id}
+ 	</select>
+ 
  	<select id="selectMatch"  resultType="com.soccer.match.domain.Match">
  		SELECT 
  			`id`

@@ -34,7 +34,7 @@ public class MatchBO {
 		return matchMapper.insertMatch(teamId, reservationId, title, price, content);
 	}
 	
-	public List<MatchView> generateMatchView(){
+	public List<MatchView> generateMatchViewList(){
 		
 		// 리턴 값 ( 여러개의 MatchView )
 		List<MatchView> teamViewList = new ArrayList<>();
@@ -60,7 +60,32 @@ public class MatchBO {
 		
 		return teamViewList;
 	}
+	
+	public MatchView generateMatchView(int matchId) {
+		
+		MatchView matchView = new MatchView();
+		
+		Match match = matchMapper.selectMatchById(matchId);
+		matchView.setMatch(match);
+		
+		// 팀 정보 넣기 
+		TeamEntity team = teamBO.getTeamById(match.getTeamId());
+		matchView.setTeam(team);
+					
+		// 경기장 정보 넣기
+		Reservation reservation = reservationBO.getReservationById(match.getReservationId());
+		matchView.setReservation(reservation);
+		
+		return matchView;
+	}
+	
+	
+	
 }
+
+
+
+
 
 
 
