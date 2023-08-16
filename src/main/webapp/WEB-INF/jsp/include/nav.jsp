@@ -8,8 +8,8 @@
 			<c:if test="${not empty userName}">
 				<c:if test = "${userTeamId != null}">
 					<li class="nav-item"><a href="/reservation/reservation_view" class="nav-link">경기장 예약</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">매칭 등록</a></li>
-					<li class="nav-item"><a href="#" class="nav-link">매칭 목록</a></li>
+					<li class="nav-item"><a href="/match/match_create_view" class="nav-link">매칭 등록</a></li>
+					<li class="nav-item"><a href="/match/match_list_view" class="nav-link">매칭 목록</a></li>
 				</c:if>	
 				<c:if test = "${userTeamId == null}">
 					<li class="nav-item"><a href="/team/team_create_view" class="nav-link">팀 만들기</a></li>

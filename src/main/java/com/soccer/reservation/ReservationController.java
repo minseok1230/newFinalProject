@@ -34,6 +34,8 @@ public class ReservationController {
 		int userTeamId = (int)session.getAttribute("userTeamId");
 		TeamEntity team = teamBO.getTeamById(userTeamId);
 		
+		// 예약 내역 가져오기 (예약가능한지 확인용)
+		
 		model.addAttribute("team", team);
 		model.addAttribute("regionList", regionList);
 		model.addAttribute("view", "reservation/reservationField");

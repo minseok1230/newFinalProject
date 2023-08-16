@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.member.dao.MemberMapper">
+ 	<select id="selectMemberByUserId" parameterType="int" resultType="com.soccer.member.domain.Member">
+ 		SELECT 
+ 			`teamId`
+			,`userId`
+			,`approval`
+			,`createdAt`
+		FROM 
+			`member`
+		WHERE
+			`userId` = #{userId}
+ 	</select>
+ 
+ 	<insert id="insertMemberByTeamId" parameterType="map">
+ 		INSERT INTO `member`
+ 		(
+ 			`teamId`
+			,`userId`
+			,`approval`
+			,`createdAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{teamId}
+ 			, #{userId}
+ 			, #{approval}
+ 			, NOW()
+ 		)
+ 	
+ 	</insert>
+ 
+ </mapper>

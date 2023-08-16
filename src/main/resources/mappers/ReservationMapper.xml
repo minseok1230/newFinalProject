@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.reservation.dao.ReservationMapper">
+ 	<select id="selectReservationByDateByStadiumBytime" parameterType="map" resultType="com.soccer.reservation.domain.Reservation">
+ 		SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		WHERE
+			`stadiumName` = #{stadium}
+	    AND
+	    	`matchDate` = #{matchDate}
+	    AND
+	    	`matchTime` = #{matchTime}
+ 	</select>
+ 	
+ 	<select id="selectReservationByTeamId" parameterType="map" resultType="com.soccer.reservation.domain.Reservation">
+ 		SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		WHERE
+			`teamId` = #{teamId}
+ 	</select>
+ 	
+ 	<select id="selectReservationById" parameterType="int" resultType="com.soccer.reservation.domain.Reservation">
+ 		SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		WHERE
+			`id` = #{id}
+ 	</select>
+ 	
+ 	
+ 	
+ 	
+ 	
+ 	<insert id="insertReservation" parameterType="map">
+ 		INSERT INTO `reservation`
+ 		(
+ 			`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{region}
+ 			,#{stadium}
+ 			,#{teamId}
+ 			,#{matchTime}
+ 			,#{matchDate}
+ 			,NOW()
+ 			,NOW()
+ 		)
+ 	</insert>
+ 
+ </mapper>

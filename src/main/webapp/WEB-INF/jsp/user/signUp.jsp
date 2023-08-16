@@ -42,7 +42,7 @@
 			<div class="mt-3">
 				<label for="password">비밀번호</label>
 				<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요">
-				<div id="passwordCheck" class="small text-danger d-none">6자 이상 입력하세요.</div>
+				<div id="passwordCheck" class="small text-danger d-none">영문 숫자 조합 8자리 이상 입력하세요.</div>
 			</div>
 			
 			<!-- 비밀번호 확인  -->
@@ -97,13 +97,18 @@
 	$(document).ready(function(){
 		
 		$('#password').keyup(function(){
-			
+
 			$('#passwordCheck').addClass('d-none');
+			
+			// 비밀번호 유효성 검사 ( 영문 숫자 조합 8자리 이상)
+			let reg = /^(?=.*[a-zA-Z])(?=.*[0-9]).{8,25}$/
 			let password = $('#password').val();
 			
-			if (password.length < 6){
+			if (reg.test(password) == false){
 				$('#passwordCheck').removeClass('d-none');
+				return false;
 			}
+			
 		});
 		
 		// 아이디(이메일) 유형검사 및 중복 검사
@@ -161,6 +166,8 @@
 			// 전화번호 유효성 검사
 			let patternPhone = /01[016789]-[^0][0-9]{2,3}-[0-9]{3,4}/;
 			
+			
+			
 			if (!loginEmail) {
 				alert("이메일을 입력하세요");
 				return false;
@@ -199,6 +206,12 @@
 			// 이메일 인증 했는지 확인 
 			if ($('#emailAuthenticationCheckTrue').hasClass('d-none')) {
 				alert("이메일 인증을 해주세요");
+				return false;
+			} 
+			
+			// 비밀번호 형식 확인 
+			if (!$('#passwordCheck').hasClass('d-none')) {
+				alert("비밀번호 형식 확인해주세요");
 				return false;
 			}
 			

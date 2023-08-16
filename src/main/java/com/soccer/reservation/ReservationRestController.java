@@ -1,9 +1,14 @@
 package com.soccer.reservation;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,4 +31,55 @@ public class ReservationRestController {
 		
 		return stadiumList;
 	}
+	
+	@PostMapping("/create_reservation")
+	public Map<String, Object> createReservation(
+			@RequestParam("matchDate") String matchDate,
+			@RequestParam("region") String region,
+			@RequestParam("stadium") String stadium,
+			@RequestParam("matchTime") String matchTime,
+			@RequestParam("teamName") String teamName,
+			HttpSession session
+			){
+		
+		int teamId =  (int)session.getAttribute("userTeamId");
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		/* ******************************팀장 확인*******************************/
+		/* ******************************팀장 확인*******************************/
+		/* ******************************팀장 확인*******************************/
+		
+		// DB에 있는지 확인, DB insert
+		int insertResult =  reservationBO.addReservation(teamId, matchDate, region, stadium, matchTime, teamName);
+		
+		if (insertResult == 300) {
+			result.put("errorMessage", "이미 예약이 되어있습니다.");
+		} else if (insertResult == 1) {
+			result.put("code", 1);
+			result.put("result", "성공");
+		} else {
+			result.put("errorMessage", "경기장 예약에 실패하였습니다.");
+		}
+		
+		
+		return result;
+	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

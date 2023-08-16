@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.match.dao.MatchMapper">
+ 	<select id="selectMatch"  resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+ 	</select>
+ 	
+ 	<select id="selectMatchByTeamId" parameterType="int" resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+		WHERE 
+			`teamId` = #{teamId}
+ 	</select>
+ 	
+ 	<insert id="insertMatch" parameterType="map">
+ 		INSERT INTO `match`
+ 		(
+ 			`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{teamId}
+ 			, #{reservationId}
+ 			, #{title}
+ 			, #{price}
+ 			, #{content}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 
+ </mapper>

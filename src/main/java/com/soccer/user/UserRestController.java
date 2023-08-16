@@ -66,7 +66,6 @@ public class UserRestController {
 			@RequestParam("phoneNumber") String phoneNumber,
 			@RequestParam("birth") String birth,
 			@RequestParam("position") String position
-			/**************포지션 항목 추가*****************/
 			){
 		
 		Map<String, Object> result = new HashMap<>();
@@ -118,6 +117,7 @@ public class UserRestController {
 			session.setAttribute("userLoginEmail", user.getEmail());
 			session.setAttribute("userName", user.getName());
 			session.setAttribute("userTeamId", user.getTeamId());
+			session.setAttribute("userRole", user.getRole());
 			result.put("code", 1);
 			result.put("result", "성공");
 		} else {

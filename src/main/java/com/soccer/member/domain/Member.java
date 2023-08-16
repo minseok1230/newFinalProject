@@ -9,6 +9,7 @@ public class Member {
 	
 	private int teamId;
 	private int userId;
+	private boolean approval;
 	private ZonedDateTime createdAt;
-
+	
 }

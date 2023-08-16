@@ -23,3 +23,16 @@ public class User {
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
 }
+
+/*
+ * private UserRole role; // role을 enum 타입으로 변경
+ * 
+ *  public enum UserRole {
+        ADMIN,
+        USER,
+        GUEST
+        // 필요한 역할들을 추가로 정의할 수 있습니다.
+    }
+ * */
+
+
