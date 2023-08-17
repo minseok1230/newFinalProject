@@ -34,6 +34,7 @@
 			,`updatedAt`
 		FROM
 			`match`
+		ORDER BY `id` DESC;
  	</select>
  	
  	<select id="selectMatchByTeamId" parameterType="int" resultType="com.soccer.match.domain.Match">
@@ -75,5 +76,16 @@
  			, NOW()
  		)
  	</insert>
+ 	
+ 	<update id="updateMatchById" parameterType="map">
+ 		UPDATE `match`
+ 		SET `title` = #{title},`price` = #{price},`content` = #{content}
+ 		WHERE `id` = #{id}
+ 	</update>
  
  </mapper>
+ 
+ 
+ 
+ 
+ 

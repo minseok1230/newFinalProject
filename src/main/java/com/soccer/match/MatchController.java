@@ -72,15 +72,31 @@ public class MatchController {
 	@GetMapping("/match_detail_view")
 	public String matchDetailView(
 			@RequestParam("matchId") int matchId,
+			HttpSession session,
 			Model model) {
+		
+		int teamId = (int)session.getAttribute("userTeamId");
 		
 		// DB에서 상세 매칭글 가져오기 
 		MatchView matchView = matchBO.generateMatchView(matchId);
 		
+		model.addAttribute("teamId", teamId);
 		model.addAttribute("matchView", matchView);
 		model.addAttribute("view", "match/matchDetail");
 		return "template/layout";
+	}
+	
+	// 매칭 수정페이지
+	@GetMapping("/match_update_view")
+	public String matchUpdateView(
+			Model model,
+			@RequestParam("matchId") int matchId) {
 		
+		MatchView matchView = matchBO.generateMatchView(matchId);
+		
+		model.addAttribute("matchView", matchView);
+		model.addAttribute("view", "match/matchModify");
+		return "template/layout";
 	}
 }
 

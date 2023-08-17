@@ -26,4 +26,10 @@ public interface MatchMapper {
 			@Param("price") int price, 
 			@Param("content") String content);
 	
+	public int updateMatchById(
+			@Param("id") int id, 
+			@Param("title") String title,
+			@Param("price") int price, 
+			@Param("content") String content);
+	
 }

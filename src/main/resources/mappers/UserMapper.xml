@@ -3,6 +3,31 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.soccer.user.dao.UserMapper">
+ 	<select id="selectUserByTeamIdAndRole" parameterType="map" resultType="com.soccer.user.domain.User">
+ 		SELECT
+ 			`id`
+ 			, `teamId`
+			,`email`
+			,`password`
+			,`name`
+			,`loginType`
+			,`role`
+			,`kakaoKey`
+			,`profileImagePath`
+			,`phoneNumber`
+			,`birth`
+			,`position`
+			, `mail_check`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`user`
+		WHERE
+			`teamId` = #{teamId}
+		AND
+			`role` = #{role}
+ 	</select>
+ 
  	<select id="selectUserByEmail" resultType="com.soccer.user.domain.User">
  		SELECT
  			`id`

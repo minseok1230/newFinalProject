@@ -23,7 +23,6 @@
 			</div>	
 			
 			<!-- 댓글 목록 -->
-			<!-- 예시1 -->
 			<c:forEach items="${board.commentList}" var="comment">
 				<div>
 					<div class="d-flex mt-3">

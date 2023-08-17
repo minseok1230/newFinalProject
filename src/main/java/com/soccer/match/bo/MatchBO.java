@@ -5,14 +5,22 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.soccer.board.domain.Board;
+import com.soccer.board.domain.BoardView;
+import com.soccer.comment.bo.CommentBO;
+import com.soccer.comment.domain.CommentView;
 import com.soccer.match.dao.MatchMapper;
 import com.soccer.match.domain.Match;
+import com.soccer.match.domain.MatchCommentView;
 import com.soccer.match.domain.MatchView;
 import com.soccer.reservation.bo.ReservationBO;
 import com.soccer.reservation.domain.Reservation;
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.entity.TeamEntity;
+import com.soccer.user.dao.UserMapper;
+import com.soccer.user.domain.User;
 
 @Service
 public class MatchBO {
@@ -21,10 +29,16 @@ public class MatchBO {
 	private MatchMapper matchMapper;
 	
 	@Autowired
+	private UserMapper userMapper;
+	
+	@Autowired
 	private TeamBO teamBO;
 	
 	@Autowired
 	private ReservationBO reservationBO;
+	
+	@Autowired
+	private CommentBO commentBO;
 	
 	public List<Match> getMatchByTeamId(int teamId){
 		return matchMapper.selectMatchByTeamId(teamId);
@@ -34,6 +48,9 @@ public class MatchBO {
 		return matchMapper.insertMatch(teamId, reservationId, title, price, content);
 	}
 	
+	public int updateMatchById(int id, String title, int price, String content) {
+		return matchMapper.updateMatchById(id, title, price, content);
+	}
 	public List<MatchView> generateMatchViewList(){
 		
 		// 리턴 값 ( 여러개의 MatchView )
@@ -76,8 +93,18 @@ public class MatchBO {
 		Reservation reservation = reservationBO.getReservationById(match.getReservationId());
 		matchView.setReservation(reservation);
 		
+		// 팀장 정보 넣기 
+		User user = userMapper.selectUserByTeamIdAndRole(match.getTeamId(), "팀장");
+		matchView.setLeader(user);
+		
+		// 댓글 넣기
+		// 댓글 세팅
+		List<CommentView> commentViewList = commentBO.generateCommentViewList(matchId);
+		matchView.setCommentList(commentViewList);
+		
 		return matchView;
 	}
+	
 	
 	
 	

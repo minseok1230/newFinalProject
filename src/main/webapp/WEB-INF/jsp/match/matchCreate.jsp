@@ -49,12 +49,11 @@
 				<textarea class="form-control" id="content" name="content" placeholder="내용을 입력하세요" rows="10">
 대상: 
 	
-	
 준비물:
-	
 	
 기타내용: 
 				</textarea>
+				
 			</div>
 			
 			<!--  가입 버튼 -->
@@ -74,6 +73,8 @@ $(document).ready(function(){
 		let teamName = $('#teamName').val();
 		let price = $('#price').val();
 		let content = $('#content').val();
+		// 사용자 입력에서 줄바꿈 문자('\n')를 <br> 태그로 변경
+        content = content.replace(/\n/g, '<br>');
 		// 숫자 체크 
 		let check = /^[0-9]+$/;
 		

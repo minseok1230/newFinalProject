@@ -66,6 +66,10 @@ public interface UserMapper {
 			@Param("profileImagePath") String profileImagePath, 
 			@Param("hashedPassword") String hashedPassword);
 	
+	public User selectUserByTeamIdAndRole(
+			@Param("teamId")  int teamId, 
+			@Param("role") String role);
+	
 }
 
 
