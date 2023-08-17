@@ -113,7 +113,7 @@ public class TeamBO {
 		for (Team team : teamList) {
 			TeamView teamView = new TeamView();
 			
-			// 팀 리더(주장 정보)'
+			// 팀 리더(주장 정보)
 			User leader = userBO.getUserById(team.getLeaderId());
 			teamView.setLeader(leader);
 			

@@ -21,6 +21,8 @@ public interface BoardMapper {
 	
 	public Board selectBoardById(int id); 
 	
+	public int selectBoardCount(String type);
+	
 	public int insertBoardByTitleContentUserId(
 			@Param("userId") int userId, 
 			@Param("type") String type, 

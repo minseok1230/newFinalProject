@@ -40,6 +40,10 @@ public class BoardBO {
 		return boardMapper.selectBoardByTypeLimit(type);
 	}
 	
+	public int getBoardCount(String type) {
+		return boardMapper.selectBoardCount(type);
+	}
+	
 	public Board getBoardById(int id) {
 		return boardMapper.selectBoardById(id);
 	}
