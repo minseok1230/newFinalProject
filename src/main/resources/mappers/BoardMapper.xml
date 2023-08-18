@@ -19,7 +19,7 @@
 		ORDER BY `id` DESC
  	</select>
  	
- 	<select id="getBoardCount" parameterType="String" resultType="int">
+ 	<select id="selectBoardCount"  resultType="int">
  	 	SELECT
  	 		count(*)
  	 	FROM 

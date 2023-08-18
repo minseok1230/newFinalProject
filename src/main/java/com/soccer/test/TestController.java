@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.soccer.board.bo.BoardBO;
+
 
 @RestController
 public class TestController {
@@ -16,6 +18,9 @@ public class TestController {
 
 	@Autowired
 	private TestApiService apiService;
+	
+	@Autowired
+	private BoardBO boardBO;
 	
  
 	@GetMapping("/getRowValues")
@@ -45,6 +50,11 @@ public class TestController {
 		 aaa.put("바나나", 1);
 		 aaa.put("ㅇㅇㅇ", 1);
 		 return aaa;
+	 }
+	 
+	 @GetMapping("aaa")
+	 public int test333() {
+		 return boardBO.getBoardCount("게시판");
 	 }
 	
 }

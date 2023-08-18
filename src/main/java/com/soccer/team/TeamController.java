@@ -47,6 +47,7 @@ public class TeamController {
 		
 		int userId = (int)session.getAttribute("userId");
 		Integer userTeamId = (Integer)session.getAttribute("userTeamId");
+		
 		// db 가져오기 (member)
 		Member member = memberBO.getMemberByUserId(userId);
 		

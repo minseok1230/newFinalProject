@@ -1,5 +1,7 @@
 package com.soccer.member.bo;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +23,10 @@ public class MemberBO {
 	
 	public Member getMemberByUserId(int userId) {
 		return memberMapper.selectMemberByUserId(userId);
+	}
+	
+	public List<Member> getMemberListByUserId(int userId){
+		return memberMapper.selectMemberListByUserId(userId);
 	}
 }
 

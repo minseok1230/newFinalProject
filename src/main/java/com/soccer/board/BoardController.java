@@ -1,19 +1,18 @@
 package com.soccer.board;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soccer.board.bo.BoardBO;
+import com.soccer.board.bo.BoardService;
 import com.soccer.board.domain.Board;
 import com.soccer.board.domain.BoardView;
 import com.soccer.common.Paging;
@@ -25,46 +24,31 @@ public class BoardController {
 	@Autowired
 	private BoardBO boardBO;
 	
+	@Autowired
+	private BoardService boardService;
+	
 	// 글 목록 (더보기 클릭)
 	@GetMapping("/board_list_view")
 	public String boardListView(
 			@RequestParam("type") String type,
-			@RequestParam(value = "topPageNum", required = false) Integer topPageNum,
-			@RequestParam(value = "page", required = false) Integer page,
-			@RequestParam(value = "prevId", required = false) Integer prevId,
-			@RequestParam(value = "nextId", required = false) Integer nextId,
+			@RequestParam(value = "clickPage", required = false) Integer clickPage,
 			Model model) {
 		
 		String boardType = type;
+		List<BoardView> boardViewList = boardService.generateBoardViewList(type, clickPage);
+		Paging pageMaker = boardService.pageMaker(type, clickPage);
 		
-		//DB (cardView)
-		List<BoardView> boardList = boardBO.generateBoardViewList(type, topPageNum);
 		
-		// 페이징 
-		// Map<String, Object> pagingResult = Paging.paging(topPageNum ,page, prevId, nextId);
-		if (page == null) {
-			page = 1;
-		}
-		
-		if (prevId != null) {
-			page -= 1;
-			if (page <= 0) {
-				page = 1;
-			}
-		}
-		
-		if (nextId != null) {
-				page += 1;
-		}
-		topPageNum = 5 * page - 4;
-		
-		model.addAttribute("topPageNum", topPageNum);
-		model.addAttribute("page", page);
+		model.addAttribute("pageMaker", pageMaker);
+		model.addAttribute("boardViewList", boardViewList);
 		model.addAttribute("boardType", boardType);
-		model.addAttribute("boardList", boardList);
 		model.addAttribute("view", "board/boardList");
 		return "template/layout";
 	}
+	
+	
+	
+	
 	
 	
 	// 글쓰기 (글 목록에서 글쓰기 클릭)
@@ -90,7 +74,7 @@ public class BoardController {
 			Model model) {
 		
 		// db select
-		BoardView board = boardBO.generateBoard(boardId);
+		BoardView board = boardService.generateBoard(boardId);
 		int userId = (int)session.getAttribute("userId");
 		
 		model.addAttribute("userId", userId);

@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="d-flex justify-content-center" >
 	<div class="w-75">
 			<div class="d-flex justify-content-between mt-5 mb-3">
@@ -16,7 +17,7 @@
 			</div>
 			<table class="table table-hover" >
 				<tbody>
-					<c:forEach items="${boardList}" var="board">
+					<c:forEach items="${boardViewList}" var="board">
 						<tr>
 								<td class=" text-start" style="width: 20%">${board.board.title}</td>
 								<td class=" text-start" style="width: 50%"><a href="/board/board_detail_view?boardId=${board.board.id}">${board.board.content}</a></td>
@@ -34,19 +35,26 @@
 			<div class="d-flex justify-content-center">
 				<nav>
 					<ul class="pagination">
-						<li class="page-item">
-							<a class="page-link" href="/board/board_list_view?type=${boardType}&prevId=1" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
-						</li>
-						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum}&page=${page}">${topPageNum}</a></li>
-						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 1}&page=${page}">${topPageNum + 1}</a></li>
-						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 2}&page=${page}">${topPageNum + 2}</a></li>
-						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 3}&page=${page}">${topPageNum + 3}</a></li>
-						<li class="page-item"><a class="page-link" href="/board/board_list_view?type=${boardType}&topPageNum=${topPageNum + 4}&page=${page}">${topPageNum + 4}</a></li>
-						<li class="page-item">
-							<a class="page-link" href="/board/board_list_view?type=${boardType}&nextId=1&topPageNum=${topPageNum + 5}&page=${page}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
-						</li>
+						<c:if test="${pageMaker.prev == true}">
+							<li class="page-item">
+								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.currentPageList[0] - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+							</li>
+						</c:if>
+							<c:forEach items="${pageMaker.currentPageList}" var="page">
+								<li class="page-item"><a class="page-link"
+									href="/board/board_list_view?type=${boardType}&clickPage=${page}">${page}</a>
+								</li>
+							</c:forEach>
+						<c:if test="${pageMaker.next == true}">
+							<li class="page-item">
+								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.currentPageList[fn:length(pageMaker.currentPageList) - 1] + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+							</li>
+						</c:if>
 					</ul>
 				</nav>
 			</div>
 	</div>
 </Div>
+
+
+

@@ -14,6 +14,20 @@
 		WHERE
 			`userId` = #{userId}
  	</select>
+ 	
+ 	<select id="selectMemberListByUserId" parameterType="int" resultType="com.soccer.member.domain.Member">
+ 		SELECT 
+ 			`teamId`
+			,`userId`
+			,`approval`
+			,`createdAt`
+		FROM 
+			`member`
+		WHERE
+			`userId` = #{userId}
+ 	</select>
+ 	
+ 	
  
  	<insert id="insertMemberByTeamId" parameterType="map">
  		INSERT INTO `member`

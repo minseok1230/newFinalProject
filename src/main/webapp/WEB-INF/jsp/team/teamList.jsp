@@ -28,6 +28,7 @@
 						<td>${team.activeArea}</td>
 						<td>팀원수</td>
 						<c:if test="${userTeamId == null && member == null}">
+						<!-- && team.id != member.teamId} -->
 							<td>
 								<button type="button" class="joinTeamBtn btn btn-warning btn-sm" data-team-id="${team.id}">가입신청</button>
 							</td>
