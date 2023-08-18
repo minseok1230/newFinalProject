@@ -51,12 +51,19 @@ public class MatchBO {
 	public int updateMatchById(int id, String title, int price, String content) {
 		return matchMapper.updateMatchById(id, title, price, content);
 	}
-	public List<MatchView> generateMatchViewList(){
+	
+	
+	public List<MatchView> generateMatchViewList(Integer teamId){
 		
 		// 리턴 값 ( 여러개의 MatchView )
 		List<MatchView> teamViewList = new ArrayList<>();
 		
-		List<Match> matchList = matchMapper.selectMatch();
+		List<Match> matchList = new ArrayList<>();
+		if (teamId == null) {
+			matchList = matchMapper.selectMatch();
+		} else {
+			 matchList = matchMapper.selectMatchByTeamId(teamId);
+		}
 		
 		for (Match match : matchList) {
 			MatchView matchView = new MatchView();

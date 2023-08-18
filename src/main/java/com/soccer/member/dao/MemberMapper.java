@@ -19,4 +19,10 @@ public interface MemberMapper {
 	public Member selectMemberByUserId(int userId);
 	
 	public List<Member> selectMemberListByUserId(int userId);
+	
+	public List<Member> selectMemberListByTeamId(int teamId);
+	
+	public int deleteMemberByTeamIdAndUserId(
+			@Param("teamId") int teamId, 
+			@Param("userId") int userId);
 }

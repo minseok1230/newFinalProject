@@ -50,7 +50,6 @@ public class Paging {
 				next = false;
 				break;
 			};
-			
 		};
 		this.currentPageList = currentPageList;
 		
@@ -58,7 +57,6 @@ public class Paging {
 		if (currentPageList.contains(1)) {
 			prev = false;
 		}
-		
 		
 		// 각 페이지에서 시작 게시물번호 
 		this.boardStartNum = POST_MAX_SIZE * clickPageNum - POST_MAX_SIZE;

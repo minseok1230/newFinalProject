@@ -7,8 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.soccer.main.domain.MypageView;
 import com.soccer.match.bo.MatchBO;
-import com.soccer.match.domain.Match;
+import com.soccer.match.domain.MatchView;
 import com.soccer.member.bo.MemberBO;
+import com.soccer.member.bo.MemberService;
+import com.soccer.member.domain.Member;
+import com.soccer.member.domain.MemberView;
 import com.soccer.reservation.bo.ReservationBO;
 import com.soccer.reservation.domain.Reservation;
 import com.soccer.team.bo.TeamBO;
@@ -34,13 +37,30 @@ public class MypageService {
 	@Autowired
 	private MemberBO memberBO;
 	
-	public MypageView generateMyPageView(int userId) {
+	@Autowired
+	private MemberService memberService;
+	
+	public MypageView generateMyPageView(int userId,  String role) {
 		
 		MypageView mypageView = new MypageView();
+		
 		// user
 		User user = userBO.getUserById(userId);
 		mypageView.setUser(user);
 		
+		Integer teamId = user.getTeamId();
+		if (teamId == null) {
+			Member member = memberBO.getMemberByUserId(userId);
+			mypageView.setRequestMember(member);
+			if (member != null) {
+				TeamEntity team = teamBO.getTeamById(member.getTeamId());
+				mypageView.setTeam(team);
+			}
+		}
+		
+		/* 팀이 없는 경우에는 안보여줌 */
+		if (teamId != null) {
+			
 		// team
 		TeamEntity team = teamBO.getTeamById(user.getTeamId());
 		mypageView.setTeam(team);
@@ -49,16 +69,19 @@ public class MypageService {
 		List<Reservation> reservationList = reservationBO.getReservationByTeamId(user.getTeamId());
 		mypageView.setReservationList(reservationList);
 		
+		
 		// 매칭글 목록들
-		List<Match> matchList = matchBO.getMatchByTeamId(user.getTeamId());	
-		mypageView.setMatchList(matchList);
+		List<MatchView> matchViewList = matchBO.generateMatchViewList(user.getTeamId());
+		mypageView.setMatchViewList(matchViewList);
 		
 		// 매칭 확정들 
 //		List<MatchRelation> matchRelationList = matchRelationBO.get~	
 		
-		// 멤버신청들
-//		List<Member> memberList = memberBO.GET
+		// 가입 신청 목록 
+		List<MemberView> memberList = memberService.generateMemberViewByTeamId(team.getId());
+		mypageView.setMatchViewList(matchViewList);
 		
+		}
 		return mypageView;
 		
 	}

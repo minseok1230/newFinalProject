@@ -11,6 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.soccer.board.bo.BoardBO;
 import com.soccer.board.domain.Board;
+import com.soccer.main.bo.MypageService;
+import com.soccer.main.domain.MypageView;
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.entity.TeamEntity;
 import com.soccer.user.bo.UserBO;
@@ -28,6 +30,9 @@ public class MainController {
 	
 	@Autowired
 	private TeamBO teamBO;
+	
+	@Autowired
+	private MypageService mypageService;
 	
 	@RequestMapping("/main_view")
 	public String mainView(Model model) {
@@ -49,16 +54,11 @@ public class MainController {
 	public String myPageView(Model model, HttpSession session) {
 		
 		int userId = (int)session.getAttribute("userId");
-		Integer teamId = (Integer)session.getAttribute("userTeamId");
-		
+		String userRole = (String)session.getAttribute("userRole");
 			
-		User user = userBO.getUserById(userId);
-		TeamEntity team = null;
-		if (teamId != null) {
-			team = teamBO.getTeamById(teamId);
-		}
-		model.addAttribute("user", user);
-		model.addAttribute("team", team);
+		MypageView myPageView = mypageService.generateMyPageView(userId, userRole);
+		
+		model.addAttribute("myPageView", myPageView);
 		model.addAttribute("view", "main/myPage");
 		return "template/layout";
 	}

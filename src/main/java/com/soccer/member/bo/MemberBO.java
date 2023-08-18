@@ -28,6 +28,14 @@ public class MemberBO {
 	public List<Member> getMemberListByUserId(int userId){
 		return memberMapper.selectMemberListByUserId(userId);
 	}
+	
+	public List<Member> getMemberListByTeamId(int teamId){
+		return memberMapper.selectMemberListByUserId(teamId);
+	}
+	
+	public int deleteMemberByTeamIdAndUserId(int teamId, int userId) {
+		return memberMapper.deleteMemberByTeamIdAndUserId(teamId, userId);
+	}
 }
 
 

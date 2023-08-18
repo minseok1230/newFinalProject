@@ -61,7 +61,7 @@ public class MatchController {
 	@GetMapping("/match_list_view")
 	public String matchListView(Model model) {
 		
-		List<MatchView> matchViewList = matchBO.generateMatchViewList();
+		List<MatchView> matchViewList = matchBO.generateMatchViewList(null);
 		
 		model.addAttribute("matchViewList", matchViewList);
 		model.addAttribute("view", "match/matchList");

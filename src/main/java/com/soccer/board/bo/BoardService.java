@@ -67,8 +67,8 @@ public class BoardService {
 		}
 		
 		
-		/* 페이징 */ 
-		public Paging pageMaker(String type, Integer clickPageNum) {
+		/* 페이징  component로 빼서 따로 분리시켜보자 */ 
+		public Paging pageMaker(String type, Integer clickPageNum ) {
 			
 			Integer clickPage;
 			if (clickPageNum == null) {
@@ -83,7 +83,6 @@ public class BoardService {
 			int total = boardBO.getBoardCount(type);
 			paging.setTotalCount(total);
 			paging.PagingList(type, clickPage, POST_MAX_SIZE, PAGE_MAX_SIZE);
-			
 			
 			return paging;
 		}

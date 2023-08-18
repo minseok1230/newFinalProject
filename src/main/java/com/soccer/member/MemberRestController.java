@@ -6,6 +6,8 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -39,6 +41,24 @@ public class MemberRestController {
 		}
 		
 		return result;
-		
 	}
+	
+	@DeleteMapping("/{teamId}/{userId}")
+	public Map<String, Object> deleteMember(
+			@PathVariable int teamId,
+			@PathVariable int userId){
+		Map<String, Object> result = new HashMap<>();
+		
+		// db 삭제 (member)
+		int deleteResult = memberBO.deleteMemberByTeamIdAndUserId(teamId, userId);
+		if (deleteResult > 0) {
+			result.put("code", 1);
+		} else {
+			result.put("errorMessage", "취소 요청 실패하였습니다.");
+		}
+		
+		
+		return result;
+	}
+	
 }
