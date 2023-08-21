@@ -1,15 +1,16 @@
 package com.soccer.member.domain;
 
-import java.util.List;
-
 import com.soccer.team.entity.TeamEntity;
+import com.soccer.user.domain.User;
 
 import lombok.Data;
 
 @Data
 public class MemberView {
 
+		private Member member;
+		
 		private TeamEntity team;
-	
-		private List<Member> member;
+		
+		private User user;
 }

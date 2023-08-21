@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.soccer.main.domain.MypageView;
 import com.soccer.match.bo.MatchBO;
+import com.soccer.match.bo.MatchService;
 import com.soccer.match.domain.MatchView;
 import com.soccer.member.bo.MemberBO;
 import com.soccer.member.bo.MemberService;
@@ -32,7 +33,7 @@ public class MypageService {
 	private ReservationBO reservationBO;
 	
 	@Autowired
-	private MatchBO matchBO;
+	private MatchService matchService;
 	
 	@Autowired
 	private MemberBO memberBO;
@@ -71,16 +72,12 @@ public class MypageService {
 		
 		
 		// 매칭글 목록들
-		List<MatchView> matchViewList = matchBO.generateMatchViewList(user.getTeamId());
+		List<MatchView> matchViewList = matchService.generateMatchViewList(user.getTeamId());
 		mypageView.setMatchViewList(matchViewList);
-		
-		// 매칭 확정들 
-//		List<MatchRelation> matchRelationList = matchRelationBO.get~	
 		
 		// 가입 신청 목록 
-		List<MemberView> memberList = memberService.generateMemberViewByTeamId(team.getId());
-		mypageView.setMatchViewList(matchViewList);
-		
+		List<MemberView> memberList = memberService.generateMemberViewByApproval(user.getTeamId(), false);
+		mypageView.setMemberViewList(memberList);
 		}
 		return mypageView;
 		

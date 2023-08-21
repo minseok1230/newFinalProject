@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -56,6 +57,20 @@ public class MemberRestController {
 		} else {
 			result.put("errorMessage", "취소 요청 실패하였습니다.");
 		}
+		
+		
+		return result;
+	}
+	
+	@PutMapping("/{teamId}/{userId}")
+	public Map<String, Object> updateMember(
+			@PathVariable int teamId,
+			@PathVariable int userId){
+		Map<String, Object> result = new HashMap<>();
+		
+		// db update (member)
+		memberBO.updateMemberByTeamIdAndUserId(teamId, userId);
+		result.put("code", 1);
 		
 		
 		return result;

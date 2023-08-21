@@ -35,6 +35,10 @@ public class UserBO {
 	@Autowired
 	private FileManagerService fileManager;
 	
+	public User getUserByTeamIdAndRole(int teamId, String role) {
+		return userMapper.selectUserByTeamIdAndRole(teamId, role);
+	}
+	
 	public User getUserByEmail(String loginEmail){
 		return userMapper.selectUserByEmail(loginEmail);
 	}
@@ -118,6 +122,9 @@ public class UserBO {
 		}
 		userMapper.updateUserById(userId, name, phoneNumber, birth, position, profileImagePath, hashedPassword);
 	}
+	
+	
+	
 	
 }
 

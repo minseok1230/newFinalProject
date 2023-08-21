@@ -19,6 +19,13 @@ public interface MatchMapper {
 	
 	public Match selectMatchById(int id);
 	
+	public List<Match> selectMatchByReservationId(int reservationId);
+	
+	public Match selectMatchByReservationIdOne(int reservationId);
+	
+	public void deleteMatchByReservationId(int reservationId);
+	                
+	
 	public int insertMatch(
 			@Param("teamId") int teamId, 
 			@Param("reservationId") int reservationId, 
@@ -32,4 +39,11 @@ public interface MatchMapper {
 			@Param("price") int price, 
 			@Param("content") String content);
 	
+	public void updateMatchByIdState(int id);
+	
 }
+
+
+
+
+

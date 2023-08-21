@@ -7,8 +7,10 @@
 			<!-- nav, nav-item, nav-link 3종 세트 -->
 			<c:if test="${not empty userName}">
 				<c:if test = "${userTeamId != null}">
-					<li class="nav-item"><a href="/reservation/reservation_view" class="nav-link">경기장 예약</a></li>
-					<li class="nav-item"><a href="/match/match_create_view" class="nav-link">매칭 등록</a></li>
+					<c:if test = "${userRole == '팀장'}">
+						<li class="nav-item"><a href="/reservation/reservation_view" class="nav-link">경기장 예약</a></li>
+						<li class="nav-item"><a href="/match/match_create_view" class="nav-link">매칭 등록</a></li>
+					</c:if>
 					<li class="nav-item"><a href="/match/match_list_view" class="nav-link">매칭 목록</a></li>
 				</c:if>	
 				<c:if test = "${userTeamId == null}">

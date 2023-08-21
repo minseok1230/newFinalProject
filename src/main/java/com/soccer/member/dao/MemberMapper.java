@@ -18,11 +18,19 @@ public interface MemberMapper {
 	
 	public Member selectMemberByUserId(int userId);
 	
+	public List<Member> selectMemberByApprovalAndTeamId(
+			@Param("teamId") int teamId,
+			@Param("approval") boolean approval);
+	
 	public List<Member> selectMemberListByUserId(int userId);
 	
 	public List<Member> selectMemberListByTeamId(int teamId);
 	
 	public int deleteMemberByTeamIdAndUserId(
+			@Param("teamId") int teamId, 
+			@Param("userId") int userId);
+	
+	public void updateMemberByTeamIdAndUserId(
 			@Param("teamId") int teamId, 
 			@Param("userId") int userId);
 }

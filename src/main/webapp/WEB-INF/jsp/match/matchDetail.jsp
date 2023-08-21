@@ -94,6 +94,9 @@
 				<div class="ml-2">${matchView.team.name}</div>
 			</div>
 			
+			<h4 class="font-weight-bold">
+				- ${matchView.match.title}
+			</h4>
 			
 			<!-- 매칭 내용 -->
 			<textarea class="form-control font-weight-bold" rows="10" readonly>
@@ -137,16 +140,18 @@ ${matchView.match.content}
 			<!-- 목록 / 수정 / 삭제 버튼 -->
 			<div class="d-flex justify-content-between mt-4 mb-4">
 				<a href="/match/match_list_view" class="btn btn-secondary">목록</a>
-				<c:if test="${matchView.leader.role == '팀장' && teamId == matchView.team.id}">
-					<div>
-						<a href="/match/match_update_view?matchId=${matchView.match.id}" id="updateMatchBtn" class="btn btn-secondary mr-3">수정</a>
-						<a href="#" class=" w-100" data-toggle="modal" data-target="#modal">
-							<button type="submit" id="deleteMatchBtn" class="btn btn-secondary" data-board-id = ${board.board.id}>삭제</button>
-						</a>
-					</div>
-				</c:if>
-				<c:if test="${teamId != matchView.team.id}">
-					<button type="submit" id="applyMatchBtn" class="btn btn-info w-50">신청하기</button>
+				<c:if test="${matchView.reservation.possibleCancel}">
+					<c:if test="${matchView.leader.role == '팀장' && teamId == matchView.team.id && userRole == '팀장'}">
+						<div>
+							<a href="/match/match_update_view?matchId=${matchView.match.id}" id="updateMatchBtn" class="btn btn-secondary mr-3">수정</a>
+							<a href="#" class=" w-100" data-toggle="modal" data-target="#modal">
+								<button type="submit" id="deleteMatchBtn" class="btn btn-secondary" data-board-id = ${board.board.id}>삭제</button>
+							</a>
+						</div>
+					</c:if>
+					<c:if test="${teamId != matchView.team.id && userRole == '팀장'}">
+						<button type="submit" id="applyMatchBtn" class="btn btn-info w-50" data-match-id=${matchView.match.id} data-team-id ="${teamId}" data-matchingteam-id = "${matchView.team.id}">신청하기</button>
+					</c:if>
 				</c:if>
 			</div>
 			
@@ -226,6 +231,34 @@ $(document).ready(function(){
 			, error : function(request, status, error){
 				alert("댓글 삭제 실패했습니다. 관리자 문의 바랍니다.")
 			}
+		});
+	});
+	
+	
+	$('#applyMatchBtn').on('click', function(){
+		let teamId = $(this).data("team-id");
+		let matchingTeamId = $(this).data("matchingteam-id");
+		let matchId = $(this).data("match-id");
+		
+		$.ajax({
+			
+			type: "post"
+			, url : "/matchRelation/create_matchRelation"
+			, data : {"teamId":teamId, "matchingTeamId":matchingTeamId, "matchId":matchId}
+		
+		    , success : function(data){
+		    	if (data.code == 1){
+		    		alert("매칭 신청이 완료되었습니다.");
+		    		location.href = "/main/my_page_view";
+		    	} else{
+		    		alert("매칭 신청이 실패하였습니다.");
+		    	}
+		    }
+		    
+		    , error : function(request, status, error){
+		    	alert("관리자 문의 바랍니다.");
+		    }
+			
 		});
 	});
 });

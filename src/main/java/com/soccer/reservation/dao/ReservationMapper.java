@@ -10,6 +10,8 @@ import com.soccer.reservation.domain.Reservation;
 @Repository
 public interface ReservationMapper {
 
+	public Reservation selectReservationById(int id);
+	
 	public Reservation selectReservationByDateByStadiumBytime(
 			@Param("matchDate") String matchDate, 
 			@Param("stadium") String stadium, 
@@ -25,5 +27,7 @@ public interface ReservationMapper {
 	
 	public List<Reservation> selectReservationByTeamId(int teamId);
 	
-	public Reservation selectReservationById(int id);
+	public int deleteReservationById(int id);
+	
+	public void updateReservationById(int id);
 }

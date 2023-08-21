@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.matchRelation.dao.MatchRelationMapper">
+ 	<select id="selectMatchRelationById" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 		SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			`id` = #{id}
+ 	</select>
+ 
+ 	<select id="selectMatchRelationByTeamId" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 		SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			`teamId` = #{teamId}
+		AND
+			`state` = #{state}
+ 	</select>
+ 	
+ 	<select id="selectMatchRelationByMatchedTeamId" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 	 	SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			`matchedTeamId` = #{matchedTeamId}
+		AND
+			`state` = #{state}
+ 	</select>
+ 	
+ 	<select id="selectMatchRelationByTeamIdAndMatchedTeamId" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 	 	SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			(`matchedTeamId` = #{teamId} OR `teamId` = #{teamId})
+		AND
+			`state` = #{state}
+ 	</select>
+ 
+ 	<select id="selectMatchRelationByTeamIdMatchIdMatchedTeamId" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 		SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			`teamId` = #{teamId}
+		AND
+			`matchId` = #{matchId}
+		AND
+			`matchedTeamId` = #{matchedTeamId}
+		AND 
+			`state` = #{state}
+ 	</select>
+ 	
+ 	
+ 	
+ 	<insert id="insertMatchRelationByTeamIdMatchIdMatchedTeamId" parameterType="map">
+ 		INSERT INTO `matchRelation`
+ 		(
+ 			`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{matchId}
+ 			, #{teamId}
+ 			, #{matchedTeamId}
+ 			, #{state}
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<update id="updateMatchRelationById" parameterType="int">
+ 		UPDATE `matchRelation`
+ 		SET `state` = '매칭완료'
+ 		WHERE `id` = #{id}
+ 	</update>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

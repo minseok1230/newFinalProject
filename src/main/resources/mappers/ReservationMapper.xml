@@ -11,6 +11,7 @@
 			,`teamId`
 			,`matchTime`
 			,`matchDate`
+			,`possibleCancel`
 			,`createdAt`
 			,`updatedAt`
 		FROM 
@@ -31,6 +32,7 @@
 			,`teamId`
 			,`matchTime`
 			,`matchDate`
+			,`possibleCancel`
 			,`createdAt`
 			,`updatedAt`
 		FROM 
@@ -47,6 +49,7 @@
 			,`teamId`
 			,`matchTime`
 			,`matchDate`
+			,`possibleCancel`
 			,`createdAt`
 			,`updatedAt`
 		FROM 
@@ -54,10 +57,6 @@
 		WHERE
 			`id` = #{id}
  	</select>
- 	
- 	
- 	
- 	
  	
  	<insert id="insertReservation" parameterType="map">
  		INSERT INTO `reservation`
@@ -81,5 +80,26 @@
  			,NOW()
  		)
  	</insert>
+ 	
+ 	<delete id="deleteReservationById" parameterType="int">
+ 		DELETE FROM `reservation`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ 	
+ 	<update id="updateReservationById" parameterType="int">
+ 		UPDATE FROM `reservation`
+ 		SET `isPossibleCancel` = false
+ 		WHERE `id` = #{id}
+ 	</update>
  
  </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

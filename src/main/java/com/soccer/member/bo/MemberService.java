@@ -10,6 +10,8 @@ import com.soccer.member.domain.Member;
 import com.soccer.member.domain.MemberView;
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.entity.TeamEntity;
+import com.soccer.user.bo.UserBO;
+import com.soccer.user.domain.User;
 
 @Service
 public class MemberService {
@@ -17,26 +19,34 @@ public class MemberService {
 	@Autowired
 	private TeamBO teamBO;
 	
-	
 	@Autowired
 	private MemberBO memberBO;
 	
+	@Autowired
+	private UserBO userBO;
 	
-	public List<MemberView> generateMemberViewByTeamId(Integer teamId){
+	
+	public List<MemberView> generateMemberViewByApproval(int teamId, boolean approval){
 		
 		List<MemberView> memberViewList = new ArrayList<>();
 		
-		MemberView memberView = new MemberView();
-		// 팀
-		TeamEntity team = teamBO.getTeamById(teamId);
-		memberView.setTeam(team);
+		// 멤버 검색
+		List<Member> memberList = memberBO.getMemberByApprovalAndTeamId(teamId, approval);
 		
-		// 멤버 
-		List<Member> memberList = memberBO.getMemberListByTeamId(team.getId());
-		memberView.setMember(memberList);
-		
-		memberViewList.add(memberView);
-		
+		for (Member member : memberList) {
+			MemberView memberView = new MemberView();
+			memberView.setMember(member);
+			
+			//팀
+			TeamEntity team = teamBO.getTeamById(member.getTeamId());
+			memberView.setTeam(team);
+			
+			// 사용자 정보  
+			User user = userBO.getUserById(member.getUserId());
+			memberView.setUser(user);
+			
+			memberViewList.add(memberView);
+		}
 		return memberViewList;
 	}
 }

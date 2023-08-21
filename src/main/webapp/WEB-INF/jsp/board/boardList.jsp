@@ -35,19 +35,19 @@
 			<div class="d-flex justify-content-center">
 				<nav>
 					<ul class="pagination">
-						<c:if test="${pageMaker.prev == true}">
+						<c:if test="${pageMaker.paging.prev == true}">
 							<li class="page-item">
-								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.currentPageList[0] - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.paging.currentPageList[0] - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
 							</li>
 						</c:if>
-							<c:forEach items="${pageMaker.currentPageList}" var="page">
+							<c:forEach items="${pageMaker.paging.currentPageList}" var="page">
 								<li class="page-item"><a class="page-link"
 									href="/board/board_list_view?type=${boardType}&clickPage=${page}">${page}</a>
 								</li>
 							</c:forEach>
-						<c:if test="${pageMaker.next == true}">
+						<c:if test="${pageMaker.paging.next == true}">
 							<li class="page-item">
-								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.currentPageList[fn:length(pageMaker.currentPageList) - 1] + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+								<a class="page-link" href="/board/board_list_view?type=${boardType}&clickPage=${pageMaker.paging.currentPageList[fn:length(pageMaker.paging.currentPageList) - 1] + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
 							</li>
 						</c:if>
 					</ul>

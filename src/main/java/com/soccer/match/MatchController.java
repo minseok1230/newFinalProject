@@ -11,11 +11,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.soccer.match.bo.MatchBO;
-import com.soccer.match.domain.Match;
+import com.soccer.match.bo.MatchService;
 import com.soccer.match.domain.MatchView;
 import com.soccer.reservation.bo.ReservationBO;
-import com.soccer.reservation.domain.Reservation;
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.entity.TeamEntity;
 
@@ -30,7 +28,7 @@ public class MatchController {
 	private TeamBO teamBO;
 	
 	@Autowired
-	private MatchBO matchBO;
+	private MatchService matchService;
 	
 	/**
 	 * 매칭글 작성
@@ -43,11 +41,12 @@ public class MatchController {
 		
 		// 매칭 경기장 예약 목록 
 		int teamId = (int)session.getAttribute("userTeamId");
-		List<Reservation> reservationList = reservationBO.getReservationByTeamId(teamId);
+//		List<Reservation> reservationList = reservationBO.getReservationByTeamId(teamId);
+		List<MatchView> matchViewList = matchService.generateMatchForReservationViewList(teamId);
 		TeamEntity team = teamBO.getTeamById(teamId);
 		
-		
-		model.addAttribute("reservationList", reservationList);
+		model.addAttribute("matchViewList", matchViewList);
+//		model.addAttribute("reservationList", reservationList);
 		model.addAttribute("team", team);
 		model.addAttribute("view", "match/matchCreate");
 		return "template/layout";
@@ -61,7 +60,7 @@ public class MatchController {
 	@GetMapping("/match_list_view")
 	public String matchListView(Model model) {
 		
-		List<MatchView> matchViewList = matchBO.generateMatchViewList(null);
+		List<MatchView> matchViewList = matchService.generateMatchViewList(null);
 		
 		model.addAttribute("matchViewList", matchViewList);
 		model.addAttribute("view", "match/matchList");
@@ -76,23 +75,31 @@ public class MatchController {
 			Model model) {
 		
 		int teamId = (int)session.getAttribute("userTeamId");
+		String userRole = (String)session.getAttribute("userRole");
 		
 		// DB에서 상세 매칭글 가져오기 
-		MatchView matchView = matchBO.generateMatchView(matchId);
+		MatchView matchView = matchService.generateMatchView(matchId);
 		
+		model.addAttribute("userRole", userRole);
 		model.addAttribute("teamId", teamId);
 		model.addAttribute("matchView", matchView);
 		model.addAttribute("view", "match/matchDetail");
 		return "template/layout";
 	}
 	
-	// 매칭 수정페이지
+	
+	/**
+	 * 매칭 수정페이지
+	 * @param model
+	 * @param matchId
+	 * @return
+	 */
 	@GetMapping("/match_update_view")
 	public String matchUpdateView(
 			Model model,
 			@RequestParam("matchId") int matchId) {
 		
-		MatchView matchView = matchBO.generateMatchView(matchId);
+		MatchView matchView = matchService.generateMatchView(matchId);
 		
 		model.addAttribute("matchView", matchView);
 		model.addAttribute("view", "match/matchModify");

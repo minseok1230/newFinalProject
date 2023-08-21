@@ -42,7 +42,12 @@
 							<td><a href="/match/match_detail_view?matchId=${matchView.match.id}">${matchView.match.title}</a></td>
 							<td>${matchView.team.name}</td>
 							<td>${matchView.match.price }</td>
-							<td><button type="button" class="joinTeamBtn btn btn-warning btn-sm">${matchView.match.state}</button></td>
+							<c:if test="${matchView.match.state == '모집중'}">
+								<td class="font-weight-bold text-primary">${matchView.match.state}</td>
+							</c:if>
+							<c:if test="${matchView.match.state == '매칭완료'}">
+								<td class="font-weight-bold text-danger">${matchView.match.state}</td>
+							</c:if>
 						</tr>
 					</c:forEach>
 				</tbody>

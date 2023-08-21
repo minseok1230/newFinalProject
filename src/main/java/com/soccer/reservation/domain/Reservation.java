@@ -13,8 +13,7 @@ public class Reservation {
 	private int teamId;
 	private String matchTime;
 	private Date matchDate;
+	private boolean possibleCancel;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
-	
-	
 }

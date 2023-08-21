@@ -7,7 +7,9 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -61,9 +63,27 @@ public class ReservationRestController {
 		} else {
 			result.put("errorMessage", "경기장 예약에 실패하였습니다.");
 		}
+		return result;
+	}
+	
+	// 예약 삭제
+	@DeleteMapping("/{reservationId}")
+	public Map<String, Object> deleteReservation(
+			@PathVariable int reservationId){
 		
+		
+		Map<String, Object> result = new HashMap<>();
+		
+		// db delete
+		int deleteResult = reservationBO.deleteReservationById(reservationId);
+		if (deleteResult > 0) {
+			result.put("code", 1);
+		} else {
+			result.put("errorMessage", "경기장 취소 실패했습니다.");
+		}
 		
 		return result;
+		
 	}
 }
 

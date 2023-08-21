@@ -13,10 +13,8 @@ import com.soccer.board.bo.BoardBO;
 import com.soccer.board.domain.Board;
 import com.soccer.main.bo.MypageService;
 import com.soccer.main.domain.MypageView;
-import com.soccer.team.bo.TeamBO;
-import com.soccer.team.entity.TeamEntity;
-import com.soccer.user.bo.UserBO;
-import com.soccer.user.domain.User;
+import com.soccer.matchRelation.bo.MatchRelationService;
+import com.soccer.matchRelation.domain.MatchRelationView;
 
 @Controller
 @RequestMapping("/main")
@@ -26,14 +24,16 @@ public class MainController {
 	private BoardBO boardBO;
 	
 	@Autowired
-	private UserBO userBO;
-	
-	@Autowired
-	private TeamBO teamBO;
-	
-	@Autowired
 	private MypageService mypageService;
 	
+	
+	@Autowired
+	private MatchRelationService matchRelationService;
+	/**
+	 * 메인 페이지 
+	 * @param model
+	 * @return
+	 */
 	@RequestMapping("/main_view")
 	public String mainView(Model model) {
 		
@@ -50,16 +50,30 @@ public class MainController {
 		return "template/layout";
 	}
 	
+	
+	/* 마이 페이지 */
 	@RequestMapping("/my_page_view")
 	public String myPageView(Model model, HttpSession session) {
 		
+		Integer teamId = (Integer)session.getAttribute("userTeamId");
 		int userId = (int)session.getAttribute("userId");
 		String userRole = (String)session.getAttribute("userRole");
 			
 		MypageView myPageView = mypageService.generateMyPageView(userId, userRole);
 		
+		List<MatchRelationView> applyMatchRelationViewList = matchRelationService.generateApplyMatchRelationView(teamId);;
+		List<MatchRelationView> applyedMatchRelationViewList = matchRelationService.generateApplyedMatchRelationView(teamId);
+		List<MatchRelationView> doneMatchRelationViewList = matchRelationService.generateDoneMatchRelationView(teamId);
+		
+		model.addAttribute("doneMatchRelationViewList", doneMatchRelationViewList);
+		model.addAttribute("applyedMatchRelationViewList", applyedMatchRelationViewList);
+		model.addAttribute("applyMatchRelationViewList", applyMatchRelationViewList);
 		model.addAttribute("myPageView", myPageView);
 		model.addAttribute("view", "main/myPage");
 		return "template/layout";
 	}
 }
+
+
+
+

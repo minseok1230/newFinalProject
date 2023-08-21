@@ -15,6 +15,20 @@
 			`userId` = #{userId}
  	</select>
  	
+ 	<select id="selectMemberByApprovalAndTeamId" parameterType="map" resultType="com.soccer.member.domain.Member">
+ 		SELECT 
+ 			`teamId`
+			,`userId`
+			,`approval`
+			,`createdAt`
+		FROM 
+			`member`
+		WHERE
+		 	`approval` = #{approval}
+		AND
+			`teamId` = #{teamId}
+ 	</select>
+ 	
  	<select id="selectMemberListByUserId" parameterType="int" resultType="com.soccer.member.domain.Member">
  		SELECT 
  			`teamId`
@@ -64,6 +78,16 @@
  		AND
  			`userId` = #{userId}
  	</delete>
+ 	
+ 	<update id="updateMemberByTeamIdAndUserId" parameterType="map">
+ 		UPDATE `member`
+ 		SET 
+ 			`approval` = true
+ 		WHERE 
+ 			`userId` = #{userId}
+ 		AND
+ 			`teamId` = #{teamId}
+ 	</update>
  
  </mapper>
  

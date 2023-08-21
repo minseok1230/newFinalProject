@@ -14,10 +14,10 @@
 				<label for="reservationId">나의 경기장</label> 
 				<select id="reservationId" name="reservationId" class="form-control" required>
 						<option value="" disabled selected>경기장선택</option>
-						<c:forEach items="${reservationList}" var="reservation">
+						<c:forEach items="${matchViewList}" var="matchView">
 							<%-- <fmt:parseDate value="${reservation.matchDate}" pattern="EEE MMM dd HH:mm:ss z yyyy" var="parsedMatchDate"/> --%>
 							
-							<option value="${reservation.id}" ><fmt:formatDate value="${reservation.matchDate}" pattern="yyyy.M.d(E)"/> ${reservation.matchTime} ${reservation.region} ${reservation.stadiumName}</option>
+							<option value="${matchView.reservation.id}" ><fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/> ${matchView.reservation.matchTime} ${matchView.reservation.region} ${matchView.reservation.stadiumName}</option>
 						</c:forEach>
 				</select>
 			</div>

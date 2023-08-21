@@ -191,8 +191,6 @@
  		WHERE `id` = #{leaderId}
  	</update>
  	
- 	
- 	
  	<update id="updateUserById" parameterType="map">
  		UPDATE `user`
  		SET 

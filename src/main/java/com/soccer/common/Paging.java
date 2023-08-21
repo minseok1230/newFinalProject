@@ -62,17 +62,5 @@ public class Paging {
 		this.boardStartNum = POST_MAX_SIZE * clickPageNum - POST_MAX_SIZE;
 		
 		this.startPageNum = PAGE_MAX_SIZE * this.currentPageNum - PAGE_MAX_SIZE + 1;
-		
-//		switch(type) {
-//	    case "게시물": this.totalCount = 
-//	         break;
-//	    case "공지사항": ...
-//	         break;
-//	    ...
-//	    default: ...
-//	         break;
-//		}
 	}
-
-	
 }

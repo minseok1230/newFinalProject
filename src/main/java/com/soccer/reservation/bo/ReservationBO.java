@@ -7,7 +7,10 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soccer.comment.bo.CommentBO;
 import com.soccer.common.StadiumApiService;
+import com.soccer.match.bo.MatchBO;
+import com.soccer.match.domain.Match;
 import com.soccer.reservation.dao.ReservationMapper;
 import com.soccer.reservation.domain.Reservation;
 
@@ -19,6 +22,25 @@ public class ReservationBO {
 	
 	@Autowired
 	private ReservationMapper reservationMapper;
+	
+	@Autowired
+	private MatchBO matchBO;
+	
+	@Autowired
+	private CommentBO commentBO;
+	
+	
+	public List<Reservation> getReservationByTeamId(int teamId){
+		return reservationMapper.selectReservationByTeamId(teamId);
+	}
+	
+	public Reservation getReservationById(int id) {
+		return reservationMapper.selectReservationById(id);
+	}
+	
+	public void updateReservationById(int id) {
+		reservationMapper.updateReservationById(id);
+	}
 	
 	
 	// 경기장 APi 지역(ex. 화성, 안양, 안성...) 가져오기 
@@ -53,6 +75,7 @@ public class ReservationBO {
 		return result;
 	}
 	
+	// 경기장 예약
 	public int addReservation(int teamId, String matchDate,String region, String stadium, String matchTime, String teamName) {
 		
 		// 중복 확인
@@ -64,12 +87,22 @@ public class ReservationBO {
 		}
 	}
 	
-	public List<Reservation> getReservationByTeamId(int teamId){
-		return reservationMapper.selectReservationByTeamId(teamId);
-	}
 	
-	public Reservation getReservationById(int id) {
-		return reservationMapper.selectReservationById(id);
+	public int deleteReservationById(int id) {
+		
+		/*게시물 불러오기*/
+		List<Match> matchList = matchBO.getMatchByReservationId(id);
+		
+		// 댓글 삭제
+		for (Match match: matchList) {
+			commentBO.deleteCommentByBoardId(match.getId());
+		}
+		
+		// 게시물 삭제
+		matchBO.deleteMatchByReservationId(id);
+		
+		// 경기장 삭제 
+		return reservationMapper.deleteReservationById(id);
 	}
 }
 

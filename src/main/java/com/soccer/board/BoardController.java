@@ -15,7 +15,7 @@ import com.soccer.board.bo.BoardBO;
 import com.soccer.board.bo.BoardService;
 import com.soccer.board.domain.Board;
 import com.soccer.board.domain.BoardView;
-import com.soccer.common.Paging;
+import com.soccer.common.PageMaker;
 
 @Controller
 @RequestMapping("/board")
@@ -35,8 +35,8 @@ public class BoardController {
 			Model model) {
 		
 		String boardType = type;
-		List<BoardView> boardViewList = boardService.generateBoardViewList(type, clickPage);
-		Paging pageMaker = boardService.pageMaker(type, clickPage);
+		List<BoardView> boardViewList = (List<BoardView>) boardService.generateBoardViewList(type, clickPage).get("boardViewList");
+		PageMaker pageMaker = (PageMaker) boardService.generateBoardViewList(type, clickPage).get("pageMaker");
 		
 		
 		model.addAttribute("pageMaker", pageMaker);

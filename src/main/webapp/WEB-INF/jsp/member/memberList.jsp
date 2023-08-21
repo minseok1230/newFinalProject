@@ -13,23 +13,25 @@
 					<tr class="text-center table-secondary">
 						<th>이름</th>
 						<th>전화번호</th>
-						<th>나이</th>
+						<th>생년월일</th>
 						<th>포지션</th>
 					</tr>
 				</thead>
 				<tbody>
 						<tr class="text-center">
-							<td>최민석</td>
-							<td>010-1111-2222</td>
-							<td>25</td>
-							<td>주장 / MF</td>
+							<td>${leader.name}</td>
+							<td>${leader.phoneNumber}</td>
+							<td>${leader.birth}</td>
+							<td>${leader.role} / ${leader.position}</td>
 						</tr>
-						<tr class="text-center">
-							<td>홍길동</td>
-							<td>010-1111-2222</td>
-							<td>25</td>
-							<td>MF</td>
-						</tr>
+						<c:forEach items="${memberViewList}" var="memberView">
+							<tr class="text-center">
+								<td>${memberView.user.name}</td>
+								<td>${memberView.user.phoneNumber}</td>
+								<td>${memberView.user.birth}</td>
+								<td>${memberView.user.position}</td>
+							</tr>
+						</c:forEach>
 				</tbody>
 				
 				
