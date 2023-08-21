@@ -72,7 +72,7 @@ public class MypageService {
 		
 		
 		// 매칭글 목록들
-		List<MatchView> matchViewList = matchService.generateMatchViewList(user.getTeamId());
+		List<MatchView> matchViewList = matchService.generateMatchViewList(user.getTeamId(), null, null);
 		mypageView.setMatchViewList(matchViewList);
 		
 		// 가입 신청 목록 

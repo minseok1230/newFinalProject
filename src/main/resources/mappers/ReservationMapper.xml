@@ -56,7 +56,29 @@
 			`reservation`
 		WHERE
 			`id` = #{id}
+		ORDER BY `id` DESC
  	</select>
+ 	
+ 	<select id="selectReservationByIdAndRegion" parameterType="map" resultType="com.soccer.reservation.domain.Reservation">
+ 		SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`possibleCancel`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		WHERE
+			`id` = #{id}
+		AND 
+			`region` LIKE CONCAT('%', #{region}, '%')
+		ORDER BY `id` DESC
+ 	</select>
+ 	
  	
  	<insert id="insertReservation" parameterType="map">
  		INSERT INTO `reservation`
@@ -88,8 +110,8 @@
  	</delete>
  	
  	<update id="updateReservationById" parameterType="int">
- 		UPDATE FROM `reservation`
- 		SET `isPossibleCancel` = false
+ 		UPDATE `reservation`
+ 		SET `possibleCancel` = false
  		WHERE `id` = #{id}
  	</update>
  

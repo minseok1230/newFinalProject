@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -87,37 +88,6 @@ public class MatchRestController {
 		}
 		return result;
 	}
-	
-	
-//	// match Relation
-//	@PostMapping("/create_matchRelation")
-//	public Map<String, Object> createMatchRelation(
-//			@RequestParam("teamId") int teamId, // 신청하는 사람
-//			@RequestParam("matchingTeamId") int matchingTeamId, // 글올린사람
-//			@RequestParam("matchId") int matchId
-//			){
-//		
-//		
-//		Map<String, Object> result = new HashMap<>();
-//		// matchRelation DB insert
-//		int insertMatchRelationResult = matchBO.addMatchRelationByTeamIdMatchIdMatchedTeamId(matchingTeamId, matchId, teamId);
-//		
-//		if (insertMatchRelationResult == 300) {
-//			result.put("errorMessage", "이미 신청한 경기입니다. 확인 부탁드립니다.");
-//		}
-//		
-//		if (insertMatchRelationResult > 0) {
-//			result.put("code", 1);
-//		} else {
-//			result.put("errorMessage", "신청 실패하였습니다.");
-//		}
-//		
-//		return result;
-//	}
-//	
-//	
-//	// match Relation update
-	
 }
 
 

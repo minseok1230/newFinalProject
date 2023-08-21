@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import com.soccer.aop.TimeTrace;
 import com.soccer.user.bo.UserBO;
 import com.soccer.user.domain.User;
 
@@ -23,6 +24,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
+	@TimeTrace
 	@GetMapping("/sign_in_view")
 	public String signInView(Model model) {
 		model.addAttribute("view", "user/signIn");
@@ -34,6 +36,7 @@ public class UserController {
 	 * @param model
 	 * @return
 	 */
+	@TimeTrace
 	@GetMapping("/sign_up_view")
 	public String signUpView(Model model) {
 		model.addAttribute("view", "user/signUp");

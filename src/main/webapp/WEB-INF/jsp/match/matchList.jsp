@@ -13,14 +13,14 @@
 			<div class="input-group col-5">
 				<input type="text" class="form-control" id="region" name="region" placeholder="지역 검색 (ex. 안양시) ">
 				<div class="input-group-append">
-					<button type="button" id="regionSearch" class="btn btn-secondary">검색</button>
+					<a type="button" id="regionSearch" class="btn btn-secondary">검색</a>
 				</div>
 			</div>
 			
 			<div class="input-group col-5">
-				<input type="text" class="form-control" id="content" name="content" placeholder="내용 검색 (ex. 실력 하하) ">
+				<input type="text" class="form-control" id="content" name="content" placeholder="제목 검색 (ex. 실력 하하) ">
 				<div class="input-group-append">
-					<button type="button" id="contentSearch" class="btn btn-secondary">검색</button>
+					<button type="button" id="titleSearch" class="btn btn-secondary">검색</button>
 				</div>
 			</div>
 		</div><br><br><br><br>
@@ -55,3 +55,45 @@
 		</div>
 	</div>
 </div>
+
+
+<script>
+$(document).ready(function(){
+	$('#regionSearch').on('click', function(){
+		let region = $('#region').val().trim();
+		// URL에 region 값을 추가하여 href 속성 설정
+	     let link = "/match/match_list_view?regionSearch=" + region;
+	    $('#regionSearch').attr('href', link);
+	});
+	
+	$('#titleSearch').on('click', function(){
+		let title = $('#region').val().trim();
+		// URL에 region 값을 추가하여 href 속성 설정
+	     let link = "/match/match_list_view?regionSearch=" + title;
+	    $('#titleSearch').attr('href', link);
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

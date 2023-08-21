@@ -12,6 +12,12 @@ public interface ReservationMapper {
 
 	public Reservation selectReservationById(int id);
 	
+	public List<Reservation> selectReservationByTeamId(int teamId);
+
+	public Reservation selectReservationByIdAndRegion(
+			@Param("id") int id, 
+			@Param("region") String region);
+	
 	public Reservation selectReservationByDateByStadiumBytime(
 			@Param("matchDate") String matchDate, 
 			@Param("stadium") String stadium, 
@@ -25,7 +31,7 @@ public interface ReservationMapper {
 			@Param("matchTime") String matchTime, 
 			@Param("teamName") String teamName);
 	
-	public List<Reservation> selectReservationByTeamId(int teamId);
+	
 	
 	public int deleteReservationById(int id);
 	

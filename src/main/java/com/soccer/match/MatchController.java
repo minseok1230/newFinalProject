@@ -58,16 +58,25 @@ public class MatchController {
 	 * @return
 	 */
 	@GetMapping("/match_list_view")
-	public String matchListView(Model model) {
-		
-		List<MatchView> matchViewList = matchService.generateMatchViewList(null);
+	public String matchListView(
+			@RequestParam(value = "regionSearch", required = false) String regionSearch,
+			@RequestParam(value = "titleSearch", required = false) String titleSearch,
+			Model model) {
+		List<MatchView> matchViewList = matchService.generateMatchViewList(null, regionSearch, titleSearch);
 		
 		model.addAttribute("matchViewList", matchViewList);
 		model.addAttribute("view", "match/matchList");
 		return "template/layout";
 	}
 	
-	// 매칭 세부글 
+	
+	/**
+	 * 매칭 세부글
+	 * @param matchId
+	 * @param session
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/match_detail_view")
 	public String matchDetailView(
 			@RequestParam("matchId") int matchId,

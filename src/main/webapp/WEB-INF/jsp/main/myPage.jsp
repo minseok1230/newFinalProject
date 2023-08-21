@@ -196,34 +196,34 @@
 		<br><br><br>
 		</c:if>
 		
-		<!-- 팀 가입 승인 목록 -->
-		<c:if test="${myPage.user.role == '팀장'}">
-			<h5 class="font-weight-bold text-info">팀 가입 승인 목록</h5>
-			<div>
-				<table class="table table-bordered table-sm">
-					<thead  class="table-secondary">
-						<tr class="text-center">
-							<th>Name</th>
-							<th>나이</th>
-							<th>position</th>
-							<th></th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:forEach items="${myPageView.memberViewList}" var ="memberView">
+			<!-- 팀 가입 승인 목록 -->
+			<c:if test="${myPageView.user.role == '팀장'}">
+				<h5 class="font-weight-bold text-info">팀 가입 승인 목록</h5>
+				<div>
+					<table class="table table-bordered table-sm">
+						<thead  class="table-secondary">
 							<tr class="text-center">
-								<td class="align-middle">${memberView.user.name}</td>
-								<td class="align-middle">${memberView.user.birth}</td>
-								<td class="align-middle">${memberView.user.position}</td>
-								<td class="align-middle">
-									<button type="button" class="acceptMemberBtn btn btn-info btn-sm" data-user-id="${memberView.user.id}" data-team-id="${memberView.team.id}"><small>수락</small></button>
-								</td>
+								<th>Name</th>
+								<th>나이</th>
+								<th>position</th>
+								<th></th>
 							</tr>
-						</c:forEach>
-					</tbody>
-				</table>
-			</div>
-		</c:if>
+						</thead>
+						<tbody>
+							<c:forEach items="${myPageView.memberViewList}" var ="memberView">
+								<tr class="text-center">
+									<td class="align-middle">${memberView.user.name}</td>
+									<td class="align-middle">${memberView.user.birth}</td>
+									<td class="align-middle">${memberView.user.position}</td>
+									<td class="align-middle">
+										<button type="button" class="acceptMemberBtn btn btn-info btn-sm" data-user-id="${memberView.user.id}" data-team-id="${memberView.team.id}"><small>수락</small></button>
+									</td>
+								</tr>
+							</c:forEach>
+						</tbody>
+					</table>
+				</div>
+			</c:if>
 		</c:if>
 		
 		<!-- 팀 가입 신청 목록-->

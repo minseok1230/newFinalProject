@@ -38,6 +38,10 @@ public class ReservationBO {
 		return reservationMapper.selectReservationById(id);
 	}
 	
+	public Reservation getReservationByIdAndRegion(int id, String region) {
+		return reservationMapper.selectReservationByIdAndRegion(id, region);
+	}
+	
 	public void updateReservationById(int id) {
 		reservationMapper.updateReservationById(id);
 	}

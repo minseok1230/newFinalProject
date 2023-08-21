@@ -35,7 +35,7 @@ public class MatchService {
 	@Autowired
 	private CommentBO commentBO;
 	
-	public List<MatchView> generateMatchViewList(Integer teamId) {
+	public List<MatchView> generateMatchViewList(Integer teamId ,String regionSearch ,String titleSearch) {
 		// 리턴 값 ( 여러개의 MatchView )
 		List<MatchView> teamViewList = new ArrayList<>();
 
@@ -49,16 +49,28 @@ public class MatchService {
 		for (Match match : matchList) {
 			MatchView matchView = new MatchView();
 
+			Reservation reservation = null;
+			// 경기장 정보 넣기 (region, content 조건이 있을대 생각)
+			if (regionSearch != null) {
+				reservation = reservationBO.getReservationByIdAndRegion(match.getReservationId(), regionSearch);
+				if (reservation == null) {
+					continue;
+				} 
+			} else {
+				reservation = reservationBO.getReservationById(match.getReservationId());
+			}
+			matchView.setReservation(reservation);
+
 			// match 넣기
+//			if (titleSearch != null) {
+//				match = matchBO.getMatchByIdAndTitle()
+//			}
 			matchView.setMatch(match);
 
 			// 팀 정보 넣기
 			TeamEntity team = teamBO.getTeamById(match.getTeamId());
 			matchView.setTeam(team);
 
-			// 경기장 정보 넣기
-			Reservation reservation = reservationBO.getReservationById(match.getReservationId());
-			matchView.setReservation(reservation);
 
 			teamViewList.add(matchView);
 		}
