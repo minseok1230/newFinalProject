@@ -27,7 +27,13 @@ public class BoardController {
 	@Autowired
 	private BoardService boardService;
 	
-	// 글 목록 (더보기 클릭)
+	/**
+	 * 글 목록 (더보기 클릭)
+	 * @param type
+	 * @param clickPage
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/board_list_view")
 	public String boardListView(
 			@RequestParam("type") String type,
@@ -47,11 +53,13 @@ public class BoardController {
 	}
 	
 	
-	
-	
-	
-	
 	// 글쓰기 (글 목록에서 글쓰기 클릭)
+	/**
+	 * 글쓰기 (글 목록에서 글쓰기 클릭)
+	 * @param type
+	 * @param model
+	 * @return
+	 */
 	@GetMapping("/board_create_view")
 	public String boardCreateView(
 			@RequestParam("type") String type,

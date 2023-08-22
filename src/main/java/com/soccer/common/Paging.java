@@ -26,13 +26,11 @@ public class Paging {
     private int totalCount;             // 게시물 총 갯수           
     private boolean prev = true;        // 이전 버튼 유무      
     private boolean next = true;        // 다음 버튼 유무 
-    private String type;                // 페이징할 글 유형 
     private List<Object> result;        // 결과값 
  
     
-	public void PagingList(String type, int clickPageNum, int POST_MAX_SIZE, int PAGE_MAX_SIZE) {
+	public void PagingList(int clickPageNum, int POST_MAX_SIZE, int PAGE_MAX_SIZE) {
 		
-		this.type = type;
 		this.clickPageNum = clickPageNum;
 		
 		/* 1 2 3 4 5 / 6 7 8 9 10 / 11 12 13*/

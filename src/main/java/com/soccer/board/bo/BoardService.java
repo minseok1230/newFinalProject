@@ -46,16 +46,14 @@ public class BoardService {
 				clickPage = clickPageNum;
 			}
 			
-			
 			// 페이징
 			Paging paging = new Paging();
-			paging.PagingList(type, clickPage, POST_MAX_SIZE, PAGE_MAX_SIZE );
-			List<Board> boardList = boardBO.getBoardByTypeByPageNum(type, paging.getBoardStartNum(), POST_MAX_SIZE);
 			
 			// total 구해주기 
 			int total = boardBO.getBoardCount(type);
 			paging.setTotalCount(total);
-			paging.PagingList(type, clickPage, POST_MAX_SIZE, PAGE_MAX_SIZE);
+			paging.PagingList( clickPage, POST_MAX_SIZE, PAGE_MAX_SIZE );
+			List<Board> boardList = boardBO.getBoardByTypeByPageNum(type, paging.getBoardStartNum(), POST_MAX_SIZE);
 			
 			PageMaker pageMaker = new PageMaker();;
 			pageMaker.setPaging(paging);

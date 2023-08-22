@@ -18,6 +18,10 @@ public class MatchBO {
 		return matchMapper.selectMatch();
 	}
 	
+	public List<Match> getMatchForPaging(int startPage, int POST_MAX_SIZE){
+		return matchMapper.selectMatchForPaging(startPage, POST_MAX_SIZE);
+	}
+	
 	public Match getMatchById(int id) {
 		return matchMapper.selectMatchById(id);
 	}
@@ -30,8 +34,16 @@ public class MatchBO {
 		return matchMapper.selectMatchByTeamId(teamId);
 	}
 	
+	public List<Match> getMatchByTeamIdForPaging(int teamId,int startPage, int POST_MAX_SIZE){
+		return matchMapper.selectMatchByTeamIdForPaging(teamId, startPage, POST_MAX_SIZE);
+	}
+	
 	public List<Match> getMatchByReservationId(int reservationId){
 		return matchMapper.selectMatchByReservationId(reservationId);
+	}
+	
+	public int getMatchCount() {
+		return matchMapper.selectMatchCount();
 	}
 	
 	

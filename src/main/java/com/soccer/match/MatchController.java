@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.soccer.common.PageMaker;
 import com.soccer.match.bo.MatchService;
 import com.soccer.match.domain.MatchView;
 import com.soccer.reservation.bo.ReservationBO;
@@ -61,9 +62,12 @@ public class MatchController {
 	public String matchListView(
 			@RequestParam(value = "regionSearch", required = false) String regionSearch,
 			@RequestParam(value = "titleSearch", required = false) String titleSearch,
+			@RequestParam(value = "clickPage", required = false) Integer clickPage,
 			Model model) {
-		List<MatchView> matchViewList = matchService.generateMatchViewList(null, regionSearch, titleSearch);
+		List<MatchView> matchViewList = (List<MatchView>) matchService.generateMatchViewList(null, regionSearch, titleSearch, clickPage).get("teamViewList");
+		PageMaker pageMaker = (PageMaker) matchService.generateMatchViewList(null, regionSearch, titleSearch, clickPage).get("pageMaker");
 		
+		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("matchViewList", matchViewList);
 		model.addAttribute("view", "match/matchList");
 		return "template/layout";

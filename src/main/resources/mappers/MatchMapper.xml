@@ -4,6 +4,13 @@
  
  <mapper namespace="com.soccer.match.dao.MatchMapper">
  
+ 	<select id="selectMatchCount" resultType="int">
+ 		SELECT 
+ 			count(*)
+		FROM
+			`match`
+ 	</select>
+ 
  	<select id="selectMatchById" parameterType="int" resultType="com.soccer.match.domain.Match">
  		SELECT 
  			`id`
@@ -86,6 +93,42 @@
 			`match`
 		WHERE 
 			`reservationId` = #{reservationId}
+ 	</select>
+ 	
+ 	<select id="selectMatchForPaging" parameterType="map"  resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+		ORDER BY `id` DESC
+		LIMIT #{startPage}, #{POST_MAX_SIZE}
+ 	</select>
+ 	
+ 	<select id="selectMatchByTeamIdForPaging" parameterType="map"  resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+		WHERE
+			`teamId` = #{teamId}
+		ORDER BY `id` DESC
+		LIMIT #{startPage}, #{POST_MAX_SIZE}
  	</select>
  	
  	<insert id="insertMatch" parameterType="map">

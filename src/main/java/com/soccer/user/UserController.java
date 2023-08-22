@@ -69,7 +69,12 @@ public class UserController {
 		return "template/layout";
 	}
 	
-	// 프로필 수정
+	/**
+	 * 프로필 수정
+	 * @param model
+	 * @param session
+	 * @return
+	 */
 	@GetMapping("/user_update_view")
 	public String userUpdateView(Model model, HttpSession session) {
 		
@@ -83,4 +88,17 @@ public class UserController {
 		return "template/layout";
 	}
 
+	
+	
+	
 }
+
+
+
+
+
+
+
+
+
+

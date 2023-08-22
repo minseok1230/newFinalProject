@@ -3,7 +3,7 @@
 <!-- 로그인 화면-->
  
 <div class="d-flex justify-content-center">
-	<div class="w-50">
+	<div class="w-25">
 		<div class="d-flex justify-content-center mt-4">
 			<h2>LOGIN</h2>
 		</div>
@@ -23,7 +23,7 @@
 			<div class="w-100 text-center">
 				<small>OR</small>
 			</div>
-			<button class="btn btn-warning w-100 mt-3" id="kakaoLoginButton">카카오 로그인</button>
+			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=295092b76861b97a10136dca538d0ed0&redirect_uri=http://localhost/user/auth/kakao/callback" id="kakaoLoginButton"><img src="/static/image/main/kakao_login_medium_wide.png" class="w-100 mt-3"></a>
 			<hr>
 			<div class="w-100 text-center text-info">
 				<small>계정이 없으신가요?</small>

@@ -15,15 +15,26 @@ public interface MatchMapper {
 	
 	public List<Match> selectMatchByTeamId(int teamId);
 	
+	public List<Match> selectMatchByTeamIdForPaging(
+			@Param("teamId") int teamId,
+			@Param("startPage") int startPage, 
+			@Param("POST_MAX_SIZE") int POST_MAX_SIZE);
+	
 	public List<Match> selectMatch();
 	
 	public Match selectMatchById(int id);
 	
 	public List<Match> selectMatchByReservationId(int reservationId);
 	
+	public List<Match> selectMatchForPaging(
+			@Param("startPage") int startPage, 
+			@Param("POST_MAX_SIZE") int POST_MAX_SIZE);
+	
 	public Match selectMatchByReservationIdOne(int reservationId);
 	
 	public void deleteMatchByReservationId(int reservationId);
+	
+	public int selectMatchCount();
 	                
 	
 	public int insertMatch(

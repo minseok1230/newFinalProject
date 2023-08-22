@@ -2,6 +2,7 @@
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <div class="d-flex justify-content-center">
 	<div class="w-75">
 		<div class="d-flex justify-content-center mt-4">
@@ -18,9 +19,9 @@
 			</div>
 			
 			<div class="input-group col-5">
-				<input type="text" class="form-control" id="content" name="content" placeholder="제목 검색 (ex. 실력 하하) ">
+				<input type="text" class="form-control" id="title" name="title" placeholder="제목 검색 (ex. 실력 하하) ">
 				<div class="input-group-append">
-					<button type="button" id="titleSearch" class="btn btn-secondary">검색</button>
+					<a type="button" id="titleSearch" class="btn btn-secondary">검색</a>
 				</div>
 			</div>
 		</div><br><br><br><br>
@@ -53,12 +54,36 @@
 				</tbody>
 			</table>
 		</div>
+		
+		<!-- 페이징 -->
+			<div class="d-flex justify-content-center">
+				<nav>
+					<ul class="pagination">
+						<c:if test="${pageMaker.paging.prev == true}">
+							<li class="page-item">
+								<a class="page-link" href="/match/match_list_view?&clickPage=${pageMaker.paging.currentPageList[0] - 1}" aria-label="Previous"> <span aria-hidden="true">&laquo;</span></a>
+							</li>
+						</c:if>
+							<c:forEach items="${pageMaker.paging.currentPageList}" var="page">
+								<li class="page-item"><a class="page-link"
+									href="/match/match_list_view?&clickPage=${page}">${page}</a>
+								</li>
+							</c:forEach>
+						<c:if test="${pageMaker.paging.next == true}">
+							<li class="page-item">
+								<a class="page-link" href="/match/match_list_view?&clickPage=${pageMaker.paging.currentPageList[fn:length(pageMaker.paging.currentPageList) - 1] + 1}" aria-label="Next"> <span aria-hidden="true">&raquo;</span></a>
+							</li>
+						</c:if>
+					</ul>
+				</nav>
+			</div>
 	</div>
 </div>
 
 
 <script>
 $(document).ready(function(){
+	/* 매칭글 검색 */
 	$('#regionSearch').on('click', function(){
 		let region = $('#region').val().trim();
 		// URL에 region 값을 추가하여 href 속성 설정
@@ -67,9 +92,9 @@ $(document).ready(function(){
 	});
 	
 	$('#titleSearch').on('click', function(){
-		let title = $('#region').val().trim();
+		let title = $('#title').val().trim();
 		// URL에 region 값을 추가하여 href 속성 설정
-	     let link = "/match/match_list_view?regionSearch=" + title;
+	     let link = "/match/match_list_view?titleSearch=" + title;
 	    $('#titleSearch').attr('href', link);
 	});
 });
