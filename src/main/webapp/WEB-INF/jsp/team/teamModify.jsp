@@ -78,9 +78,9 @@
 		<!-- 수정/삭제 버튼 -->
 		<div class="d-flex">
 			<button type="submit" id="updateTeamBtn" class="btn btn-secondary mt-4 w-100" data-team-id="${userTeamId}">수정</button>	
-			<a href="#" class=" w-100" data-toggle="modal" data-target="#modal">
+			<%-- <a href="#" class=" w-100" data-toggle="modal" data-target="#modal">
 				<button type="submit" id="more-btn" class="btn btn-danger mt-4 w-100" data-team-id="${myTeam.id}">삭제</button>	
-			</a>
+			</a> --%>
 		</div>
 	</div>
 </div>
@@ -241,8 +241,8 @@ $(document).ready(function(){
 			// response
 			, success:function(data){
 				if (data.code == 1){
-					alert("팀정보가 수정되었습니다.")
-					location.reload(true);
+					alert("팀정보가 수정되었습니다.");
+					location.href = "/main/my_page_view";
 				} else{
 					alert(data.errorMessage);
 				}
@@ -265,7 +265,7 @@ $(document).ready(function(){
 	});
 	
 	
-	/*  팀삭제 */
+	/*  팀삭제 *************보류************** */
 	$('#modal #deleteTeamBtn').on('click', function(e){
 		e.preventDefault();
 		let teamId = $('#modal').data("team-id");

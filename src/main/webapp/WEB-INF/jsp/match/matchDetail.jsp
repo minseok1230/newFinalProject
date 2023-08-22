@@ -145,12 +145,12 @@ ${matchView.match.content}
 						<div>
 							<a href="/match/match_update_view?matchId=${matchView.match.id}" id="updateMatchBtn" class="btn btn-secondary mr-3">수정</a>
 							<a href="#" class=" w-100" data-toggle="modal" data-target="#modal">
-								<button type="submit" id="deleteMatchBtn" class="btn btn-secondary" data-board-id = ${board.board.id}>삭제</button>
+								<button type="submit" id="deleteMatch" class="btn btn-secondary" data-match-id = "${matchView.match.id}">삭제</button>
 							</a>
 						</div>
 					</c:if>
 					<c:if test="${teamId != matchView.team.id && userRole == '팀장'}">
-						<button type="submit" id="applyMatchBtn" class="btn btn-info w-50" data-match-id=${matchView.match.id} data-team-id ="${teamId}" data-matchingteam-id = "${matchView.team.id}">신청하기</button>
+						<button type="submit" id="applyMatchBtn" class="btn btn-info w-50" data-match-id="${matchView.match.id}" data-team-id ="${teamId}" data-matchingteam-id = "${matchView.team.id}">신청하기</button>
 					</c:if>
 				</c:if>
 			</div>
@@ -259,6 +259,41 @@ $(document).ready(function(){
 		    	alert("관리자 문의 바랍니다.");
 		    }
 			
+		});
+	});
+	
+	/* 모달에 값 넘겨주기 */
+	$('#deleteMatch').on('click', function(e){
+		e.preventDefault(); 
+		
+		let matchId = $(this).data('match-id'); 
+		
+		// 한개인 모달 태그에(재활용) data-post-id를 심어줌
+		$('#modal').data('match-id', matchId); // setting
+	});
+	
+	
+	/* 매칭글 삭제 */
+	$('#modal #deleteMatchBtn').on('click', function(e){
+		e.preventDefault();
+		let matchId = $('#modal').data("match-id");
+		
+		$.ajax({
+			type: "delete"
+			,url : "/match/" + matchId
+			
+			,success: function(data){
+				if(data.code == 1){
+					alert("매칭글 삭제가 완료되었습니다.")
+					location.href="/match/match_list_view";
+				} else{
+					alert(data.errorMessage);
+				}
+			}
+			
+			, error: function(request, ststus, error){
+				alert("매칭글 삭제 실패했습니다. 관리자에게 문의해주세요.")
+			}
 		});
 	});
 });

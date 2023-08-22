@@ -18,7 +18,9 @@ public interface CommentMapper {
 	
 	public int deleteCommentById(int id);
 	
-	public void deleteCommentByBoardId(int boardId);
+	public void deleteCommentByBoardIdAndType(
+			@Param("boardId") int boardId, 
+			@Param("type") String type);
 	
 	public List<Comment> selectCommentListByBoardId(int boardId);
 }

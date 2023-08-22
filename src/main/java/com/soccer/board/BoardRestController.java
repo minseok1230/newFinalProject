@@ -91,14 +91,15 @@ public class BoardRestController {
 	@DeleteMapping("/{boardId}")
 	public Map<String, Object> deleteBoard(
 			@PathVariable int boardId,
+			@PathVariable String type,
 			HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 		
 		// 글 삭제
 		int userId = (int)session.getAttribute("userId");
-		int insertResult = boardBO.deleteBoardByIdAndUserId(boardId, userId);
+		int deleteResult = boardBO.deleteBoardByIdAndUserId(boardId, userId, type);
 		
-		if(insertResult > 0) {
+		if(deleteResult > 0) {
 			result.put("code", 1);
 			result.put("result", "성공");
 		} else {

@@ -32,8 +32,8 @@ public class CommentBO {
 	}
 	
 	// 댓글 삭제 (boardId)
-	public void deleteCommentByBoardId(int boardId) {
-		commentMapper.deleteCommentByBoardId(boardId);
+	public void deleteCommentByBoardIdAndType(int boardId, String type) {
+		commentMapper.deleteCommentByBoardIdAndType(boardId, type);
 	}
 	
 	// commentView만들기 

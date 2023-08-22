@@ -99,7 +99,8 @@ public class ReservationBO {
 		
 		// 댓글 삭제
 		for (Match match: matchList) {
-			commentBO.deleteCommentByBoardId(match.getId());
+			String type = "게시물";
+			commentBO.deleteCommentByBoardIdAndType(match.getId(), type);
 		}
 		
 		// 게시물 삭제

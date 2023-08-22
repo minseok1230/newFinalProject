@@ -54,10 +54,10 @@ public class BoardBO {
 	}
 	
 	// board 삭제
-	public int deleteBoardByIdAndUserId(int boardId, int userId) {
+	public int deleteBoardByIdAndUserId(int boardId, int userId, String type) {
 		
 		// 댓글 삭제 
-		commentBO.deleteCommentByBoardId(boardId);
+		commentBO.deleteCommentByBoardIdAndType(boardId, type);
 		
 		// 글 삭제 
 		return boardMapper.deleteBoardByIdAndUserId(boardId, userId);

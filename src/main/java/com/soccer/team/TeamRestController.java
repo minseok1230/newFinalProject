@@ -17,6 +17,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.domain.Team;
+import com.soccer.user.domain.User;
 
 @RestController
 @RequestMapping("/team")
@@ -67,12 +68,15 @@ public class TeamRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// session 
+		
 		int leaderId = (int)session.getAttribute("userId");
 		Integer userTeamId = (Integer)session.getAttribute("userTeamId");
 		
 		if (userTeamId == null) {
 			// DB 조회 후  insert
-			teamBO.addTeam(leaderId, teamName, skill, activeArea, introduce);
+			User user =  teamBO.addTeam(leaderId, teamName, skill, activeArea, introduce);
+			session.setAttribute("userTeamId", user.getTeamId());
+			session.setAttribute("userRole", user.getRole());
 			result.put("code", 1);
 			result.put("result", "성공");
 		} else {
@@ -83,7 +87,17 @@ public class TeamRestController {
 	}
 	
 	
-	// 팀 수정 
+	/**
+	 * 팀 수정
+	 * @param teamId
+	 * @param teamName
+	 * @param skill
+	 * @param activeArea
+	 * @param introduce
+	 * @param file
+	 * @param session
+	 * @return
+	 */
 	@PutMapping("/{teamId}")
 	public Map<String, Object> updateTeam(
 			@PathVariable int teamId,

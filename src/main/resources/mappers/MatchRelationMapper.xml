@@ -111,6 +111,11 @@
  		SET `state` = '매칭완료'
  		WHERE `id` = #{id}
  	</update>
+ 	
+ 	<delete id="deleteMatchRelationByMatchId" parameterType="int">
+ 		DELETE FROM `matchRelation`
+ 		WHERE 	`matchId` = #{matchId}
+ 	</delete>
  </mapper>
  
  

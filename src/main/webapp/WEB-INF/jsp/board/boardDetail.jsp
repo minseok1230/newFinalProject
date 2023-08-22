@@ -118,8 +118,7 @@ $(document).ready(function(){
 		$.ajax({
 			
 			type: "delete"
-			,url: "/board/" + boardId
-			
+			,url: "/board/" + boardId + "/" + type
 			, success: function(data){
 				if (data.code == 1){
 					alert("글 삭제 성공");

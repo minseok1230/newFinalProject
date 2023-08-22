@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.soccer.comment.bo.CommentBO;
 import com.soccer.match.dao.MatchMapper;
 import com.soccer.match.domain.Match;
 
@@ -13,6 +14,8 @@ public class MatchBO {
 
 	@Autowired
 	private MatchMapper matchMapper;
+	
+	
 	
 	public List<Match> getMatch(){
 		return matchMapper.selectMatch();
@@ -61,12 +64,14 @@ public class MatchBO {
 		matchMapper.deleteMatchByReservationId(reservationId);
 	}
 	
+	
 	public void updateMatchById(int id){
 		matchMapper.updateMatchByIdState(id);
 	}
 	
-	
-	
+	public int deleteMatchById(int id) {
+		return matchMapper.deleteMatchById(id);
+	}
 	
 }
 

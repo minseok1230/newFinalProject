@@ -7,6 +7,7 @@ import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 
 import com.soccer.team.domain.Team;
+import com.soccer.team.entity.TeamEntity;
 
 @Repository
 public interface TeamMapper {
@@ -14,6 +15,8 @@ public interface TeamMapper {
 	public List<Team> selectTeam();
 	
 	public Team selectTeamByName(String name);
+	
+	public TeamEntity selectTeamById(int id);
 	
 	public void insertTeam(Map<String, Object> teamParameter);
 	

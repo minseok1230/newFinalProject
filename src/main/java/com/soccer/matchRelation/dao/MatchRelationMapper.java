@@ -39,4 +39,6 @@ public interface MatchRelationMapper {
 			);
 	
 	public int updateMatchRelationById(int id);
+	
+	public void deleteMatchRelationByMatchId(int matchId);
 }

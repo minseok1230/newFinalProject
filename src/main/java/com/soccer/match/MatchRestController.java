@@ -6,7 +6,7 @@ import java.util.Map;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soccer.match.bo.MatchBO;
+import com.soccer.match.bo.MatchDeleteBO;
 
 @RestController
 @RequestMapping("/match")
@@ -23,6 +24,9 @@ public class MatchRestController {
 	
 	@Autowired
 	private MatchBO matchBO;
+	
+	@Autowired
+	private MatchDeleteBO matchDeleteBO;
 	
 	
 	/**
@@ -85,6 +89,22 @@ public class MatchRestController {
 			result.put("result", "성공");
 		} else {
 			result.put("errorMessage", "매칭글 수정에 실패하였습니다.");
+		}
+		return result;
+	}
+	
+	// 매칭글 삭제
+	@DeleteMapping("/{matchId}")
+	public Map<String, Object> deleteMatch(
+			@PathVariable int matchId){
+		
+		Map<String, Object> result = new HashMap<>();
+		// DB delete
+		int deleteResult = matchDeleteBO.deleteMatchById(matchId);
+		if (deleteResult > 0) {
+			result.put("code", 1);
+		} else {
+			result.put("errorMessage", "매칭글 삭제 실패하였습니다.");
 		}
 		return result;
 	}

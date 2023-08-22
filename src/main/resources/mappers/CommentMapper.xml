@@ -48,10 +48,12 @@
  			`id` = #{id}
  	</delete>
  	
- 	<delete id="deleteCommentByBoardId" parameterType="int">
+ 	<delete id="deleteCommentByBoardIdAndType" parameterType="map">
  		DELETE FROM `comment`
  		WHERE 
  			`boardId` = #{boardId}
+ 		AND 
+ 			`type` = #{type}
  	</delete>
  
  </mapper>

@@ -52,7 +52,7 @@ public class TeamBO {
 	}
 	
 	/* 팀 생성 */ 
-	public void addTeam(int leaderId, String teamName, String skill, String activeArea, String introduce) {
+	public User addTeam(int leaderId, String teamName, String skill, String activeArea, String introduce) {
 		Map<String, Object> teamParameter = new HashMap<>();
 		
 		
@@ -69,6 +69,10 @@ public class TeamBO {
 		Integer newTeamId = (Integer)teamParameter.get("newTeamId");
 		String role = "팀장";
 		userBO.updateUserByTeamIdAndRole(newTeamId, role, leaderId);
+		
+		User user = userBO.getUserById(leaderId);
+		
+		return user;
 		
 	}
 	

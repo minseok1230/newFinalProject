@@ -55,8 +55,18 @@ public class MatchRelationBO {
 		// reservation isPossible값 false로 수정
 		Match match = matchBO.getMatchById(matchRelation.getMatchId());
 		reservationBO.updateReservationById(match.getReservationId());
-		
-		
 		return matchRelationMapper.updateMatchRelationById(id);
 	}
+	
+	public void deleteMatchRelationByMatchId(int matchId) {
+		matchRelationMapper.deleteMatchRelationByMatchId(matchId);
+	}
 }
+
+
+
+
+
+
+
+
