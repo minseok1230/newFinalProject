@@ -172,7 +172,12 @@
  		WHERE 
  		 	`reservationId` = #{reservationId}
  	</delete>
- 
+
+	<delete id="deleteMatchById" parameterType="int">
+ 		DELETE FROM `match`
+ 		WHERE 
+ 		 	`id` = #{id}
+ 	</delete>
  </mapper>
  
  

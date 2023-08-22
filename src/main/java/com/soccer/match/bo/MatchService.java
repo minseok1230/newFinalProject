@@ -8,7 +8,6 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.soccer.board.domain.Board;
 import com.soccer.comment.bo.CommentBO;
 import com.soccer.comment.domain.CommentView;
 import com.soccer.common.PageMaker;
@@ -176,7 +175,6 @@ public class MatchService {
 	}
 	
 	public List<MatchView> generateMatchForReservationViewList(Integer teamId) {
-		
 		// 리턴 값 ( 여러개의 MatchView )
 		List<MatchView> teamViewList = new ArrayList<>();
 
@@ -194,10 +192,10 @@ public class MatchService {
 			}
 			teamViewList.add(matchView);
 		}
-		
-
 		return teamViewList;
 	}
+	
+	
 	
 }
 

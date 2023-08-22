@@ -34,6 +34,8 @@ public interface MatchMapper {
 	
 	public void deleteMatchByReservationId(int reservationId);
 	
+	public int deleteMatchById(int id);
+	
 	public int selectMatchCount();
 	                
 	
@@ -51,6 +53,8 @@ public interface MatchMapper {
 			@Param("content") String content);
 	
 	public void updateMatchByIdState(int id);
+	
+	
 	
 }
 

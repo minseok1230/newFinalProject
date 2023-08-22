@@ -33,10 +33,9 @@
 							</tr>
 						</c:forEach>
 				</tbody>
-				
-				
 			</table>
 		</div>
 		
+		<button type="submit" id="quitTeamBtn" class="btn btn-danger mt-4 w-100">탈퇴</button>
 	</div>
 </div>
