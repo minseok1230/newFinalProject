@@ -162,7 +162,7 @@
  	
  	<update id="updateMatchByIdState" parameterType="map">
  		UPDATE `match`
- 		SET `state` = '매칭완료'
+ 		SET `state` = #{state}
  		WHERE `id` = #{id}
  	</update>
  	

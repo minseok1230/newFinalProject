@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.soccer.member.dao.MemberMapper;
 import com.soccer.member.domain.Member;
 import com.soccer.user.bo.UserBO;
+import com.soccer.user.domain.User;
 
 @Service
 public class MemberBO {
@@ -29,6 +30,10 @@ public class MemberBO {
 		return memberMapper.selectMemberByUserId(userId);
 	}
 	
+	public int getMemberCount(int teamId) {
+		return memberMapper.selectMemberCount(teamId);
+	}
+	
 	public List<Member> getMemberByApprovalAndTeamId(int teamId, boolean approval) {
 		return memberMapper.selectMemberByApprovalAndTeamId(teamId, approval);
 	}
@@ -41,7 +46,14 @@ public class MemberBO {
 		return memberMapper.selectMemberListByUserId(teamId);
 	}
 	
-	public int deleteMemberByTeamIdAndUserId(int teamId, int userId) {
+	public int deleteMemberByTeamIdAndUserId(int teamId, int userId, String userRole) {
+		
+		if (userRole.equals("팀장")) {
+			return 0;
+		}
+		
+		// user 정보 수정 
+		userBO.updateUserTeamIdRoleNull(userId);
 		return memberMapper.deleteMemberByTeamIdAndUserId(teamId, userId);
 	}
 	
@@ -51,7 +63,7 @@ public class MemberBO {
 		memberMapper.updateMemberByTeamIdAndUserId(teamId, userId);
 		
 		// user update
-		userBO.updateUserByTeamIdAndRole(teamId, role, userId);
+		userBO.updateUserTeamIdAndRoleById(teamId, role, userId);
 	}
 }
 

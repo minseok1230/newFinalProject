@@ -29,12 +29,12 @@ class UserBOTest {
 	
 	
 	
-	@Transactional // insert를 하지만 Rollback을 한다.
+//	@Transactional // insert를 하지만 Rollback을 한다.
 	//@Test
-	void 회원추가테스트() {
-		userBO.addUser("aaaaaa@naver.com", "123123123123", "name", "phoneNumber", "19960311", false, "이메일", "CAM");
-		
-		
-	}
+//	void 회원추가테스트() {
+//		userBO.addUser("aaaaaa@naver.com", "123123123123", "name", "phoneNumber", "19960311", false, "이메일", "CAM");
+//		
+//		
+//	}
 
 }

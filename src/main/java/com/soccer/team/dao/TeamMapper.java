@@ -12,6 +12,12 @@ import com.soccer.team.entity.TeamEntity;
 @Repository
 public interface TeamMapper {
 
+	public int selectTeamCount();
+	
+	public List<Team> selectTeamByPageNum(
+			@Param("startPageNum") int startPageNum, 
+			@Param("POST_MAX_SIZE") int POST_MAX_SIZE);
+	
 	public List<Team> selectTeam();
 	
 	public Team selectTeamByName(String name);

@@ -3,6 +3,7 @@ package com.soccer.user.bo;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,7 +12,6 @@ import com.soccer.common.FileManagerService;
 import com.soccer.common.FindPasswordMailService;
 import com.soccer.common.MailService;
 import com.soccer.user.dao.UserMapper;
-import com.soccer.user.dao.UserRepository;
 import com.soccer.user.domain.Certification;
 import com.soccer.user.domain.User;
 
@@ -20,11 +20,12 @@ public class UserBO {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
+	@Value("${cos.key}")
+	private String cosKey;
+	
 	@Autowired
 	private UserMapper userMapper;
 	
-	@Autowired
-	private UserRepository userRepository;
 	
 	@Autowired
 	private MailService mailService;
@@ -51,12 +52,27 @@ public class UserBO {
 		return userMapper.selectUserById(id);
 	}
 	
-	public Integer addUser(String loginEmail,String password, String name, String phoneNumber, String birth, boolean role,  String loginType, String position) {
-		return userMapper.insertUser(loginEmail, password, name, phoneNumber, birth, role, loginType, position);
+	public Integer addUser(String loginEmail,String password, String name, String phoneNumber, String birth, String position) {
+		
+		String loginType = null;
+		if (password.equals(cosKey)) {
+			loginType = "카카오";
+		} else {
+			loginType = "이메일";
+		}
+		
+		// 비밀번호 해싱
+		// 123 : a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
+		String hashedPassword = EncryptUtils.sha256(password);
+		return userMapper.insertUser(loginEmail, hashedPassword, name, phoneNumber, birth, loginType, position);
 	}
 	
-	public void updateUserByTeamIdAndRole(int teamId, String role, int leaderId) {
-		userMapper.updateUserByTeamIdAndRole(teamId, role, leaderId);
+	public void updateUserTeamIdAndRoleById(int teamId, String role, int leaderId) {
+		userMapper.updateUserTeamIdAndRoleById(teamId, role, leaderId);
+	}
+	
+	public void updateUserTeamIdRoleNull(int userId) {
+		userMapper.updateUserTeamIdRoleNull(userId);
 	}
 	
 	/* 이메일 인증 보내고 DB 저장 */
@@ -104,6 +120,10 @@ public class UserBO {
 		if (user == null) {
 			logger.warn("##########[팀 수정] team is null. userId:{}", userId);
 			return;
+		}
+		
+		if (user.getLoginType().equals("카카오")) {
+			logger.info("##########[팀 수정] from kakaoLogin userLoginType: {}" , user.getLoginType());
 		}
 		
 		String profileImagePath = null;

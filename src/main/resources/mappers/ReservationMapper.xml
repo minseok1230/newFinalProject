@@ -3,6 +3,45 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.soccer.reservation.dao.ReservationMapper">
+ 
+ 	<select id="selectReservationYesterday" resultType="com.soccer.reservation.domain.Reservation">
+ 		SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`possibleCancel`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		<![CDATA[
+		WHERE `matchDate` = CURDATE() - INTERVAL 1 DAY
+		]]>
+ 	</select>
+ 
+ 	<select id="selectReservationWeekAgoByMatchDate" resultType="com.soccer.reservation.domain.Reservation">
+ 	 	SELECT 
+ 			`id`
+			,`region`
+			,`stadiumName`
+			,`teamId`
+			,`matchTime`
+			,`matchDate`
+			,`possibleCancel`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`reservation`
+		<![CDATA[
+		WHERE `matchDate` BETWEEN CURDATE() + INTERVAL 1 DAY AND CURDATE() + INTERVAL 6 DAY
+		]]>
+		AND 
+			`possibleCancel` = true;
+ 	</select>
+ 	
  	<select id="selectReservationByDateByStadiumBytime" parameterType="map" resultType="com.soccer.reservation.domain.Reservation">
  		SELECT 
  			`id`

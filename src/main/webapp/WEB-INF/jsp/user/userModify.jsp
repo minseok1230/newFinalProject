@@ -32,20 +32,20 @@
   		<!-- 업로드 된 임시 파일 이름 저장되는 곳 -->
   		<div id="fileName" class="text-center"></div> 
   		
-			
-		<!-- 비밀번호  -->
-			<div class="mt-3">
-				<label for="password">새로운 비밀번호</label>
-				<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요">
-				<div id="passwordCheck" class="small text-danger d-none">6자 이상 입력하세요.</div>
-			</div>
-			
-			<!-- 비밀번호 확인  -->
-			<div class=" mt-3">
-				<label for="confirmPassword">새로운 비밀번호 확인</label>
-				<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 입력하세요">
-			</div>
-			
+			<c:if test="${user.loginType != '카카오'}">
+				<!-- 비밀번호  -->
+				<div class="mt-3">
+					<label for="password">새로운 비밀번호</label>
+					<input type="password" class="form-control" id="password" name="password" placeholder="비밀번호를 입력하세요">
+					<div id="passwordCheck" class="small text-danger d-none">6자 이상 입력하세요.</div>
+				</div>
+				
+				<!-- 비밀번호 확인  -->
+				<div class=" mt-3">
+					<label for="confirmPassword">새로운 비밀번호 확인</label>
+					<input type="password" class="form-control" id="confirmPassword" name="confirmPassword" placeholder="비밀번호를 입력하세요">
+				</div>
+			</c:if>
 			<!-- 이름  -->
 			<div class="mt-3">
 				<label for="name">이름</label>

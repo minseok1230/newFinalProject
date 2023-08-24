@@ -12,8 +12,11 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.soccer.common.FileManagerService;
+import com.soccer.common.PageMaker;
+import com.soccer.common.Paging;
 import com.soccer.match.dao.MatchMapper;
 import com.soccer.match.domain.Match;
+import com.soccer.member.bo.MemberBO;
 import com.soccer.reservation.bo.ReservationBO;
 import com.soccer.reservation.domain.Reservation;
 import com.soccer.team.dao.TeamMapper;
@@ -26,6 +29,9 @@ import com.soccer.user.domain.User;
 
 @Service
 public class TeamBO {
+	
+	private static final int POST_MAX_SIZE = 5;
+	private static final int PAGE_MAX_SIZE = 5;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -45,11 +51,61 @@ public class TeamBO {
 	private MatchMapper matchMapper;
 	
 	@Autowired
+	private MemberBO memberBO;
+	
+	@Autowired
 	private FileManagerService fileManager;
 	
 	public Team getTeamByName(String name) {
 		return teamMapper.selectTeamByName(name);
 	}
+	
+	public List<Team> getTeam(){
+		return teamMapper.selectTeam();
+	}
+	
+	public TeamEntity getTeamById(Integer userTeamId) {
+		return teamRepository.findAllById(userTeamId);
+	}
+
+    // 페이징 팀 목록
+	public Map<String, Object> getTeamByPage(Integer clickPageNum){
+		Map<String, Object> result = new HashMap<>(); 
+		
+		Integer clickPage;
+		if (clickPageNum == null) {
+			clickPage = 1;
+		} else {
+			clickPage = clickPageNum;
+		}
+		
+		// 페이징
+		Paging paging = new Paging();
+		int total = teamMapper.selectTeamCount();
+		paging.setTotalCount(total);
+		paging.PagingList( clickPage, POST_MAX_SIZE, PAGE_MAX_SIZE );
+		List<Team> teamList = teamMapper.selectTeamByPageNum(paging.getBoardStartNum(), POST_MAX_SIZE);
+		
+		List<TeamView> teamViewList = new ArrayList<>();
+		for (Team team : teamList) {
+			TeamView teamView = new TeamView();
+			
+			teamView.setTeam(team);
+			
+			int totalTeamCount = memberBO.getMemberCount(team.getId());
+			teamView.setTotalTeamMember(totalTeamCount);
+			
+			teamViewList.add(teamView);
+		}
+		PageMaker pageMaker = new PageMaker();;
+		pageMaker.setPaging(paging);
+		
+		result.put("teamViewList", teamViewList);
+		result.put("pageMaker", pageMaker);
+		
+		return result;
+	}
+	
 	
 	/* 팀 생성 */ 
 	public User addTeam(int leaderId, String teamName, String skill, String activeArea, String introduce) {
@@ -68,20 +124,12 @@ public class TeamBO {
 		// DB insert
 		Integer newTeamId = (Integer)teamParameter.get("newTeamId");
 		String role = "팀장";
-		userBO.updateUserByTeamIdAndRole(newTeamId, role, leaderId);
+		userBO.updateUserTeamIdAndRoleById(newTeamId, role, leaderId);
 		
 		User user = userBO.getUserById(leaderId);
 		
 		return user;
 		
-	}
-	
-	public List<Team> getTeam(){
-		return teamMapper.selectTeam();
-	}
-	
-	public TeamEntity getTeamById(Integer userTeamId) {
-		return teamRepository.findAllById(userTeamId);
 	}
 	
 	

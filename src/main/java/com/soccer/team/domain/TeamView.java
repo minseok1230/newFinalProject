@@ -16,6 +16,9 @@ public class TeamView {
 	
 		// 팀 한팀
 		private Team team;
+		
+		// 팀원수
+		private int totalTeamMember;
 			
 		// 매칭글 
 		private List<Match> matchList;

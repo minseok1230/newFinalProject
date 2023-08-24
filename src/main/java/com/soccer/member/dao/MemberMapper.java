@@ -33,4 +33,6 @@ public interface MemberMapper {
 	public void updateMemberByTeamIdAndUserId(
 			@Param("teamId") int teamId, 
 			@Param("userId") int userId);
+	
+	public int selectMemberCount(int teamId);
 }

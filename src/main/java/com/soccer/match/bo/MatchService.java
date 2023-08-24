@@ -13,7 +13,10 @@ import com.soccer.comment.domain.CommentView;
 import com.soccer.common.PageMaker;
 import com.soccer.common.Paging;
 import com.soccer.match.domain.Match;
+import com.soccer.match.domain.MatchUpdateView;
 import com.soccer.match.domain.MatchView;
+import com.soccer.matchRelation.bo.MatchRelationBO;
+import com.soccer.matchRelation.domain.MatchRelation;
 import com.soccer.reservation.bo.ReservationBO;
 import com.soccer.reservation.domain.Reservation;
 import com.soccer.team.bo.TeamBO;
@@ -42,10 +45,11 @@ public class MatchService {
 	@Autowired
 	private CommentBO commentBO;
 	
-	public Map<String, Object> generateMatchViewList(Integer teamId ,String regionSearch ,String titleSearch, Integer clickPageNum) {
-		
+	@Autowired
+	private MatchRelationBO matchRelationBO;
+	
+	public Map<String, Object> generateMatchViewList(Integer teamId , Integer clickPageNum) {
 		Map<String, Object> result = new HashMap<>(); 
-		
 		// 리턴 값 ( 여러개의 MatchView )
 		List<MatchView> teamViewList = new ArrayList<>();
 		
@@ -58,7 +62,6 @@ public class MatchService {
 		
 		// 페이징
 		Paging paging = new Paging();
-
 		// total 구해주기 
 		int total = matchBO.getMatchCount();
 		paging.setTotalCount(total);
@@ -73,43 +76,76 @@ public class MatchService {
 					
 		PageMaker pageMaker = new PageMaker();;
 		pageMaker.setPaging(paging);
+		result.put("pageMaker", pageMaker);
 
 		for (Match match : matchList) {
 			MatchView matchView = new MatchView();
 
-			Reservation reservation = null;
-			// 경기장 정보 넣기 (region, content 조건이 있을대 생각)
-			if (regionSearch != null) {
-				reservation = reservationBO.getReservationByIdAndRegion(match.getReservationId(), regionSearch);
-				if (reservation == null) {
-					continue;
-				} 
-			} else {
-				reservation = reservationBO.getReservationById(match.getReservationId());
-			}
+			Reservation reservation = reservationBO.getReservationById(match.getReservationId());
 			matchView.setReservation(reservation);
 
 			// match 넣기
-			if (titleSearch != null) {
-				if (!match.getTitle().contains(titleSearch)){
-					continue;
-				};
-			}
 			matchView.setMatch(match);
 
 			// 팀 정보 넣기
 			TeamEntity team = teamBO.getTeamById(match.getTeamId());
 			matchView.setTeam(team);
 
-
 			teamViewList.add(matchView);
 		}
-
 		result.put("teamViewList", teamViewList);
-		result.put("pageMaker", pageMaker);
-		
 		
 		return result;
+	}
+	
+	public List<MatchView> generateMatchViewListForSearch(String regionSearch, String titleSearch){
+		
+		// 리턴 값 ( 여러개의 MatchView )
+		List<MatchView> teamViewList = new ArrayList<>();
+		
+		List<Match> matchList = new ArrayList<>();
+		
+		matchList = matchBO.getMatch();
+		if (regionSearch != null) {
+			for (Match match : matchList) {
+				MatchView matchView = new MatchView();
+
+				Reservation reservation = reservationBO.getReservationById(match.getReservationId());
+				if (!reservation.getRegion().contains(regionSearch)) {
+					continue;
+				}
+				matchView.setReservation(reservation);
+
+				// match 넣기
+				matchView.setMatch(match);
+
+				// 팀 정보 넣기
+				TeamEntity team = teamBO.getTeamById(match.getTeamId());
+				matchView.setTeam(team);
+
+				teamViewList.add(matchView);
+			}
+			return teamViewList;
+		} else {
+			for (Match match : matchList) {
+				MatchView matchView = new MatchView();
+				
+				if (!match.getTitle().contains(titleSearch)) {
+					continue;
+				}
+				matchView.setMatch(match);
+				
+				Reservation reservation = reservationBO.getReservationById(match.getReservationId());
+				matchView.setReservation(reservation);
+				
+				// 팀 정보 넣기
+				TeamEntity team = teamBO.getTeamById(match.getTeamId());
+				matchView.setTeam(team);
+
+				teamViewList.add(matchView);
+			}
+			return teamViewList;
+		}
 	}
 	
 	public List<MatchView> generateMatchViewListForMyPage(Integer teamId){
@@ -193,6 +229,32 @@ public class MatchService {
 			teamViewList.add(matchView);
 		}
 		return teamViewList;
+	}
+	
+	public List<MatchUpdateView> generateMatchUpdateViewList(){
+		
+		List<MatchUpdateView> matchUpdateViewList = new ArrayList<>();
+		
+		List<Reservation> reservationForUpdateList = reservationBO.getReservationYesterday();
+		
+			for (Reservation reservation : reservationForUpdateList) {
+				MatchUpdateView matchUpdateView = new MatchUpdateView();
+
+				matchUpdateView.setReservation(reservation);
+
+
+				Match match = matchBO.getMatchByReservationIdOne(reservation.getId());
+				MatchRelation matchRelation = matchRelationBO.getMatchRelationByMatchIdAndState(match.getId(), "매칭완료");
+				
+				if (matchRelation == null ) {
+					return null;
+				}
+				matchUpdateView.setMatch(match);
+				matchUpdateView.setMatchRelation(matchRelation);
+
+				matchUpdateViewList.add(matchUpdateView);
+			}
+			return matchUpdateViewList;
 	}
 	
 	

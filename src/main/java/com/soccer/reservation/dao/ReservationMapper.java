@@ -32,8 +32,11 @@ public interface ReservationMapper {
 			@Param("teamName") String teamName);
 	
 	
-	
 	public int deleteReservationById(int id);
 	
 	public void updateReservationById(int id);
+	
+	public List<Reservation> selectReservationWeekAgoByMatchDate();
+	
+	public List<Reservation> selectReservationYesterday();
 }

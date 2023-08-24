@@ -145,7 +145,6 @@
 			,`password`
 			,`name`
 			,`loginType`
-			,`role`
 			,`phoneNumber`
 			,`birth`
 			,`position`
@@ -158,7 +157,6 @@
  			,#{password}
  			,#{name}
  			,#{loginType}
- 			,#{role}
  			,#{phoneNumber}
  			,#{birth}
  			,#{position}
@@ -185,10 +183,16 @@
  		SET `password` = #{hashedCode}
  	</update>
  	
- 	<update id="updateUserByTeamIdAndRole" parameterType="map">
+ 	<update id="updateUserTeamIdAndRoleById" parameterType="map">
  		UPDATE `user`
  		SET `teamId` = #{teamId} , `role` = #{role}
  		WHERE `id` = #{leaderId}
+ 	</update>
+ 	
+ 	<update id="updateUserTeamIdRoleNull" parameterType="int">
+ 		UPDATE `user`
+ 		SET `teamId` = null , `role` = null
+ 		WHERE `id` = #{userId}
  	</update>
  	
  	<update id="updateUserById" parameterType="map">

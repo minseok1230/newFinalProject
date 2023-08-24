@@ -52,10 +52,9 @@ public interface MatchMapper {
 			@Param("price") int price, 
 			@Param("content") String content);
 	
-	public void updateMatchByIdState(int id);
-	
-	
-	
+	public void updateMatchByIdState(
+			@Param("id") int id, 
+			@Param("state") String state);
 }
 
 

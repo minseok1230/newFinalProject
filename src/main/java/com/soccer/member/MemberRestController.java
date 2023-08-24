@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.soccer.member.bo.MemberBO;
+import com.soccer.user.bo.UserBO;
+import com.soccer.user.domain.User;
 
 @RestController
 @RequestMapping("/member")
@@ -22,6 +24,9 @@ public class MemberRestController {
 
 	@Autowired
 	private MemberBO memberBO;
+	
+	@Autowired
+	private UserBO userBO;
 	
 	@PostMapping("/create_member")
 	public Map<String, Object> createMember(
@@ -47,13 +52,21 @@ public class MemberRestController {
 	@DeleteMapping("/{teamId}/{userId}")
 	public Map<String, Object> deleteMember(
 			@PathVariable int teamId,
-			@PathVariable int userId){
+			@PathVariable int userId,
+			HttpSession session){
 		Map<String, Object> result = new HashMap<>();
 		
+		
+		String userRole = (String)session.getAttribute("userRole");
+		
 		// db 삭제 (member)
-		int deleteResult = memberBO.deleteMemberByTeamIdAndUserId(teamId, userId);
+		int deleteResult = memberBO.deleteMemberByTeamIdAndUserId(teamId, userId, userRole);
+		
 		if (deleteResult > 0) {
 			result.put("code", 1);
+			User user = userBO.getUserById(userId);
+			session.setAttribute("userTeamId", user.getTeamId());
+			session.setAttribute("userRole", user.getRole());
 		} else {
 			result.put("errorMessage", "취소 요청 실패하였습니다.");
 		}
@@ -71,8 +84,6 @@ public class MemberRestController {
 		// db update (member)
 		memberBO.updateMemberByTeamIdAndUserId(teamId, userId);
 		result.put("code", 1);
-		
-		
 		return result;
 	}
 	

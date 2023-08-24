@@ -64,8 +64,14 @@ public class MatchController {
 			@RequestParam(value = "titleSearch", required = false) String titleSearch,
 			@RequestParam(value = "clickPage", required = false) Integer clickPage,
 			Model model) {
-		List<MatchView> matchViewList = (List<MatchView>) matchService.generateMatchViewList(null, regionSearch, titleSearch, clickPage).get("teamViewList");
-		PageMaker pageMaker = (PageMaker) matchService.generateMatchViewList(null, regionSearch, titleSearch, clickPage).get("pageMaker");
+		List<MatchView> matchViewList = null;
+		PageMaker pageMaker = null;
+		if (regionSearch == null && titleSearch == null) {
+			matchViewList = (List<MatchView>) matchService.generateMatchViewList(null, clickPage).get("teamViewList");
+			pageMaker = (PageMaker) matchService.generateMatchViewList(null, clickPage).get("pageMaker");
+		} else {
+			matchViewList = matchService.generateMatchViewListForSearch(regionSearch, titleSearch);
+		}
 		
 		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("matchViewList", matchViewList);

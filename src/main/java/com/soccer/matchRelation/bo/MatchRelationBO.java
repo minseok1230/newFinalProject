@@ -32,6 +32,10 @@ public class MatchRelationBO {
 		}
 		return matchRelationMapper.insertMatchRelationByTeamIdMatchIdMatchedTeamId(teamId, matchId, matchedTeamId, state);
 	}
+	
+	public MatchRelation getMatchRelationByMatchIdAndState(int matchId, String state) {
+		return matchRelationMapper.selectMatchRelationByMatchIdAndState(matchId, state);
+	}
 
 	public List<MatchRelation> getMatchRelationByMatchedTeamId(int matchedTeamId, String state) {
 		return matchRelationMapper.selectMatchRelationByMatchedTeamId(matchedTeamId, state);
@@ -49,13 +53,18 @@ public class MatchRelationBO {
 		
 		MatchRelation matchRelation = matchRelationMapper.selectMatchRelationById(id);
 		// match 글도 매칭완료로 수정 
-		matchBO.updateMatchById(matchRelation.getMatchId());
+		String state = "매칭완료";
+		matchBO.updateMatchByIdState(matchRelation.getMatchId(), state);
 		
 		
 		// reservation isPossible값 false로 수정
 		Match match = matchBO.getMatchById(matchRelation.getMatchId());
 		reservationBO.updateReservationById(match.getReservationId());
-		return matchRelationMapper.updateMatchRelationById(id);
+		return matchRelationMapper.updateMatchRelationByIdState(id, state);
+	}
+	
+	public void updateMatchRelationByIdState(int id, String state) {
+		matchRelationMapper.updateMatchRelationByIdState(id, state);
 	}
 	
 	public void deleteMatchRelationByMatchId(int matchId) {

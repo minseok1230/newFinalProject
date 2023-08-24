@@ -4,6 +4,31 @@
  
  <mapper namespace="com.soccer.team.dao.TeamMapper">
  
+ 	<select id="selectTeamCount" resultType="int">
+ 		SELECT 
+ 			count(*)
+ 		FROM 
+ 			`team`
+ 	</select>
+ 	
+ 	<select id="selectTeamByPageNum" parameterType="map" resultType="com.soccer.team.domain.Team">
+ 	 	SELECT
+ 	 		`id`
+			,`name`
+			,`leaderId`
+			,`introduce`
+			,`profileImagePath`
+			,`skill`
+			,`rating`
+			,`activeArea`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`team`
+		ORDER BY `id` DESC
+		LIMIT #{startPageNum}, #{POST_MAX_SIZE};
+ 	</select>
+ 
  	<select id="selectTeamById" resultType="com.soccer.team.domain.Team">
  		SELECT
  	 		`id`

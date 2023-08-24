@@ -9,11 +9,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
+import com.soccer.common.PageMaker;
 import com.soccer.member.bo.MemberBO;
 import com.soccer.member.domain.Member;
 import com.soccer.team.bo.TeamBO;
-import com.soccer.team.domain.Team;
+import com.soccer.team.domain.TeamView;
 import com.soccer.team.entity.TeamEntity;
 
 @Controller
@@ -40,10 +42,16 @@ public class TeamController {
 	 * @return
 	 */
 	@GetMapping("/team_list_view")
-	public String teamListView(Model model, HttpSession session) {
+	public String teamListView(
+			Model model, 
+			HttpSession session,
+			@RequestParam(value = "clickPage", required = false) Integer clickPage
+			) {
 		
 		// db 가져오기(teamlist)
-		List<Team> teamList = teamBO.getTeam();
+		List<TeamView> teamViewList = (List<TeamView>) teamBO.getTeamByPage(clickPage).get("teamViewList");
+		PageMaker pageMaker = (PageMaker) teamBO.getTeamByPage(clickPage).get("pageMaker");
+		
 		
 		int userId = (int)session.getAttribute("userId");
 		Integer userTeamId = (Integer)session.getAttribute("userTeamId");
@@ -51,10 +59,10 @@ public class TeamController {
 		// db 가져오기 (member)
 		Member member = memberBO.getMemberByUserId(userId);
 		
-		
+		model.addAttribute("pageMaker", pageMaker);
 		model.addAttribute("userTeamId", userTeamId);
 		model.addAttribute("member", member);
-		model.addAttribute("teamList", teamList);
+		model.addAttribute("teamViewList", teamViewList);
 		model.addAttribute("view", "team/teamList");
 		return "template/layout";
 	}

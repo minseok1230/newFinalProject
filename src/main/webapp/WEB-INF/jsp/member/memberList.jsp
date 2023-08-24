@@ -35,7 +35,53 @@
 				</tbody>
 			</table>
 		</div>
-		
-		<button type="submit" id="quitTeamBtn" class="btn btn-danger mt-4 w-100">탈퇴</button>
+		<c:if test="${userRole != '팀장'}">
+		 	<button type="submit" id="quitTeamBtn" class="btn btn-danger mt-4 w-100" data-team-id="${userTeamId}" data-user-id="${userId}">탈퇴</button>
+		</c:if>
 	</div>
 </div>
+
+<script>
+$(document).ready(function(){
+	$('#quitTeamBtn').on('click', function(){
+		
+		let teamId = $(this).data("team-id");
+		let userId = $(this).data("user-id");
+		
+		$.ajax({
+			
+			type: "delete"
+			, url : "/member/" + teamId + "/" + userId
+			
+			, success : function(data){
+				if (data.code == 1){
+					alert("팀탈퇴에 성공하셨습니다.");
+					location.href ="/main/main_view"
+				}
+			}
+		
+		    , error: function(request, status, error){
+		    	alert("관리자 문의 바랍니다.");
+		    }
+			
+		});
+	});
+});
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

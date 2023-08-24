@@ -56,6 +56,7 @@
 		</div>
 		
 		<!-- 페이징 -->
+		<c:if test="${pageMaker != null}">
 			<div class="d-flex justify-content-center">
 				<nav>
 					<ul class="pagination">
@@ -77,6 +78,7 @@
 					</ul>
 				</nav>
 			</div>
+		</c:if>
 	</div>
 </div>
 

@@ -12,6 +12,9 @@ public interface MatchRelationMapper {
 
 	public MatchRelation selectMatchRelationById(int id);
 	
+	public MatchRelation selectMatchRelationByMatchIdAndState(
+			@Param("matchId") int matchId,
+			@Param("state") String state);
 	
 	public MatchRelation selectMatchRelationByTeamIdMatchIdMatchedTeamId(
 			@Param("teamId") int teamId, 
@@ -38,7 +41,10 @@ public interface MatchRelationMapper {
 			@Param("state") String state
 			);
 	
-	public int updateMatchRelationById(int id);
+	public int updateMatchRelationByIdState(
+			@Param("id") int id, 
+			@Param("state") String state);
+	
 	
 	public void deleteMatchRelationByMatchId(int matchId);
 }

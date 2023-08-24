@@ -3,6 +3,24 @@
  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
  
  <mapper namespace="com.soccer.matchRelation.dao.MatchRelationMapper">
+ 
+ 	<select id="selectMatchRelationByMatchIdAndState"  resultType="com.soccer.matchRelation.domain.MatchRelation">
+ 		SELECT 
+ 			`id`
+			,`matchId`
+			,`teamId`
+			,`matchedTeamId`
+			,`state`
+			,`createdAt`
+		FROM
+			`matchRelation`
+		WHERE
+			`matchId` = #{matchId}
+		AND
+			`state` = #{state}
+ 	</select>
+ 	
+ 
  	<select id="selectMatchRelationById" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">
  		SELECT 
  			`id`
@@ -106,9 +124,9 @@
  		)
  	</insert>
  	
- 	<update id="updateMatchRelationById" parameterType="int">
+ 	<update id="updateMatchRelationByIdState" parameterType="map">
  		UPDATE `matchRelation`
- 		SET `state` = '매칭완료'
+ 		SET `state` = #{state}
  		WHERE `id` = #{id}
  	</update>
  	

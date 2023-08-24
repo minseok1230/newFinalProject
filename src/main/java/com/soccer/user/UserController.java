@@ -1,5 +1,7 @@
 package com.soccer.user;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.soccer.aop.TimeTrace;
 import com.soccer.user.bo.UserBO;
+import com.soccer.user.bo.UserService;
 import com.soccer.user.domain.User;
 
 @Controller
@@ -18,6 +22,9 @@ public class UserController {
 	
 	@Autowired
 	private UserBO userBO;
+	
+	@Autowired
+	private UserService userService;
 	
 	/**
 	 * 로그인
@@ -87,10 +94,38 @@ public class UserController {
 		model.addAttribute("view", "user/userModify");
 		return "template/layout";
 	}
-
 	
+	// 카카오 회원가입 화면
+	@GetMapping("/kakao_sign_up_view")
+	public String kakaoSignUpView(
+			@RequestParam("email") String email,
+			@RequestParam("password") String password,
+			Model model) {
+		
+		model.addAttribute("password", password);
+		model.addAttribute("email", email);
+		model.addAttribute("view", "user/kakaoSignUp");
+		return "template/layout";
+	}
 	
-	
+	// 카카오 로그인 / 회원가입
+	// 카카오톡 로그인
+	@GetMapping("/auth/kakao/callback")
+	public String kakaoCallback(@RequestParam("code") String code, HttpSession session) {
+		
+		Map<String,Object> kakao = userService.possibleKakaoLogin(code);
+		User user = userBO.getUserByEmail((String)kakao.get("email"));
+		if (user == null) {
+			return "redirect:/user/kakao_sign_up_view?email=" + kakao.get("email") + "&password=" + kakao.get("password");
+		} else {
+			session.setAttribute("userId", user.getId());
+			session.setAttribute("userLoginEmail", user.getEmail());
+			session.setAttribute("userName", user.getName());
+			session.setAttribute("userTeamId", user.getTeamId());
+			session.setAttribute("userRole", user.getRole());
+			return "redirect:/main/main_view";
+		}
+	}
 }
 
 
