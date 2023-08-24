@@ -90,10 +90,13 @@
 							<td class="align-middle">${matchView.reservation.stadiumName}</td>
 							<td class="align-middle"><a href="/match/match_detail_view?matchId=${matchView.match.id}">${matchView.match.title}</a></td>
 							<c:if test="${matchView.match.state =='모집중'}">	
-								<td class="align-middle font-weight-bold text-primary">모집중</td>
+								<td class="align-middle font-weight-bold text-warning">모집중</td>
 							</c:if>
 							<c:if test="${matchView.match.state == '매칭완료'}">	
 								<td class="align-middle font-weight-bold text-danger">매칭완료</td>
+							</c:if>
+							<c:if test="${matchView.match.state == '경기완료'}">	
+								<td class="align-middle font-weight-bold text-primary">경기완료</td>
 							</c:if>
 						</tr>
 					</c:forEach>

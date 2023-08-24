@@ -72,6 +72,10 @@ public class MatchBO {
 		return matchMapper.deleteMatchById(id);
 	}
 	
+	public void deleteMatchByReservationIdAndState(int reservationId, String state) {
+		matchMapper.deleteMatchByReservationIdAndState(reservationId, state);
+	}
+	
 }
 
 

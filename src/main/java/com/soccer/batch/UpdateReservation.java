@@ -19,8 +19,8 @@ public class UpdateReservation {
 	@Autowired
 	private ReservationBO reservationBO;
 	
-	//@Scheduled(cron = "0 0 0 * * *") //매일밤 12시 
-	@Scheduled(cron = "*/10 * * * * *")
+	@Scheduled(cron = "0 0 0 * * *") //매일밤 12시 
+//	@Scheduled(cron = "*/10 * * * * *")
 	public void updateReservationAtMidnight() {
 		List<Reservation> updateReservationList = reservationBO.getReservationWeekAgoByMatchDate();
 		

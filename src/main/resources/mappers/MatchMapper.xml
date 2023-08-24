@@ -178,6 +178,14 @@
  		WHERE 
  		 	`id` = #{id}
  	</delete>
+ 	
+ 	<delete id="deleteMatchByReservationIdAndState" parameterType="map">
+ 		DELETE FROM `match`
+ 		WHERE 
+ 		 	`state` = #{state}
+ 		AND
+ 			`reservationId` = #{reservationId}
+ 	</delete>
  </mapper>
  
  

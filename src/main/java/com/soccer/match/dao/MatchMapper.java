@@ -55,6 +55,10 @@ public interface MatchMapper {
 	public void updateMatchByIdState(
 			@Param("id") int id, 
 			@Param("state") String state);
+	
+	public void deleteMatchByReservationIdAndState(
+			@Param("reservationId") int reservationId, 
+			@Param("state") String state);
 }
 
 

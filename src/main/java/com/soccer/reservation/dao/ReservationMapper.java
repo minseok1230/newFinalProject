@@ -38,5 +38,7 @@ public interface ReservationMapper {
 	
 	public List<Reservation> selectReservationWeekAgoByMatchDate();
 	
+	public List<Reservation> selectReservationByMatchDateSevenDaysAgo();
+	
 	public List<Reservation> selectReservationYesterday();
 }

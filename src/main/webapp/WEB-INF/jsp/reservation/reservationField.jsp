@@ -6,7 +6,6 @@
 		<div class="d-flex justify-content-center mt-4">
 			<h2>FIELD RESERVATION</h2>
 		</div>
-		<form id="reservationForm" method="post" action="/reservation/reservation_field">
 			<!-- 날짜 -->
 			<div class="mt-3">
 				<label for="matchDate">날짜</label>
@@ -132,7 +131,6 @@
 			
 			<!--  가입 버튼 -->
 			<button type="submit" id="reservationBtn" class="btn btn-secondary mt-4 w-100">예약하기</button>	
-		</form>
 	</div>
 </div>
 
@@ -154,7 +152,7 @@ $(document).ready(function(){
 
     $('#matchDate').datepicker({
         showButtonPanel: true // 오늘 버튼 노출
-        , minDate:0 // 오늘과 그 이후만 선택 가능
+        , minDate:1 // 오늘과 그 이후만 선택 가능
     });
     
     /* 지역 select 선택  */ 
@@ -198,15 +196,26 @@ $(document).ready(function(){
     /* 예약하기 버튼 */
     $('#reservationBtn').on('click', function(){
     	let matchDate = $('#matchDate').val().trim();
+    	let matchDateToJavaScriptDateS = new Date($('#matchDate').val().trim());  // 입력된 날짜를 JavaScript Date 객체로 변환
+        let currentDate = new Date();  // 현재 날짜를 가져옴
+        
     	let region = $('#region').val();
     	let stadium = $('#stadium').val();
     	let matchTime = $('#matchTime').val();
     	let teamName = $('#teamName').val();
+
+        // 입력된 날짜가 비어있거나 오늘 날짜보다 이전인 경우
+    	// 입력된 날짜가 비어있거나 오늘 날짜보다 이전인 경우
+        if (!matchDate || matchDate < currentDate){
+            alert("날짜를 선택해주세요");
+            return false;
+        }
+        
+        if (matchDateToJavaScriptDateS < currentDate){
+        	alert("내일 날짜부터 예약가능합니다.");
+        	return false;
+        }
     	
-    	if (!matchDate){
-    		alert("날짜를 선택해주세요");
-    		return false;
-    	}
     	if (!region){
     		alert("지역을 선택해주세요");
     		return false;
@@ -220,7 +229,7 @@ $(document).ready(function(){
     		return false;
     	}
     	
-    	$.ajax({
+    	/* $.ajax({
     		
     		type: "post"
     		, url : "/reservation/create_reservation"
@@ -239,7 +248,7 @@ $(document).ready(function(){
     		, error: function(request, status, error){
 				alert("경기장 예약에 실패했습니다. 관리자 문의 바랍니다.");
 			}
-    	});
+    	}); */
     	
     	
     	

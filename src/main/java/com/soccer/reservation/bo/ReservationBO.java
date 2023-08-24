@@ -50,9 +50,15 @@ public class ReservationBO {
 		return reservationMapper.selectReservationWeekAgoByMatchDate();
 	}
 	
+	public List<Reservation> getReservationByMatchDateSevenDaysAgo(){
+		return reservationMapper.selectReservationByMatchDateSevenDaysAgo();
+	}
+	
 	public List<Reservation> getReservationYesterday(){
 		return reservationMapper.selectReservationYesterday();
 	}
+	
+	
 	
 	
 	// 경기장 APi 지역(ex. 화성, 안양, 안성...) 가져오기 
