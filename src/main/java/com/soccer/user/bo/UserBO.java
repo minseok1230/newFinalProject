@@ -1,5 +1,7 @@
 package com.soccer.user.bo;
 
+import java.util.List;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,8 +14,10 @@ import com.soccer.common.FileManagerService;
 import com.soccer.common.FindPasswordMailService;
 import com.soccer.common.MailService;
 import com.soccer.user.dao.UserMapper;
+import com.soccer.user.dao.UserRepository;
 import com.soccer.user.domain.Certification;
 import com.soccer.user.domain.User;
+import com.soccer.user.entity.UserEntity;
 
 @Service
 public class UserBO {
@@ -25,7 +29,9 @@ public class UserBO {
 	
 	@Autowired
 	private UserMapper userMapper;
-	
+
+	@Autowired
+	private UserRepository userRepository;
 	
 	@Autowired
 	private MailService mailService;
@@ -35,6 +41,10 @@ public class UserBO {
 	
 	@Autowired
 	private FileManagerService fileManager;
+	
+	public List<UserEntity> getUser(){
+		return userRepository.findAll();
+	}
 	
 	public User getUserByTeamIdAndRole(int teamId, String role) {
 		return userMapper.selectUserByTeamIdAndRole(teamId, role);

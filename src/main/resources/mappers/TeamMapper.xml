@@ -120,6 +120,14 @@
  		WHERE 
  			`id` = #{teamId}
  	</update>
+ 	
+ 	<update id="updateTeamRatingById" parameterType="map">
+ 		UPDATE `team`
+ 		SET
+ 			`rating` = #{rating}
+ 		WHERE 
+ 			`id` = #{id}
+ 	</update>
  
  </mapper>
  

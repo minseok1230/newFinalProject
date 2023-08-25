@@ -21,7 +21,7 @@
 				<div class="d-flex justify-content-center mt-3">
            			<button class="btn btn-warning text-center" id="removeAll">초기화</button>
        			</div>
-				<button class="btn btn-warning w-100 mt-3" id="admitRatingBtn" data-team-id="${oppositeTeam.id}" data-matchedteam-id="${matchedTeamId}"  data-match-id="${matchId}"}>평점등록</button>
+				<button class="btn btn-warning w-100 mt-3" id="admitRatingBtn" data-team-id="${teamId}" data-matchedteam-id="${oppositeTeam.id}"  data-match-id="${matchId}"}>평점등록</button>
 		</div>
 			
 </div>
@@ -67,7 +67,8 @@ $(document).ready(function(){
     	
     		,success : function(data){
     			if (data.code == 1){
-    				alert("성공");
+    				alert("매너온도가 기록되었습니다.");
+    				location.href = "/main/my_page_view";
     			} else if (data.code == 300){
     				alert("이미 완료하였습니다.");
     			} else {

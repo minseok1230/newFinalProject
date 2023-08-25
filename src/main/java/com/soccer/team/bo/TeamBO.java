@@ -135,7 +135,6 @@ public class TeamBO {
 	
 	/* 팀 수정 (로고 사진도) */
 	public void updateTeam(int teamId, String teamName, String skill, String activeArea, String introduce, MultipartFile file) {
-		
 		TeamEntity team = teamRepository.findAllById(teamId);
 		if (team == null) {
 			logger.warn("##########[팀 수정] team is null. teamId:{}", teamId);
@@ -150,9 +149,12 @@ public class TeamBO {
 				fileManager.deleteFile(team.getProfileImagePath());
 			}
 		}
-		
 		// 3.글 업데이트
 		teamMapper.updateTeamByTeamId(teamId, teamName, skill, activeArea, introduce, profileImagePath);
+	}
+	
+	public void updateTeamRatingById(int id, double rating) {
+		teamMapper.updateTeamRatingById(id, rating);
 	}
 	
 	public List<TeamView> generateTeamViewList(){

@@ -28,7 +28,7 @@ public class RatingController {
 		TeamEntity oppositeTeam = teamBO.getTeamById(matchedTeamId);
 		
 		model.addAttribute("oppositeTeam", oppositeTeam);
-		model.addAttribute("matchedTeamId", matchedTeamId);
+		model.addAttribute("teamId", teamId);
 		model.addAttribute("matchId", matchId);
 		model.addAttribute("view", "rating/ratingCreate");
 		return "template/layout";

@@ -20,7 +20,7 @@ public class FileManagerService {
 		private TextTransService textTransService;
 	
 	
-		public static final String FILE_UPLOAD_PATH = "E:\\7_FinalProject\\workspace\\images/";
+		public static final String FILE_UPLOAD_PATH = "D:\\choiminseok\\7_final_project\\workspace\\images/";
 		
 		
 		// 이미지 파일 저장 

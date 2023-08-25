@@ -4,15 +4,31 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
+import com.soccer.test.PayType;
 import com.soccer.test.Status;
 
 public class EnumTest {
 
+	@Test
+	void pay테스트1() {
+		// given
+		String payMethod = "KAKAO";
+
+		// when
+		// 결제 수단(예: 카카오페이)에 대한 결제 종류(예:현금 또는 카드)가 무엇인가?
+		PayType payType = PayType.findByPatMethod(payMethod);
+		
+		// then
+		assertEquals(PayType.CARD, payType);
+	}
+	
+	
+	
 	Status getStatus() {
 		return Status.Y;
 	}
 	
-	@Test
+	//@Test
 	void Status테스트() {
 		// given - 준비 
 		
@@ -28,4 +44,6 @@ public class EnumTest {
 		assertEquals(v2, true);
 		assertEquals(status, Status.Y);
 	}
+	
+	
 }

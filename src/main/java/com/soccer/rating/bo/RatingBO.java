@@ -28,6 +28,9 @@ public class RatingBO {
 		} 
 		// db insert
 		return ratingMapper.insertRatingByTeamIdAndMatchedTeamIdAndMatchIdTemperature(matchId, teamId, matchedTeamId, temperature);
-		
+	}
+	
+	public Double getAverageTemperatureByRatedTeamId(int ratedTeamId) {
+		return ratingMapper.selectAverageTemperatureByRatedTeamId(ratedTeamId);
 	}
 }

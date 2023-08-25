@@ -23,6 +23,16 @@
 			`matchedId` = #{matchId}
  	</select>
  	
+ 	
+ 	<select id="selectAverageTemperatureByRatedTeamId" parameterType="int" resultType="Double">
+ 		SELECT
+ 			avg(temperature)
+ 		FROM 
+ 			`rating`
+ 		WHERE
+ 			`ratedTeamId` = #{ratedTeamId}
+ 	</select>
+ 	
  	<insert id="insertRatingByTeamIdAndMatchedTeamIdAndMatchIdTemperature" parameterType="map">
  		INSERT INTO `rating`
  		(

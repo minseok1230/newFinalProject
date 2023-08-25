@@ -19,5 +19,7 @@ public interface RatingMapper {
 			@Param("teamId") int teamId, 
 			@Param("matchedTeamId") int matchedTeamId, 
 			@Param("temperature") double temperature);
+	
+	public Double selectAverageTemperatureByRatedTeamId(int ratedTeamId);
 
 }

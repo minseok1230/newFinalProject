@@ -33,4 +33,8 @@ public interface TeamMapper {
 			@Param("activeArea") String activeArea, 
 			@Param("introduce") String introduce, 
 			@Param("profileImagePath") String profileImagePath);
+	
+	public void updateTeamRatingById(
+			@Param("id") int id, 
+			@Param("rating") double rating);
 }
