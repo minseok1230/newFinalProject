@@ -16,6 +16,10 @@
 <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
 <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Exo:wght@600;800&display=swap" rel="stylesheet">
 <!-- 내가 만든 외부 스타일 시트 -->
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 

@@ -65,6 +65,7 @@ public class MainController {
 		List<MatchRelationView> applyedMatchRelationViewList = matchRelationService.generateApplyedMatchRelationView(teamId);
 		List<MatchRelationView> doneMatchRelationViewList = matchRelationService.generateDoneMatchRelationView(teamId);
 		
+		model.addAttribute("teamId", teamId);
 		model.addAttribute("doneMatchRelationViewList", doneMatchRelationViewList);
 		model.addAttribute("applyedMatchRelationViewList", applyedMatchRelationViewList);
 		model.addAttribute("applyMatchRelationViewList", applyMatchRelationViewList);

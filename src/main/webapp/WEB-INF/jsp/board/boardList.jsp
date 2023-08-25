@@ -16,6 +16,14 @@
 				<a href="/board/board_create_view?type=${boardType}" class="mt-2 mr-3">글쓰기</a>
 			</div>
 			<table class="table table-hover" >
+				<thead>
+					<tr>
+						<th>Title</th>
+						<th>Content</th>
+						<th>User</th>
+						<th>Date</th>
+					</tr>
+				</thead>
 				<tbody>
 					<c:forEach items="${boardViewList}" var="board">
 						<tr>

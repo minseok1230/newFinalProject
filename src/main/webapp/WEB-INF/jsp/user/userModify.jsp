@@ -84,7 +84,7 @@
 		
 		
 			<!--  가입 버튼 -->
-			<button type="submit" id="updateUserBtn" class="btn btn-secondary mt-4 w-100" data-user-id="${user.id}">수정하기</button>	
+			<button type="submit" id="updateUserBtn" class="btn btn-secondary mt-4 w-100 mb-3" data-user-id="${user.id}">수정하기</button>	
 	</div>
 </div>
 

@@ -149,10 +149,10 @@ ${matchView.match.content}
 							</a>
 						</div>
 					</c:if>
+				</c:if>
 					<c:if test="${teamId != matchView.team.id && userRole == '팀장'}">
 						<button type="submit" id="applyMatchBtn" class="btn btn-info w-50" data-match-id="${matchView.match.id}" data-team-id ="${teamId}" data-matchingteam-id = "${matchView.team.id}">신청하기</button>
 					</c:if>
-				</c:if>
 			</div>
 			
 			

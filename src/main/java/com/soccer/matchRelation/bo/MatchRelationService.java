@@ -99,10 +99,31 @@ public class MatchRelationService {
 		List<MatchRelationView> result = new ArrayList<>();
 
 		String state = "매칭완료";
+		String state2 = "경기완료";
 		// 매칭 신청한 목록
-		List<MatchRelation> applyedMatch = matchRelationBO.getMatchRelationByTeamIdAndMatchedTeamId(teamId, state);
+		List<MatchRelation> doneMatch = matchRelationBO.getMatchRelationByTeamIdAndMatchedTeamId(teamId, state);
+		List<MatchRelation> endMatch = matchRelationBO.getMatchRelationByTeamIdAndMatchedTeamId(teamId, state2);
+		
+		for (MatchRelation matchRelation : doneMatch) {
+			MatchRelationView matchRelationView = new MatchRelationView();
+			matchRelationView.setMatchRelation(matchRelation);
+			
+			// 상대팀
+			if (matchRelation.getTeamId() == teamId) {
+				TeamEntity team = teamBO.getTeamById(matchRelation.getMatchedTeamId());
+				matchRelationView.setTeam(team);
+			} else {
+				TeamEntity team = teamBO.getTeamById(matchRelation.getTeamId());
+				matchRelationView.setTeam(team);
+			}
 
-		for (MatchRelation matchRelation : applyedMatch) {
+			MatchView matchView = matchService.generateMatchView(matchRelation.getMatchId());
+			matchRelationView.setMatchView(matchView);
+
+			result.add(matchRelationView);
+		}
+		
+		for (MatchRelation matchRelation : endMatch) {
 			MatchRelationView matchRelationView = new MatchRelationView();
 			matchRelationView.setMatchRelation(matchRelation);
 			

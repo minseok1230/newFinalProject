@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.rating.dao.RatingMapper">
+ 
+ 	<select id="selectRatingByTeamIdAndMatchedTeamIdAndMatchId" parameterType="map" resultType="com.soccer.rating.domain.Rating">
+ 		SELECT
+ 			`id`
+			,`matchedId`
+			,`teamId`
+			,`ratedTeamId`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`rating`
+		WHERE
+			`teamId` = teamId
+		AND
+			`ratedTeamId` = #{matchedTeamId}
+		AND 
+			`matchedId` = #{matchId}
+ 	</select>
+ 	
+ 	<insert id="insertRatingByTeamIdAndMatchedTeamIdAndMatchIdTemperature" parameterType="map">
+ 		INSERT INTO `rating`
+ 		(
+ 			`matchedId`
+			,`teamId`
+			,`ratedTeamId`
+			,`temperature`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{matchId}
+ 			, #{teamId}
+ 			, #{matchedTeamId}
+ 			, #{temperature}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ </mapper>
+ 
+ 
+ 
+ 

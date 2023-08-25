@@ -81,6 +81,7 @@
 			(`matchedTeamId` = #{teamId} OR `teamId` = #{teamId})
 		AND
 			`state` = #{state}
+		ORDER BY `id` DESC
  	</select>
  
  	<select id="selectMatchRelationByTeamIdMatchIdMatchedTeamId" parameterType="map" resultType="com.soccer.matchRelation.domain.MatchRelation">

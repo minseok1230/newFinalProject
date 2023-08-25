@@ -44,10 +44,13 @@
 							<td>${matchView.team.name}</td>
 							<td>${matchView.match.price }</td>
 							<c:if test="${matchView.match.state == '모집중'}">
-								<td class="font-weight-bold text-primary">${matchView.match.state}</td>
+								<td class="font-weight-bold text-warning">${matchView.match.state}</td>
 							</c:if>
 							<c:if test="${matchView.match.state == '매칭완료'}">
 								<td class="font-weight-bold text-danger">${matchView.match.state}</td>
+							</c:if>
+							<c:if test="${matchView.match.state == '경기완료'}">
+								<td class="font-weight-bold text-primary">${matchView.match.state}</td>
 							</c:if>
 						</tr>
 					</c:forEach>

@@ -10,20 +10,20 @@
 		
 		<!-- 개인 프로필 -->
 		<div class="mt-3 ">
-			<img src="${myPageView.user.profileImagePath}" width="50" alt="프로필사진">
+				<img src="${myPageView.user.profileImagePath}" width="50" style="border: 3px solid gold;" alt="프로필사진">
 			<span class="ml-3 font-weight-bold">${myPageView.user.name}(<small>${myPageView.user.email}</small>)</span>
-			<a href="/user/user_update_view" class="btn btn-sm btn-secondary ml-3"><small>프로필수정</small></a>
+			<a href="/user/user_update_view" class="btn btn-sm btn-secondary ml-3" style="height:30px; width:65px;"><small>프로필수정</small></a>
 		</div>
 		
 		<%--여기서 부터 팀정보가 있고 없고 유무에따라 갈라진다. --%>
 		<!-- 팀 정보 -->
 		<c:if test="${myPageView.user.teamId != null}">
 		<div class="mt-3">
-				<img src="${myPageView.team.profileImagePath}"  width="50" alt="팀로고">
+				<img src="${myPageView.team.profileImagePath}"  width="50" style="border: 3px solid gold;" alt="팀로고">
 				<span class="ml-3 font-weight-bold">${myPageView.team.name}</span>
-				<a href="/member/member_list_view?teamId=${myPageView.team.id}" class="btn btn-sm btn-secondary ml-3"><small>팀원</small></a>
+				<a href="/member/member_list_view?teamId=${myPageView.team.id}" style="height:30px; width:55px;" class="btn btn-sm btn-secondary ml-3"><small>팀원</small></a>
 				<c:if test="${myPageView.user.role == '팀장'}">
-					<a href="/team/team_update_view" class="btn btn-sm btn-secondary ml-2"><small>팀수정</small></a>
+					<a href="/team/team_update_view" style="height:30px; width:55px;" class="btn btn-sm btn-secondary ml-2"><small>팀수정</small></a>
 				</c:if>
 			</div>
 		
@@ -37,27 +37,27 @@
 				<table class="table table-bordered table-sm">
 					<thead  class="table-secondary">
 						<tr class="text-center">
-							<th>Date</th>
-							<th>Region</th>
-							<th>Stadium</th>
-							<th>Time</th>
-							<th></th>
+							<th style="width: 15%">Date</th>
+							<th style="width: 10%">Region</th>
+							<th style="width: 40%">Stadium</th>
+							<th style="width: 25%">Time</th>
+							<th style="width: 10%"></th>
 						</tr>
 					</thead>
 					<tbody>
 						<c:forEach items="${myPageView.reservationList}" var="reservation">
 							<tr class="text-center">
 								<td class="align-middle"><fmt:formatDate value="${reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
-								<td class="align-middle">${reservation.region}</td>
-								<td class="align-middle">${reservation.stadiumName}</td>
-								<td class="align-middle">${reservation.matchTime}</td>
+								<td class="align-middle" >${reservation.region}</td>
+								<td class="align-middle" >${reservation.stadiumName}</td>
+								<td class="align-middle" >${reservation.matchTime}</td>
 								<c:if test="${reservation.possibleCancel}">
-									<td class="align-middle">
+									<td class="align-middle" >
 										<button type="button"  class="deleteBtn btn btn-danger btn-sm" data-toggle="modal" data-target="#modal" data-reservation-id ="${reservation.id}"><small>취소</small></button>
 									</td>
 								</c:if>
 								<c:if test="${!reservation.possibleCancel}">
-										<td class="align-middle text-danger font-weight-bold">취소불가</td>
+										<td class="align-middle text-danger font-weight-bold" >취소불가</td>
 								</c:if>
 								
 							</tr>
@@ -74,29 +74,29 @@
 			<table class="table table-bordered table-sm">
 				<thead  class="table-secondary">
 					<tr class="text-center">
-						<th>Date</th>
-						<th>Region</th>
-						<th>stadium</th>
-						<th>Name</th>
-						<th></th>
+						<th style="width: 15%">Date</th>
+						<th style="width: 10%">Region</th>
+						<th style="width: 40%">stadium</th>
+						<th style="width: 25%">Name</th>
+						<th style="width: 10%"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${myPageView.matchViewList}" var ="matchView">
 						<tr class="text-center">
 						<!-- (안양)20.07.31 비산 20:00 ~ 22:00 -->
-							<td class="align-middle"><fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
-							<td class="align-middle">${matchView.reservation.region}</td>
-							<td class="align-middle">${matchView.reservation.stadiumName}</td>
-							<td class="align-middle"><a href="/match/match_detail_view?matchId=${matchView.match.id}">${matchView.match.title}</a></td>
+							<td class="align-middle" ><fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
+							<td class="align-middle" >${matchView.reservation.region}</td>
+							<td class="align-middle" >${matchView.reservation.stadiumName}</td>
+							<td class="align-middle" ><a href="/match/match_detail_view?matchId=${matchView.match.id}">${matchView.match.title}</a></td>
 							<c:if test="${matchView.match.state =='모집중'}">	
-								<td class="align-middle font-weight-bold text-warning">모집중</td>
+								<td class="align-middle font-weight-bold text-warning" >모집중</td>
 							</c:if>
 							<c:if test="${matchView.match.state == '매칭완료'}">	
-								<td class="align-middle font-weight-bold text-danger">매칭완료</td>
+								<td class="align-middle font-weight-bold text-danger" >매칭완료</td>
 							</c:if>
 							<c:if test="${matchView.match.state == '경기완료'}">	
-								<td class="align-middle font-weight-bold text-primary">경기완료</td>
+								<td class="align-middle font-weight-bold text-primary" >경기완료</td>
 							</c:if>
 						</tr>
 					</c:forEach>
@@ -111,22 +111,31 @@
 			<table class="table table-bordered table-sm">
 				<thead  class="table-secondary">
 					<tr class="text-center">
-						<th>Date</th>
-						<th>Region</th>
-						<th>Stadium</th>
-						<th>Time</th>
-						<th>Team</th>
+						<th style="width: 15%">Date</th>
+						<th style="width: 10%">Region</th>
+						<th style="width: 35%">Stadium</th>
+						<th style="width: 10%">Time</th>
+						<th style="width: 15%">Team</th>
+						<th style="width: 15%"></th>
 					</tr>
 				</thead>
 				<tbody>
-						<c:forEach items="${doneMatchRelationViewList}" var="doneMatch">
-							<tr class="text-center">
-								<td class="align-middle"><fmt:formatDate value="${doneMatch.matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
-								<td class="align-middle">${doneMatch.matchView.reservation.region}</td>
-								<td class="align-middle">${doneMatch.matchView.reservation.stadiumName}</td>
-								<td class="align-middle">${doneMatch.matchView.reservation.matchTime}</td>
-								<td class="align-middle">${doneMatch.team.name}</td>
-							</tr>
+					<c:forEach items="${doneMatchRelationViewList}" var="doneMatch">
+						<tr class="text-center">
+							<td class="align-middle" ><fmt:formatDate value="${doneMatch.matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
+							<td class="align-middle" >${doneMatch.matchView.reservation.region}</td>
+							<td class="align-middle" >${doneMatch.matchView.reservation.stadiumName}</td>
+							<td class="align-middle" >${doneMatch.matchView.reservation.matchTime}</td>
+							<td class="align-middle" >${doneMatch.team.name}</td>
+							<c:if test="${doneMatch.matchView.match.state == '매칭완료'}">
+								<td class="align-middle font-weight-bold  text-danger" >${doneMatch.matchView.match.state}</td>
+							</c:if>
+							<c:if test="${doneMatch.matchView.match.state == '경기완료'}">
+								<td class="align-middle font-weight-bold  text-primary" >
+									<a href="/rating/rating_view?teamId=${teamId}&matchedTeamId=${doneMatch.team.id}&matchId=${doneMatch.matchView.match.id}" id="ratingBtn" >평점주기</a>
+								</td>
+							</c:if>
+						</tr>
 					</c:forEach>
 				</tbody>
 			</table>
@@ -140,23 +149,23 @@
 			<table class="table table-bordered table-sm">
 				<thead  class="table-secondary">
 					<tr class="text-center">
-						<th>Date</th>
-						<th>Region</th>
-						<th>Stadium</th>
-						<th>Time</th>
-						<th>Team</th>
-						<th></th>
+						<th style="width: 15%">Date</th>
+						<th style="width: 10%">Region</th>
+						<th style="width: 35%">Stadium</th>
+						<th style="width: 10%">Time</th>
+						<th style="width: 15%">Team</th>
+						<th style="width: 20%"></th>
 					</tr>
 				</thead>
 				<tbody>
 					<c:forEach items="${applyMatchRelationViewList}" var="applyMatch">
 							<tr class="text-center">
-								<td class="align-middle"><fmt:formatDate value="${applyMatch.matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
-								<td class="align-middle">${applyMatch.matchView.reservation.region}</td>
-								<td class="align-middle">${applyMatch.matchView.reservation.stadiumName}</td>
-								<td class="align-middle">${applyMatch.matchView.reservation.matchTime}</td>
-								<td class="align-middle">${applyMatch.team.name}</td>
-								<td class="align-middle font-weight-bold text-danger">수락대기중</td>
+								<td class="align-middle" ><fmt:formatDate value="${applyMatch.matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/></td>
+								<td class="align-middle" >${applyMatch.matchView.reservation.region}</td>
+								<td class="align-middle" >${applyMatch.matchView.reservation.stadiumName}</td>
+								<td class="align-middle" >${applyMatch.matchView.reservation.matchTime}</td>
+								<td class="align-middle" >${applyMatch.team.name}</td>
+								<td class="align-middle font-weight-bold text-danger" >수락대기중</td>
 							</tr>
 					</c:forEach>
 				</tbody>
@@ -172,12 +181,12 @@
 			<table class="table table-bordered table-sm">
 				<thead  class="table-secondary">
 					<tr class="text-center">
-						<th>Date</th>
-						<th>Region</th>
-						<th>Stadium</th>
-						<th>Time</th>
-						<th>Team</th>
-						<th></th>
+						<th style="width: 15%">Date</th>
+						<th style="width: 10%">Region</th>
+						<th style="width: 35%">Stadium</th>
+						<th style="width: 10%">Time</th>
+						<th style="width: 15%">Team</th>
+						<th style="width: 20%"></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -206,10 +215,10 @@
 					<table class="table table-bordered table-sm">
 						<thead  class="table-secondary">
 							<tr class="text-center">
-								<th>Name</th>
-								<th>나이</th>
-								<th>position</th>
-								<th></th>
+								<th style="width: 25%">Name</th>
+								<th style="width: 25%">Birth</th>
+								<th style="width: 25%">position</th>
+								<th style="width: 25%"></th>
 							</tr>
 						</thead>
 						<tbody>
@@ -398,6 +407,7 @@ $(document).ready(function(){
     		}
     	});
     });
+    
     
     
 	

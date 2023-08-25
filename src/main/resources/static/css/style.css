@@ -4,7 +4,7 @@ header{
 }
 
 .content{
-    min-height: 750px;
+    min-height: 500px;
 }
 
 footer{
@@ -52,6 +52,22 @@ body{
     width: auto;
 }
 
+td a{
+	 box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    color: #00A5FF;
+    text-align: center;
+    padding: 14.5px 16px;
+    text-decoration: none;
+}
+
+td a:hover{
+	color: #00A5FF;
+	font-size:16px;
+    font-weight:bold;
+    text-decoration: none;
+}
 
 .menu nav li a{
     box-sizing: border-box;
@@ -129,6 +145,19 @@ select{
   color: gray;
   font-style: italic;
 }
+
+
+/* 글꼴 */
+.gothic-font {
+    font-family: 'Gothic', sans-serif; /* 'Gothic'은 원하는 고딕체의 이름입니다. */
+ }
+ 
+.exo{
+	font-family: 'Exo', sans-serif;
+	font-size: 55px
+ }
+ 
+ 
  
  
 
