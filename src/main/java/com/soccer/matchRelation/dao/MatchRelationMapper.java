@@ -47,4 +47,14 @@ public interface MatchRelationMapper {
 	
 	
 	public void deleteMatchRelationByMatchId(int matchId);
+	
+	public void deleteMatchRelationMatchIdAndTeamIdAndMatchedTeamId(
+			@Param("matchId") int matchId, 
+			@Param("teamId") int teamId, 
+			@Param("matchedTeamId") int matchedTeamId);
 }
+
+
+
+
+

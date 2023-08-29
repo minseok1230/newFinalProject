@@ -28,7 +28,7 @@
 			<div class="w-100 text-center text-info">
 				<small>계정이 없으신가요?</small>
 			</div>
-			<a href="/user/sign_up_view" class="btn btn-secondary w-100 mt-3" id="signUpBtn">회원가입</a>
+			<a href="/user/sign_up_view" class="btn btn-secondary w-100 mt-3 mb-3" id="signUpBtn">회원가입</a>
 		</form>
 	</div>
 </div>

@@ -33,7 +33,7 @@
 
 
 		<div>
-					<ul class="tabs">
+					<ul class="tabs d-flex justify-content-center font-weight-bold">
 						<c:if test="${myPageView.user.role == '팀장'}">
 							<li class="tab-link current" data-tab="tab-1">경기장 예약</li>
 						</c:if>
@@ -235,7 +235,7 @@
 											<td class="align-middle">${applyedMatch.matchView.reservation.matchTime}</td>
 											<td class="align-middle">${applyedMatch.team.name}</td>
 											<td class="align-middle">
-												<button type="button" class="acceptMatchbtn btn-info btn-sm" data-matchrelation-id="${applyedMatch.matchRelation.id}"><small>수락</small></button>
+												<button type="button" class="acceptMatchbtn btn-info btn-sm" data-matchrelation-id="${applyedMatch.matchRelation.id}" data-matchedteam-id="${applyedMatch.team.id}"><small>수락</small></button>
 											</td>
 										</tr>
 								</c:forEach>
@@ -434,6 +434,7 @@
 				$('.acceptMemberBtn').on('click', function() {
 					let userId = $(this).data("user-id");
 					let teamId = $(this).data("team-id");
+					
 
 					$.ajax({
 
@@ -462,11 +463,12 @@
 				// 매칭 수락
 				$('.acceptMatchbtn').on('click', function() {
 					let matchRelationId = $(this).data("matchrelation-id");
-
+					let matchedTeamId = $(this).data("matchedteam-id");
+					
 					$.ajax({
 
 						type : "put",
-						url : "/matchRelation/" + matchRelationId
+						url : "/matchRelation/" + matchRelationId 
 
 						,
 						success : function(data) {

@@ -25,8 +25,7 @@ public class MatchRelationBO {
 	public int addMatchRelationByTeamIdMatchIdMatchedTeamId(int teamId, int matchId, int matchedTeamId) {
 
 		String state = "대기중";
-		MatchRelation matchRelation = matchRelationMapper.selectMatchRelationByTeamIdMatchIdMatchedTeamId(teamId, matchId,
-				matchedTeamId, state);
+		MatchRelation matchRelation = matchRelationMapper.selectMatchRelationByTeamIdMatchIdMatchedTeamId(teamId, matchId,matchedTeamId, state);
 		if (matchRelation != null) {
 			return 400;
 		}
@@ -52,6 +51,7 @@ public class MatchRelationBO {
 	public int updateMatchRelationById(int id) {
 		
 		MatchRelation matchRelation = matchRelationMapper.selectMatchRelationById(id);
+		
 		// match 글도 매칭완료로 수정 
 		String state = "매칭완료";
 		matchBO.updateMatchByIdState(matchRelation.getMatchId(), state);
@@ -60,6 +60,10 @@ public class MatchRelationBO {
 		// reservation isPossible값 false로 수정
 		Match match = matchBO.getMatchById(matchRelation.getMatchId());
 		reservationBO.updateReservationById(match.getReservationId());
+		
+		// matchRelation 삭제( 매칭 수락 안된 모든 경기들 삭제 필요!!!)
+		matchRelationMapper.deleteMatchRelationMatchIdAndTeamIdAndMatchedTeamId(matchRelation.getMatchId(), matchRelation.getTeamId(), matchRelation.getMatchedTeamId());
+		
 		return matchRelationMapper.updateMatchRelationByIdState(id, state);
 	}
 	

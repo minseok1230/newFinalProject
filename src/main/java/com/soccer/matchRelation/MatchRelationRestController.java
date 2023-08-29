@@ -46,10 +46,11 @@ public class MatchRelationRestController {
 			return result;
 		}
 		
-		// 수정
+		// 매칭 수락 
 		@PutMapping("{matchRelationId}")
 		public Map<String, Object> updateMatchRelation(
-				@PathVariable int matchRelationId){
+				@PathVariable int matchRelationId
+				){
 			
 			Map<String, Object> result = new HashMap<>();
 			

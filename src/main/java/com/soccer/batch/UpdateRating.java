@@ -23,7 +23,7 @@ public class UpdateRating {
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
-	@Scheduled(cron = "0 0 0 * * *") //매일밤 12시 
+	@Scheduled(cron = "0 0 2 * * *") // 매일 새벽 2시
 	//@Scheduled(cron = "*/10 * * * * *")
 	public void updateRatingAtMidnight() {
 		List<Team> teamList = teamBO.getTeam();

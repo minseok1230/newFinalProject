@@ -135,6 +135,17 @@
  		DELETE FROM `matchRelation`
  		WHERE 	`matchId` = #{matchId}
  	</delete>
+ 	
+ 	
+ 	<delete id="deleteMatchRelationMatchIdAndTeamIdAndMatchedTeamId" parameterType="map">
+ 		DELETE FROM `matchRelation`
+ 		WHERE 	
+ 			`matchId` = #{matchId}
+ 		AND
+ 			`teamId` = #{teamId}
+ 		AND 
+ 			`matchedTeamId` != #{matchedTeamId}
+ 	</delete>
  </mapper>
  
  
