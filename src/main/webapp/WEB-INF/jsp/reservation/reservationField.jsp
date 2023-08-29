@@ -229,7 +229,7 @@ $(document).ready(function(){
     		return false;
     	}
     	
-    	/* $.ajax({
+    	 $.ajax({
     		
     		type: "post"
     		, url : "/reservation/create_reservation"
@@ -248,7 +248,7 @@ $(document).ready(function(){
     		, error: function(request, status, error){
 				alert("경기장 예약에 실패했습니다. 관리자 문의 바랍니다.");
 			}
-    	}); */
+    	}); 
     	
     	
     	

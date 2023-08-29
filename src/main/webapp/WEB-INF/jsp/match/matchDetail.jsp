@@ -8,17 +8,18 @@
 			<h2>MATCHING </h2>
 		</div>
 
-		<!-- 경기장 지도 -->
+			<!-- 경기장 지도 -->
 			<div class="mt-3 d-flex justify-content-center w-100">
 				<div id="map" style="width:1000px;height:400px;"></div>
 			</div>
+			
 			<!-- services와 clusterer, drawing 라이브러리 불러오기 -->
 			<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=dc8476ea9375c69674cea47fce478ccf&libraries=services,clusterer,drawing"></script>
 			
 			<script>
 			
 				let stadium = "${matchView.reservation.stadiumName}"
-				var inputData = [ stadium ]
+				var inputData = [stadium]
 
 				var mapContainer = document.getElementById('map'), mapOption = {
 					center : new kakao.maps.LatLng(37.54699, 127.09598),
@@ -74,35 +75,59 @@
 				    map.setLevel(newLevel);
 				}
 				
-				// 카카오맵 API를 통해 주소 얻어오기
-			    function getAddressFromKakaoMap(stadiumName) {
-			        return new Promise((resolve, reject) => {
-			            const geocoder = new kakao.maps.services.Geocoder();
+				// 주소 검색 함수 (Promise 활용)
+		        function searchStadium(stadiumName) {
+		            return new Promise(function(resolve, reject) {
+		                var ps = new kakao.maps.services.Places();
 
-			            geocoder.addressSearch(stadiumName, (result, status) => {
-			                if (status === kakao.maps.services.Status.OK) {
-			                    if (result.length > 0) {
-			                        resolve(result[0].address_name);
-			                    } else {
-			                        reject("No address found for the given stadium name");
-			                    }
-			                } else {
-			                    reject("Failed to fetch address from KakaoMap");
-			                }
-			            });
-			        });
-			    }
+		                ps.keywordSearch(stadiumName, function(data, status) {
+		                    if (status === kakao.maps.services.Status.OK) {
+		                        var coords = new kakao.maps.LatLng(data[0].y, data[0].x);
+		                        var marker = new kakao.maps.Marker({
+		                            position: coords,
+		                            map: map
+		                        });
+		                        map.setCenter(coords);
+		                        resolve(data[0].address_name);
+		                    } else {
+		                        reject("주소 검색 실패, 정확한 위치는 카카오맵에서 검색해주세요!");
+		                    }
+		                });
+		            });
+		        }
+		        
+		        // 주소 복사 함수
+		        function copyAddress() {
+		            searchStadium(inputData[0]).then(function(address) {
+		                var tempInput = document.createElement("input");
+		                tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+		                tempInput.value = address;
+		                document.body.appendChild(tempInput);
+		                tempInput.select();
+		                document.execCommand("copy");
+		                document.body.removeChild(tempInput);
+		                alert("주소가 복사되었습니다.");
+		            }).catch(function(error) {
+		                alert(error);
+		            });
+		        }
+		        
+		     // 현재 페이지 URL 공유 함수
+		        function sharePage() {
+		            var currentURL = window.location.href;
+		            var tempInput = document.createElement("input");
+		            tempInput.style = "position: absolute; left: -1000px; top: -1000px";
+		            tempInput.value = currentURL;
+		            document.body.appendChild(tempInput);
+		            tempInput.select();
+		            document.execCommand("copy");
+		            document.body.removeChild(tempInput);
+		            alert("현재 페이지 URL이 복사되었습니다: ");
+		        }
 			</script>
-			<!-- 주소 복사하기 / 매칭글 공유하기 -->
-			<div class="mt-3">
-				<button type="button" class="copyAddress btn btn-secondary btn-sm">주소복사하기</button>
-				<button type="button" class="shareAddress btn btn-secondary btn-sm ml-2">공유하기</button>
-			</div>
-			
-			
 
 
-		<!-- 매칭 정보 ( 경기장, 주소 ) -->
+			<!-- 매칭 정보 ( 경기장, 주소 ) -->
 			<h5 class="mt-3 font-weight-bold"><fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/> ${matchView.reservation.matchTime}</h5>
 			<div class="d-flex">
 				<h5 class="font-weight-bold">${matchView.reservation.stadiumName}</h5>
@@ -111,8 +136,8 @@
 			
 			<!-- 주소 복사하기 / 매칭글 공유하기 -->
 			<div class="mt-3">
-				<button type="button" class="copyAddress btn btn-secondary btn-sm">주소복사하기</button>
-				<button type="button" class="shareAddress btn btn-secondary btn-sm ml-2">공유하기</button>
+				<button type="button" class="copyAddress btn btn-secondary btn-sm" onclick="copyAddress()">주소복사하기</button>
+				<button type="button" class="shareAddress btn btn-secondary btn-sm ml-2" onclick="sharePage()">공유하기</button>
 			</div>
 			
 			<!-- 팀명 / 팀프로필 -->
@@ -323,6 +348,7 @@ $(document).ready(function(){
 			}
 		});
 	});
+	
 });
 </script>
     
