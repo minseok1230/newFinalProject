@@ -19,7 +19,7 @@
 		
 		<%--여기서 부터 팀정보가 있고 없고 유무에따라 갈라진다. --%>
 		<!-- 팀 정보 -->
-		<%-- <c:if test="${myPageView.user.teamId != null}"> --%>
+		<c:if test="${myPageView.user.teamId != null}">
 			<div class="mt-3">
 					<img src="${myPageView.team.profileImagePath}"  width="50" style="border: 3px solid gold;" alt="팀로고">
 					<span class="ml-3 font-weight-bold">${myPageView.team.name}</span>
@@ -29,26 +29,27 @@
 					</c:if>
 			</div>
 			<br><br><br>
+		</c:if>
 
 
 		<div>
-				<ul class="tabs">
-					<c:if test="${myPageView.user.role == '팀장'}">
-						<li class="tab-link current" data-tab="tab-1">경기장 예약</li>
-					</c:if>
-						<li class="tab-link" data-tab="tab-2">팀 매칭글</li>
-						<li class="tab-link" data-tab="tab-3">매칭 확정</li>
-					<c:if test="${myPageView.user.role == '팀장'}">
-						<li class="tab-link" data-tab="tab-4">매칭 신청</li>
-						<li class="tab-link" data-tab="tab-5">매칭 요청</li>
-						<li class="tab-link" data-tab="tab-6">가입 승인</li>
-					</c:if>
-					<c:if test="${myPageView.requestMember != null}">
-						<li class="tab-link" data-tab="tab-7">가입 신청</li>
-					</c:if>
-				</ul>
+					<ul class="tabs">
+						<c:if test="${myPageView.user.role == '팀장'}">
+							<li class="tab-link current" data-tab="tab-1">경기장 예약</li>
+						</c:if>
+						<c:if test="${myPageView.user.teamId != null}">
+							<li class="tab-link" data-tab="tab-2">팀 매칭글</li>
+							<li class="tab-link" data-tab="tab-3">매칭 확정</li>
+						</c:if>
+						<c:if test="${myPageView.user.role == '팀장'}">
+							<li class="tab-link" data-tab="tab-4">매칭 신청</li>
+							<li class="tab-link" data-tab="tab-5">매칭 요청</li>
+							<li class="tab-link" data-tab="tab-6">가입 승인</li>
+						</c:if>
+					</ul>
 				
-				<!-- 나의 경기장 예약 목록 (statium)-->
+			<!-- 나의 경기장 예약 목록 (statium)-->
+			<c:if test="${myPageView.user.teamId != null}">
 				<div id="tab-1" class="tab-content current">
 					<c:if test="${myPageView.user.role == '팀장'}">
 						<h5 class="font-weight-bold text-info">경기장 예약 목록</h5>
@@ -212,7 +213,7 @@
 				<!-- 매칭 신청받은 목록 (match) -->
 				<div id="tab-5" class="tab-content">
 					<c:if test="${myPageView.user.role == '팀장'}">
-					<h5 class="font-weight-bold text-info">매칭 신청받은 목록</h5>
+					<h5 class="font-weight-bold text-info">매칭 요청 목록</h5>
 					<div>
 						<table class="table table-bordered table-sm">
 							<thead  class="table-secondary">
@@ -250,7 +251,7 @@
 				<!-- 팀 가입 승인 목록 -->
 				<div id="tab-6" class="tab-content">
 						<c:if test="${myPageView.user.role == '팀장'}">
-							<h5 class="font-weight-bold text-info">팀 가입 승인 목록</h5>
+							<h5 class="font-weight-bold text-info">가입 승인 목록</h5>
 							<div>
 								<table class="table table-bordered table-sm">
 									<thead  class="table-secondary">
@@ -277,40 +278,39 @@
 							</div>
 						</c:if>
 				</div>
-		<%-- </c:if> --%>
+		 </c:if> 
 				
-				<div id="tab-7" class="tab-content">
-				<!-- 팀 가입 신청 목록-->
-						<c:if test="${myPageView.requestMember != null}">
-							<h5 class="font-weight-bold text-info mt-4">팀 가입 신청 목록</h5>
-							<div>
-								<table class="table table-bordered table-sm">
-									<thead  class="table-secondary">
-										<tr class="text-center">
-											<th>팀이름</th>
-											<th>활동지역</th>
-											<th>실력</th>
-											<th>팀원수</th>
-											<th></th>
-										</tr>
-									</thead>
-									<tbody>
-											<tr class="text-center">
-												<td class="align-middle">${myPageView.team.name}</td>
-												<td class="align-middle">${myPageView.team.activeArea}</td>
-												<td class="align-middle">${myPageView.team.skill}</td>
-												<td class="align-middle">팀원수</td>
-												<td class="align-middle">
-													<button type="button" class="btn btn-info btn-sm" disabled><small>승인대기</small></button>
-													<button type="button" id="requestDeleteBtn" class="btn btn-info btn-sm" data-team-id ="${myPageView.team.id}" data-user-id = "${myPageView.user.id}"><small>취소</small></button>
-												</td>
-											</tr>
-									</tbody>
-								</table>
-							</div>
-						</c:if>
-				</div>
 		</div>
+		
+		<!-- 팀 가입 신청 목록-->
+		<c:if test="${myPageView.requestMember != null}">
+				<h5 class="font-weight-bold text-info mt-4">팀 가입 신청 목록</h5>
+				<div>
+					<table class="table table-bordered table-sm">
+						<thead  class="table-secondary">
+							<tr class="text-center">
+								<th>팀이름</th>
+								<th>활동지역</th>
+								<th>실력</th>
+								<th>팀원수</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+								<tr class="text-center">
+									<td class="align-middle">${myPageView.team.name}</td>
+									<td class="align-middle">${myPageView.team.activeArea}</td>
+									<td class="align-middle">${myPageView.team.skill}</td>
+									<td class="align-middle">팀원수</td>
+									<td class="align-middle">
+										<button type="button" class="btn btn-info btn-sm" disabled><small>승인대기</small></button>
+										<button type="button" id="requestDeleteBtn" class="btn btn-info btn-sm" data-team-id ="${myPageView.team.id}" data-user-id = "${myPageView.user.id}"><small>취소</small></button>
+									</td>
+								</tr>
+						</tbody>
+					</table>
+				</div>
+		</c:if>
 	</div>
 </div>
 
