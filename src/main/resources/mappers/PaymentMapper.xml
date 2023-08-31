@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.soccer.payment.dao.PaymentMapper">
+ 	<select id="selectPaymentByTeamNameRegionStadiumTimeDate" parameterType="map" resultType="com.soccer.payment.domain.Payment">
+ 		SELECT
+ 			`id`
+			,`teamId`
+			,`region`
+			,`stadiumName`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`payment`
+		WHERE
+			`teamId` = #{teamId}
+		AND
+			`region` = #{region}
+		AND
+			`stadiumName` = #{stadiumName}
+		AND
+			`matchTime` = #{matchTime}
+		AND
+			`matchDate` = #{matchDate}
+ 	</select>
+ 	
+ 	<select id="selectPaymentByRegionStadiumTimeDate" parameterType="map" resultType="com.soccer.payment.domain.Payment">
+ 		SELECT
+ 			`id`
+			,`teamId`
+			,`region`
+			,`stadiumName`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+		FROM 
+			`payment`
+		WHERE
+			`teamId` != #{teamId}
+		AND
+			`region` = #{region}
+		AND
+			`stadiumName` = #{stadiumName}
+		AND
+			`matchTime` = #{matchTime}
+		AND
+			`matchDate` = #{matchDate}
+ 	</select>
+ 	
+ 	<insert id="insertPaymentByTeamNameRegionStadiumTimeDate" parameterType="map"> 
+ 		INSERT INTO `payment`
+ 		(
+ 			`teamId`
+			,`region`
+			,`stadiumName`
+			,`matchTime`
+			,`matchDate`
+			,`createdAt`
+			,`updatedAt`
+ 		)
+ 		VALUES
+ 		(
+ 			#{teamId}
+ 			, #{region}
+ 			, #{stadiumName}
+ 			, #{matchTime}
+ 			, #{matchDate}
+ 			, NOW()
+ 			, NOW()
+ 		)
+ 	</insert>
+ 	
+ 	<delete id="deletePaymentByTeamIdRegionStadiumTimeDate" parameterType="map">
+ 		DELETE FROM `payment`
+ 		WHERE
+			`teamId` = #{teamId}
+		AND
+			`region` = #{region}
+		AND
+			`stadiumName` = #{stadiumName}
+		AND
+			`matchTime` = #{matchTime}
+		AND
+			`matchDate` = #{matchDate}
+ 			
+ 	</delete>
+ 
+ 
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

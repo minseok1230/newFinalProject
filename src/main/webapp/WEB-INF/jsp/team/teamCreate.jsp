@@ -133,7 +133,7 @@ $(document).ready(function(){
 				location.href = "/team/team_list_view";
 			} else{
 				alert(data.errorMessage);
-				// location.href = "마이페이지"; -> 추후에 구현 
+				location.href = "/main/my_page_view";
 			}
 		});
 	});

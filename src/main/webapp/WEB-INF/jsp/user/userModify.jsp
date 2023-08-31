@@ -130,8 +130,13 @@ $(document).ready(function(){
 		let position = $('#position').val();
 		let file = $('#file').val();
 		let password = $('#password').val();
+		let confirmPassword = $('#confirmPassword').val();
 		let userId = $(this).data('user-id');
 		
+		if (password != confirmPassword) {
+			alert("비밀번호가 일치하지 않습니다. 확인 바랍니다.");
+			return false;
+		}
 		
 		if (!name){
 			alert("이름을 입력하세요.");

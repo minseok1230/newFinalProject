@@ -19,6 +19,10 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Exo:wght@600;800&display=swap" rel="stylesheet">
+
+<!-- iamport.payment.js -->
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+			
 <!-- 내가 만든 외부 스타일 시트 -->
 <link rel="stylesheet" type="text/css" href="/static/css/style.css">
 

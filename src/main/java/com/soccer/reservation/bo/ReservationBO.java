@@ -11,6 +11,7 @@ import com.soccer.comment.bo.CommentBO;
 import com.soccer.common.StadiumApiService;
 import com.soccer.match.bo.MatchBO;
 import com.soccer.match.domain.Match;
+import com.soccer.payment.bo.PaymentBO;
 import com.soccer.reservation.dao.ReservationMapper;
 import com.soccer.reservation.domain.Reservation;
 
@@ -28,6 +29,9 @@ public class ReservationBO {
 	
 	@Autowired
 	private CommentBO commentBO;
+	
+	@Autowired
+	private PaymentBO paymentBO;
 	
 	
 	public List<Reservation> getReservationByTeamId(int teamId){
@@ -101,6 +105,8 @@ public class ReservationBO {
 		if (reservationForCheck != null) {
 			return 300;
 		} else {
+			// payment 삭제
+			paymentBO.deletePaymentByTeamIdRegionStadiumTimeDate(teamId, region, stadium, matchTime, matchDate);
 			return reservationMapper.insertReservation(teamId, matchDate, region, stadium, matchTime, teamName);
 		}
 	}

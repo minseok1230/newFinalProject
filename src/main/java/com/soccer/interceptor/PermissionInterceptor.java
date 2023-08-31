@@ -27,6 +27,7 @@ public class PermissionInterceptor implements HandlerInterceptor{
 		// 로그인 여부 확인 - session 확인
 		HttpSession session = request.getSession();
 		Integer userId =  (Integer)session.getAttribute("userId");
+		String userRole = (String)session.getAttribute("userRole");
 		
 		
 		// 비로그인 && /post 온 경우 => 로그인 페이지로 이동,  컨트롤러 수행 방지 
@@ -37,8 +38,23 @@ public class PermissionInterceptor implements HandlerInterceptor{
 		
 		
 		// 로그인 && /user로 온 경우 => 글 목록 페이지로 이동, 컨트롤러 수행 방지
-		if (userId != null && uri.startsWith("/user")) {
+		if (userId != null && (uri.startsWith("/user/sign_in") || uri.startsWith("/user/sign_up"))) {
 			response.sendRedirect("/main/main_view");
+			return false; // 컨트롤러 수행 안함 
+		}
+		
+		if (userId != null && (userRole == null || !userRole.equals("팀장") ) && uri.startsWith("/reservation")) {
+			response.sendRedirect("/main/main_view");
+			return false; // 컨트롤러 수행 안함 
+		}
+		
+		if (userId != null && (userRole == null || !userRole.equals("팀장") ) &&  uri.startsWith("/match/match_create")) {
+			response.sendRedirect("/match/match_list_view");
+			return false; // 컨트롤러 수행 안함 
+		}
+		
+		if (userId != null && (userRole == null || !userRole.equals("팀장") ) &&  uri.startsWith("/rating")) {
+			response.sendRedirect("/main/my_page_view");
 			return false; // 컨트롤러 수행 안함 
 		}
 		

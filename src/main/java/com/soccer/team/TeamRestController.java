@@ -15,6 +15,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.soccer.member.bo.MemberBO;
+import com.soccer.member.domain.Member;
 import com.soccer.team.bo.TeamBO;
 import com.soccer.team.domain.Team;
 import com.soccer.user.domain.User;
@@ -25,6 +27,9 @@ public class TeamRestController {
 
 	@Autowired
 	private TeamBO teamBO;
+	
+	@Autowired
+	private MemberBO memberBO;
 	
 	/**
 	 * 팀명 중복 검사
@@ -68,9 +73,14 @@ public class TeamRestController {
 		Map<String, Object> result = new HashMap<>();
 		
 		// session 
-		
 		int leaderId = (int)session.getAttribute("userId");
 		Integer userTeamId = (Integer)session.getAttribute("userTeamId");
+		
+		Member member = memberBO.getMemberByUserId(leaderId);
+		if (member != null) {
+			result.put("errorMessage", "팀가입신청 내역이 존재합니다. 확인해주세요.");
+			return result;
+		}
 		
 		if (userTeamId == null) {
 			// DB 조회 후  insert

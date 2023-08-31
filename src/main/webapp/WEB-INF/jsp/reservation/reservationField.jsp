@@ -128,9 +128,12 @@
 				</div>
 			</div>
 			
-			
 			<!--  가입 버튼 -->
+			<button type="submit" id="kakaoPayBtn" class="btn btn-warning mt-4 w-100">결제하기</button>	
+			<button type="submit" id="checkPayBtn" class="btn btn-warning mt-4 w-100 d-none" disabled>결제완료</button>	
 			<button type="submit" id="reservationBtn" class="btn btn-secondary mt-4 w-100">예약하기</button>	
+			
+		
 	</div>
 </div>
 
@@ -203,6 +206,11 @@ $(document).ready(function(){
     	let stadium = $('#stadium').val();
     	let matchTime = $('#matchTime').val();
     	let teamName = $('#teamName').val();
+    	
+    	if ($('#checkPayBtn').hasClass("d-none")){
+    		alert("결제를 진행해주세요.");
+    		return false;
+    	}
 
         // 입력된 날짜가 비어있거나 오늘 날짜보다 이전인 경우
     	// 입력된 날짜가 비어있거나 오늘 날짜보다 이전인 경우
@@ -249,10 +257,112 @@ $(document).ready(function(){
 				alert("경기장 예약에 실패했습니다. 관리자 문의 바랍니다.");
 			}
     	}); 
-    	
-    	
-    	
     });
+    
+    
+    // 카카오 결제 
+    $('#kakaoPayBtn').on('click', function(){
+    	
+    	let teamId = ${team.id};
+       	let matchDate = $('#matchDate').val();
+        let region = $('#region').val();
+        let stadiumName = $('#stadium').val();
+        let matchTime = $('#matchTime').val();
+        
+        $('#kakaoPayBtn').removeClass('d-none');
+	    $('#checkPayBtn').addClass('d-none');
+        
+        if (!matchDate || !region || !stadium || !matchTime){
+        	alert("날짜, 지역, 경기장, 시간을 모두 선택해주세요.");
+            return false;
+        }
+    	
+        $.ajax({
+        	type : "post"
+        	, url : "/payment/check"
+        	, data : {"teamId":teamId,"region":region,"stadiumName":stadiumName,"matchTime":matchTime,"matchDate":matchDate}
+        
+        	, success : function(data){
+        		
+        		if (data.duplicate){
+        			alert("다른 팀이 이미 결제중입니다. 다른 시간을 이용해주세요.");
+        			location.reload(true);
+        		}
+        		// DB에 존재할 경우 (결제가 된 경우)
+        		if (data.valid){
+        			alert("이미 결제가 완료되었습니다. 예약을 진행해주세요.");
+        			$('#kakaoPayBtn').addClass('d-none');
+      		        $('#checkPayBtn').removeClass('d-none');
+      		        $('#region').prop('disabled', true);
+      		        $('#stadium').prop('disabled', true);
+      		        $('#matchTime').prop('disabled', true);
+      		        $('#matchDate').prop('disabled', true);
+        		} else{
+        			
+        			//결제 요청
+        			IMP.init('imp08002543'); /*iamport 대신 자신의 "가맹점 식별코드"를 사용*/
+        			  
+        			IMP.request_pay({
+        			  pg: "kakaopay",
+        			  pay_method: "card",
+        			  merchant_uid : 'merchant_'+new Date().getTime(),
+        			  name : '결제테스트',
+        			  amount : 1,
+        			  buyer_email : '${user.email}',
+        			  buyer_name : '${user.name}',
+        			  buyer_tel : '${user.phoneNumber}',
+        			  buyer_date : 'matchDate',
+        			  buyer_region : 'region',
+        			  buyer_stadium : 'stadium',
+        			  buyer_matchTime : 'matchTime',
+        			  buyer_teamName : 'teamName',
+        			}, function (rsp) { // callback
+        			    if (rsp.success) {
+        			      // 결제 성공 시 로직,
+        			      // db 저장 하고 넘기자 
+        			      $.ajax({
+        			    	  type : "post"
+        			          , url : "/payment/add"
+        			          , data : {"teamId":teamId,"region":region,"stadiumName":stadiumName,"matchTime":matchTime,"matchDate":matchDate}
+        			      
+        			      	  , success : function(data){
+        			      		  if (data.code == 1){
+        			      			alert("결제성공")
+        	        			      $('#kakaoPayBtn').addClass('d-none');
+        	        			      $('#checkPayBtn').removeClass('d-none');
+        	        			      $('#region').prop('disabled', true);
+        	            		      $('#stadium').prop('disabled', true);
+        	            		      $('#matchTime').prop('disabled', true);
+        	            		      $('#matchDate').prop('disabled', true);
+        			      		  } else{
+        			      			  alert(data.errorMessage);
+        			      		  }
+        			      	  }
+        			      	  
+        			      	  , error: function(request, status, error) {
+                                  alert("데이터 저장 실패");
+                              }
+        			      });
+        			      
+        			    } else {
+        			      // 결제 실패 시 로직,
+        			      alert("결제실패 : " + rsp.error_msg)
+        			      location.reload(true);
+        			    }
+        			 });
+        		}
+        	}
+        	
+        	, error : function(request, status, error){
+        		alert("[결제오류] 관리자에게 문의 바랍니다.");
+        	}
+        	
+        });
+    });
+
+    
+    
+    
 });
 </script>
 
