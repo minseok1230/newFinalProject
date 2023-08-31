@@ -5,7 +5,7 @@
 
 
 <div>
-	<div class="d-flex justify-content-center">
+	<div class="d-flex justify-content-center mt-5">
 		<img src="/static/image/main/mainPage_banner01.jpg" width="900" alt="메인화면 배너">
 	</div>
 	<br><br><br>

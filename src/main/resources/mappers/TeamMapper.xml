@@ -116,7 +116,9 @@
  			, `introduce` = #{introduce}
  			, `skill` = #{skill}
  			, `activeArea` = #{activeArea}
+ 			<if test="profileImagePath != null">
  			, `profileImagePath` = #{profileImagePath}
+			</if>
  		WHERE 
  			`id` = #{teamId}
  	</update>

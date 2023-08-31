@@ -125,6 +125,7 @@ public class UserBO {
 	
 	// 프로필 수정
 	public void updateUserById(int userId, String name, String phoneNumber, String birth, String position, MultipartFile file, String password) {
+		
 		User user = userMapper.selectUserById(userId);
 		
 		if (user == null) {

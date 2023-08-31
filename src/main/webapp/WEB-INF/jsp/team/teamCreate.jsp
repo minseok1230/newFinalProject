@@ -47,7 +47,7 @@
 			<!-- 팀 소개  -->
 			<div class="mt-3">
 				<label for="introduce">소개</label>
-				<textarea class="form-control" id="introduce" name="introduce" rows="6" placeholder="팀 소개"></textarea>
+				<textarea class="form-control" id="introduce" name="introduce" rows="6" placeholder="팀 가입을 원하는 사람들이 보는 글 입니다. 팀을 소개해주세요!"></textarea>
 			</div>
 			
 			
@@ -104,6 +104,9 @@ $(document).ready(function(){
 		let skill = $('#skill').val();
 		let activeArea = $('#activeArea').val().trim();
 		let introduce = $('#introduce').val();
+		
+		// 사용자 입력에서 줄바꿈 문자('\n')를 <br> 태그로 변경
+        introduce = introduce.replace(/\n/g, '<br>');
 		
 		if (!teamName){
 			alert("팀명을 입력하세요.");

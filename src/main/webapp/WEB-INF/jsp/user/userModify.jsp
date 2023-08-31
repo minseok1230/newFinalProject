@@ -68,7 +68,7 @@
 			<!-- 주요 포지션 -->
 			<div class="my-3">
 				<label for="position">포지션</label>
-				<select id="position" name="position" class="form-control" required>
+				<select id="position" name="position" class="form-control">
 					<option value="" disabled selected>${user.position}</option>
 					<option value="ST">ST</option>
 					<option value="LF">LF</option>
@@ -128,6 +128,9 @@ $(document).ready(function(){
 		let phoneNumber = $('#phoneNumber').val().trim();
 		let birth = $('#birth').val().trim();
 		let position = $('#position').val();
+		if (position == null){
+			position = '${user.position}';
+		}
 		let file = $('#file').val();
 		let password = $('#password').val();
 		let confirmPassword = $('#confirmPassword').val();
@@ -189,7 +192,7 @@ $(document).ready(function(){
 			, success:function(data){
 				if (data.code == 1){
 					alert("프로필이 수정되었습니다.")
-					location.reload(true);
+					location.href = "/main/my_page_view";
 				} else{
 					alert(data.errorMessage);
 				}

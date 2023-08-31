@@ -64,6 +64,7 @@ public class MatchController {
 			@RequestParam(value = "titleSearch", required = false) String titleSearch,
 			@RequestParam(value = "clickPage", required = false) Integer clickPage,
 			Model model) {
+		
 		List<MatchView> matchViewList = null;
 		PageMaker pageMaker = null;
 		if (regionSearch == null && titleSearch == null) {

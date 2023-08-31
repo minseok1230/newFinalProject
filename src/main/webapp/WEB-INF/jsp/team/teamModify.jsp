@@ -192,6 +192,9 @@ $(document).ready(function(){
 		
 		let teamName = $('#teamName').val().trim();
 		let skill = $('#skill').val();
+		if (skill == null){
+			skill = '${myTeam.skill}';
+		}
 		let activeArea = $('#activeArea').val().trim();
 		let introduce = $('#introduce').val();
 		let file = $('#file').val();

@@ -202,8 +202,9 @@
  			, `phoneNumber` = #{phoneNumber}
  			, `birth` = #{birth}
  			, `position` = #{position}
+ 			<if test="profileImagePath != null">
  			, `profileImagePath` = #{profileImagePath}
- 			, `profileImagePath` = #{profileImagePath}
+			</if>
  			<if test="hashedPassword != null">
  			, `password` = #{hashedPassword}
  			</if>

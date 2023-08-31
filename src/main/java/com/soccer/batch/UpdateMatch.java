@@ -65,7 +65,7 @@ public class UpdateMatch {
 	
 	
 	/* 경기 날짜 지나고 state "모집중" 삭제 ==> 매칭이 안된 경기이기 때문에 매너온도 필요 x  댓글도 삭제해야되네....*/
-	@Scheduled(cron = "0 0 0 * * *") //매일밤 12시
+	@Scheduled(cron = "0 0 1 * * *") //매일밤 1시
 	public void deleteMatchOverdue() {
 		List<Reservation> reservationList = reservationBO.getReservationYesterday();
 		
@@ -85,7 +85,7 @@ public class UpdateMatch {
 	
 	
 	/* 경기 날짜 지나고 state "경기완료" 삭제 ==> 매칭이되어 경기가 진행되었기 때문에 7일뒤에 일괄 삭제 */
-	@Scheduled(cron = "0 0 0 * * *") //매일밤 12시
+	@Scheduled(cron = "0 30 0 * * *") //매일밤 12시
 	public void deleteEndMatch() {
 		List<Reservation> reservationList = reservationBO.getReservationByMatchDateSevenDaysAgo();
 		

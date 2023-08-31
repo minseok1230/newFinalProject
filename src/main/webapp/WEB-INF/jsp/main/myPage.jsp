@@ -52,7 +52,7 @@
 				<c:if test="${myPageView.user.teamId != null}">
 					<div id="tab-1" class="tab-content ">
 						<c:if test="${myPageView.user.role == '팀장'}">
-							<h5 class="font-weight-bold text-info">경기장 예약 목록</h5>
+							<h5 class="font-weight-bold text-info text-center">경기장 예약 목록</h5>
 							<div>
 								<table class="table table-bordered table-sm">
 									<thead  class="table-secondary">
@@ -92,7 +92,7 @@
 					
 					<!-- 나의 팀 매칭글 목록 (match) -->
 					<div id="tab-2" class="tab-content ">
-						<h5 class="font-weight-bold text-info">팀 매칭글 목록</h5>
+						<h5 class="font-weight-bold text-info text-center">팀 매칭글 목록</h5>
 						<div>
 							<table class="table table-bordered table-sm">
 								<thead  class="table-secondary">
@@ -132,7 +132,7 @@
 					
 					<!-- 매칭 확정 목록 (match) -->
 					<div id="tab-3" class="tab-content current">
-						<h5 class="font-weight-bold text-info">매칭 확정 목록</h5>
+						<h5 class="font-weight-bold text-info text-center">매칭 확정 목록</h5>
 						<div>
 							<table class="table table-bordered table-sm">
 								<thead  class="table-secondary">
@@ -183,7 +183,7 @@
 					<!-- 매칭 신청 목록 (match) -->
 					<div id="tab-4" class="tab-content">
 						<c:if test="${myPageView.user.role == '팀장'}">
-						<h5 class="font-weight-bold text-info">매칭 신청 목록</h5>
+						<h5 class="font-weight-bold text-info text-center">매칭 신청 목록</h5>
 						<div>
 							<table class="table table-bordered table-sm">
 								<thead  class="table-secondary">
@@ -218,7 +218,7 @@
 					<!-- 매칭 신청받은 목록 (match) -->
 					<div id="tab-5" class="tab-content">
 						<c:if test="${myPageView.user.role == '팀장'}">
-						<h5 class="font-weight-bold text-info">매칭 요청 목록</h5>
+						<h5 class="font-weight-bold text-info text-center">매칭 요청 목록</h5>
 						<div>
 							<table class="table table-bordered table-sm">
 								<thead  class="table-secondary">
@@ -256,7 +256,7 @@
 					<!-- 팀 가입 승인 목록 -->
 					<div id="tab-6" class="tab-content">
 							<c:if test="${myPageView.user.role == '팀장'}">
-								<h5 class="font-weight-bold text-info">가입 승인 목록</h5>
+								<h5 class="font-weight-bold text-info text-center">가입 승인 목록</h5>
 								<div>
 									<table class="table table-bordered table-sm">
 										<thead  class="table-secondary">
@@ -289,7 +289,7 @@
 		</c:if>
 		<!-- 팀 가입 신청 목록-->
 		<c:if test="${myPageView.requestMember != null}">
-				<h5 class="font-weight-bold text-info mt-4">팀 가입 신청 목록</h5>
+				<h5 class="font-weight-bold text-info mt-4 text-center">팀 가입 신청 목록</h5>
 				<div>
 					<table class="table table-bordered table-sm">
 						<thead  class="table-secondary">

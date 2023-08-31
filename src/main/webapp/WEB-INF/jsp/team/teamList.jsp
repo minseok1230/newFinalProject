@@ -12,19 +12,21 @@
 			<table class="table table-bordered">
 				<thead  class="table-secondary">
 					<tr class="text-center">
-						<th>팀명</th>
-						<th>실력</th>
-						<th>활동지역</th>
-						<th>팀원수</th>
+						<th style="width: 20%">팀명</th>
+						<th style="width: 20%" >실력</th>
+						<th style="width: 20%">활동지역</th>
+						<th style="width: 20%">팀원수</th>
 						<c:if test="${userTeamId == null && member == null}">
-							<th>가입</th>
+							<th style="width: 20%">가입</th>
 						</c:if>
 					</tr>
 				</thead>
 				<tbody>
 				<c:forEach items="${teamViewList}" var="teamView">
 					<tr class="text-center">
-						<td>${teamView.team.name}</td>
+						<td>
+							<a class="teamIntroduce" href="#" class=" w-100" data-toggle="modal" data-target="#modal" data-team-introduce ="${teamView.team.introduce}">${teamView.team.name}</a>
+						</td>
 						<td>${teamView.team.skill}</td>
 						<td>${teamView.team.activeArea}</td>
 						<td>${teamView.totalTeamMember}</td>
@@ -66,6 +68,27 @@
 	</div>
 </div>
 
+
+<!-- Modal -->
+<div class="modal fade" id="modal">
+	<%-- modal-dialog-centered: 모달창 수직기준 가운데 위치--%>
+	<div class="modal-dialog modal-md modal-dialog-centered">
+		<div class="modal-content text-center">
+				<div class="modal-header text-center">
+       				<h5 class="modal-title" id="staticBackdropLabel">팀소개</h5>
+    			</div>
+    			<div class="modal-body">
+       			  	<textarea id="introduce" rows="12" cols="50"></textarea>
+    			</div>
+    			<div class="modal-footer d-flex justify-content-between">
+		      		<div class="py-3">	
+		      			<a href="#" data-dismiss="modal">취소하기</a>
+		      		</div>
+		      	</div>
+    	</div>
+	</div>
+</div>
+
 <script>
 $(document).ready(function(){
 	
@@ -90,6 +113,21 @@ $(document).ready(function(){
 				alert("팀 가입신청이 실패하였습니다. 관리자에게 문의해주세요.");
 			}
 		});
+	});
+	
+	
+	
+	/* 모달에 값 넘겨주기 */
+	$('.teamIntroduce').on('click', function(e){
+		e.preventDefault(); 
+		
+		let teamIntroduce = $(this).data('team-introduce');
+
+		  // 모달 내 span 태그에 넘겨준 값 설정
+		  $('.modal-body #introduce').text(teamIntroduce);
+
+		  // 모달 열기
+		  $('#modal').modal('show');
 	});
 });
 </script>

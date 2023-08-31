@@ -93,7 +93,11 @@ public class MatchRestController {
 		return result;
 	}
 	
-	// 매칭글 삭제
+	/**
+	 * 매칭글 삭제
+	 * @param matchId
+	 * @return
+	 */
 	@DeleteMapping("/{matchId}")
 	public Map<String, Object> deleteMatch(
 			@PathVariable int matchId){
