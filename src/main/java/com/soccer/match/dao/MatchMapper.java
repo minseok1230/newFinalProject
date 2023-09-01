@@ -32,6 +32,10 @@ public interface MatchMapper {
 	
 	public Match selectMatchByReservationIdOne(int reservationId);
 	
+	public Match selectMatchByReservationIdAndStateOne(
+			@Param("reservationId") int reservationId,
+			@Param("state") String state);
+	
 	public void deleteMatchByReservationId(int reservationId);
 	
 	public int deleteMatchById(int id);

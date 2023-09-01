@@ -27,7 +27,7 @@ import com.soccer.user.domain.User;
 @Service
 public class MatchService {
 	
-	private static final int POST_MAX_SIZE = 4;
+	private static final int POST_MAX_SIZE = 5;
 	private static final int PAGE_MAX_SIZE = 5;
 
 	@Autowired
@@ -237,18 +237,21 @@ public class MatchService {
 		
 		List<Reservation> reservationForUpdateList = reservationBO.getReservationYesterday();
 		
+			if (reservationForUpdateList == null) {
+				return null;
+			}
+		
 			for (Reservation reservation : reservationForUpdateList) {
 				MatchUpdateView matchUpdateView = new MatchUpdateView();
 
-				matchUpdateView.setReservation(reservation);
-
-
-				Match match = matchBO.getMatchByReservationIdOne(reservation.getId());
+				Match match = matchBO.getMatchByReservationIdAndStateOne(reservation.getId(), "매칭완료");
+				if (match == null ) {
+					continue;
+				}
+				
 				MatchRelation matchRelation = matchRelationBO.getMatchRelationByMatchIdAndState(match.getId(), "매칭완료");
 				
-				if (matchRelation == null ) {
-					return null;
-				}
+				matchUpdateView.setReservation(reservation);
 				matchUpdateView.setMatch(match);
 				matchUpdateView.setMatchRelation(matchRelation);
 

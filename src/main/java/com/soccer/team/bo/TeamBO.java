@@ -30,7 +30,7 @@ import com.soccer.user.domain.User;
 @Service
 public class TeamBO {
 	
-	private static final int POST_MAX_SIZE = 5;
+	private static final int POST_MAX_SIZE = 8;
 	private static final int PAGE_MAX_SIZE = 5;
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

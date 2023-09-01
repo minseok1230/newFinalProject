@@ -32,6 +32,10 @@ public class MatchBO {
 		return matchMapper.selectMatchByReservationIdOne(reservationId);
 	}
 	
+	public Match getMatchByReservationIdAndStateOne(int reservationId, String state) {
+		return matchMapper.selectMatchByReservationIdAndStateOne(reservationId, state);
+	}
+	
 	public List<Match> getMatchByTeamId(int teamId){
 		return matchMapper.selectMatchByTeamId(teamId);
 	}

@@ -93,6 +93,26 @@
 			`match`
 		WHERE 
 			`reservationId` = #{reservationId}
+			
+ 	</select>
+ 	
+ 	<select id="selectMatchByReservationIdAndStateOne" parameterType="map" resultType="com.soccer.match.domain.Match">
+ 		SELECT 
+ 			`id`
+			,`teamId`
+			,`reservationId`
+			,`title`
+			,`price`
+			,`content`
+			,`state`
+			,`createdAt`
+			,`updatedAt`
+		FROM
+			`match`
+		WHERE 
+			`reservationId` = #{reservationId}
+		AND
+			`state` = #{state}
  	</select>
  	
  	<select id="selectMatchForPaging" parameterType="map"  resultType="com.soccer.match.domain.Match">

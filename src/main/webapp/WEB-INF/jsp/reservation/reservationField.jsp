@@ -131,7 +131,7 @@
 			<!--  가입 버튼 -->
 			<button type="submit" id="kakaoPayBtn" class="btn btn-warning mt-4 w-100">결제하기</button>	
 			<button type="submit" id="checkPayBtn" class="btn btn-warning mt-4 w-100 d-none" disabled>결제완료</button>	
-			<button type="submit" id="reservationBtn" class="btn btn-secondary mt-4 w-100">예약하기</button>	
+			<button type="submit" id="reservationBtn" class="btn btn-secondary mt-4 mb-4 w-100">예약하기</button>	
 			
 		
 	</div>

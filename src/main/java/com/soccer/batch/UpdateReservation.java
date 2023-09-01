@@ -19,7 +19,9 @@ public class UpdateReservation {
 	@Autowired
 	private ReservationBO reservationBO;
 	
-	@Scheduled(cron = "0 0 0 * * *") //매일밤 12시 
+	
+	/* 경기날짜가 일주일 이하로남은 경기 or 이미 날짜가 지난 경기 취소 못하게 변경*/
+	@Scheduled(cron = "0 30 0 * * *") // 매일 밤 12시 30분
 //	@Scheduled(cron = "*/10 * * * * *")
 	public void updateReservationAtMidnight() {
 		List<Reservation> updateReservationList = reservationBO.getReservationWeekAgoByMatchDate();

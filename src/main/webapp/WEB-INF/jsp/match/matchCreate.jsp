@@ -57,7 +57,7 @@
 			</div>
 			
 			<!--  가입 버튼 -->
-			<button type="submit" id="matchBtn" class="btn btn-secondary mt-4 mb-3 w-100">등록하기</button>
+			<button type="submit" id="matchBtn" class="btn btn-secondary mt-4 mb-4 w-100">등록하기</button>
 		</form>
 	</div>
 </div>

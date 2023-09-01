@@ -80,7 +80,7 @@
     			<div class="modal-body">
        			  	<textarea id="introduce" rows="12" cols="50"></textarea>
     			</div>
-    			<div class="modal-footer d-flex justify-content-between">
+    			<div class="modal-footer d-flex justify-content-end">
 		      		<div class="py-3">	
 		      			<a href="#" data-dismiss="modal">취소하기</a>
 		      		</div>

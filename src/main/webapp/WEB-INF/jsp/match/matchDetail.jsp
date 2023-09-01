@@ -5,9 +5,8 @@
 <div class="d-flex justify-content-center">
 	<div class="w-75">
 		<div class="d-flex justify-content-center mt-4">
-			<h2>MATCHING </h2>
+			<h2 class="font-weight-bold">${matchView.match.title} </h2>
 		</div>
-
 			<!-- 경기장 지도 -->
 			<div class="mt-3 d-flex justify-content-center w-100">
 				<div id="map" style="width:1000px;height:400px;"></div>
@@ -131,24 +130,19 @@
 			<h5 class="mt-3 font-weight-bold"><fmt:formatDate value="${matchView.reservation.matchDate}" pattern="yyyy.M.d(E)"/> ${matchView.reservation.matchTime}</h5>
 			<div class="d-flex">
 				<h5 class="font-weight-bold">${matchView.reservation.stadiumName}</h5>
-				<small class="mt-1 ml-2 font-weight-bold">(주소명입력)</small>
 			</div>
 			
 			<!-- 주소 복사하기 / 매칭글 공유하기 -->
-			<div class="mt-3">
+			<div class="mt-3 mb-3">
 				<button type="button" class="copyAddress btn btn-secondary btn-sm" onclick="copyAddress()">주소복사하기</button>
 				<button type="button" class="shareAddress btn btn-secondary btn-sm ml-2" onclick="sharePage()">공유하기</button>
 			</div>
 			
 			<!-- 팀명 / 팀프로필 -->
-			<div class="d-flex align-items-center mt-3">
+			<div class="d-flex align-items-center mt-3 mb-3">
 				<img src="${matchView.team.profileImagePath}"  width="30" alt="팀로고">
-				<div class="ml-2">${matchView.team.name}</div>
+				<div class="ml-2 font-weight-bold text-warning">${matchView.team.name}</div>
 			</div>
-			
-			<h4 class="font-weight-bold">
-				- ${matchView.match.title}
-			</h4>
 			
 			<!-- 매칭 내용 -->
 			<textarea class="form-control font-weight-bold" rows="10" readonly>
@@ -201,11 +195,11 @@ ${matchView.match.content}
 							</a>
 						</div>
 					</c:if>
-				
-					<c:if test="${teamId != matchView.team.id && userRole == '팀장'}">
+				</c:if>
+					<c:if test="${teamId != matchView.team.id && userRole == '팀장' && matchView.match.state == '모집중'}">
 						<button type="submit" id="applyMatchBtn" class="btn btn-info w-50" data-match-id="${matchView.match.id}" data-team-id ="${teamId}" data-matchingteam-id = "${matchView.team.id}">신청하기</button>
 					</c:if>
-				</c:if>
+				
 			</div>
 			
 			
