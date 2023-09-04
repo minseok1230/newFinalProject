@@ -62,6 +62,7 @@ public class UserBO {
 		return userMapper.selectUserById(id);
 	}
 	
+	/* 회원가입 */
 	public Integer addUser(String loginEmail,String password, String name, String phoneNumber, String birth, String position) {
 		
 		String loginType = null;
@@ -70,10 +71,12 @@ public class UserBO {
 		} else {
 			loginType = "이메일";
 		}
-		
+	
 		// 비밀번호 해싱
 		// 123 : a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3
 		String hashedPassword = EncryptUtils.sha256(password);
+		
+		userMapper.deleteByEmail(loginEmail);
 		return userMapper.insertUser(loginEmail, hashedPassword, name, phoneNumber, birth, loginType, position);
 	}
 	

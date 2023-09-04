@@ -28,7 +28,7 @@
 			
 			<!-- 인증번호 확인 -->
 			<div class="input-group mt-3">
-				<input type="text" class="form-control" id="certificationNum"  placeholder="인증번호">
+				<input type="password" class="form-control" id="certificationNum"  placeholder="인증번호">
 				<div class="input-group-append">
 					<button type="button" id="certificationCheckBtn" class="btn btn-secondary">인증</button>
 				</div>

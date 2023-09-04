@@ -70,6 +70,7 @@ public interface UserMapper {
 			@Param("teamId")  int teamId, 
 			@Param("role") String role);
 	
+	
 
 	
 }

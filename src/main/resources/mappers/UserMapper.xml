@@ -181,6 +181,10 @@
  	<update id="updateUserByNameLoginEmail" parameterType="map">
  		UPDATE `user`
  		SET `password` = #{hashedCode}
+ 		WHERE 
+ 			`name` = #{name}
+ 		AND 
+ 			`email` = #{loginEmail}
  	</update>
  	
  	<update id="updateUserTeamIdAndRoleById" parameterType="map">
