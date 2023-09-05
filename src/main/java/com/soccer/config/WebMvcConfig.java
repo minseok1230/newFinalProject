@@ -32,6 +32,6 @@ public class WebMvcConfig implements WebMvcConfigurer{
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
 		registry
 		.addResourceHandler("/images/**") // 웹 이미지 path http://localhost/images/aaaa_5432156/sun.png
-		.addResourceLocations("file:///" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치 
+		.addResourceLocations("file://" + FileManagerService.FILE_UPLOAD_PATH); // 실제 파일 위치 
 	}
 }
