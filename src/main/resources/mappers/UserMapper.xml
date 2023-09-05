@@ -17,7 +17,6 @@
 			,`phoneNumber`
 			,`birth`
 			,`position`
-			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -42,7 +41,6 @@
 			,`phoneNumber`
 			,`birth`
 			,`position`
-			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -65,7 +63,6 @@
 			,`phoneNumber`
 			,`birth`
 			,`position`
-			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -88,7 +85,6 @@
 			,`phoneNumber`
 			,`birth`
 			,`position`
-			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM
@@ -126,7 +122,6 @@
 			,`phoneNumber`
 			,`birth`
 			,`position`
-			, `mail_check`
 			,`createdAt`
 			,`updatedAt`
 		FROM

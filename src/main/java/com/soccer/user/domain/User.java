@@ -18,7 +18,6 @@ public class User {
 	private String profileImagePath;
 	private String phoneNumber;
 	private String birth;
-	private Integer mail_check;
 	private String position;
 	private ZonedDateTime createdAt;
 	private ZonedDateTime updatedAt;
