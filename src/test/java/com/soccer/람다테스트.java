@@ -7,6 +7,8 @@ import org.junit.jupiter.api.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.soccer.common.EncryptUtils;
+
 import lombok.ToString;
 
 public class 람다테스트 {
@@ -49,7 +51,7 @@ public class 람다테스트 {
 		logger.info(list.toString());
 	}
 	
-	@Test
+	//@Test
 	void test4() {
 		List<Person> people = List.of(
 				new Person("신보람", 30),
@@ -64,7 +66,7 @@ public class 람다테스트 {
 		people.forEach(System.out::println);  // method reference
 	}
 	
-	@ToString
+	//@ToString
 	class Person {
 		private String name;
 		private int age;
@@ -77,6 +79,12 @@ public class 람다테스트 {
 		void print() {
 			System.out.println(this);
 		}
+	}
+	
+	@Test
+	void aaa() {
+		String aaa = EncryptUtils.sha256("123123");
+		System.out.println(aaa);
 	}
 	
 	

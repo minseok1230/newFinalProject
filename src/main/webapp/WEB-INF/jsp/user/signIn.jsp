@@ -23,7 +23,7 @@
 			<div class="w-100 text-center">
 				<small>OR</small>
 			</div>
-			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=295092b76861b97a10136dca538d0ed0&redirect_uri=http://54.180.122.247:8080/user/auth/kakao/callback" id="kakaoLoginButton"><img src="/static/image/main/kakao_login_medium_wide.png" class="w-100 mt-3"></a>
+			<a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=295092b76861b97a10136dca538d0ed0&redirect_uri=http://43.201.113.41:8080/user/auth/kakao/callback" id="kakaoLoginButton"><img src="/static/image/main/kakao_login_medium_wide.png" class="w-100 mt-3"></a>
 			<hr>
 			<div class="w-100 text-center text-info">
 				<small>계정이 없으신가요?</small>

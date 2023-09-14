@@ -20,7 +20,10 @@ public class FileManagerService {
 		private TextTransService textTransService;
 	
 	
+<<<<<<< HEAD
 		//public static final String FILE_UPLOAD_PATH = "E:\\7_FinalProject\\workspace\\images/";
+=======
+>>>>>>> master
 		public static final String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 		
 		
